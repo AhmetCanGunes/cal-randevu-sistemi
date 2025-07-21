@@ -239,15 +239,3 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 - **Emoji Icons**: Unicode Consortium
 - **Inspiration**: Modern web tasarım trendleri
 
----
-
-**Cal ile randevu almak hiç bu kadar kolay olmamıştı! 🎉**
-
-### 📱 Sosyal Medya
-- Instagram: [@cal](https://instagram.com/cal)
-- Website: [cal.com](https://cal.com)
-- Email: info@cal.com
-
----
-
-*Modern web teknolojileri ile ❤️ ile geliştirilmiştir.* 
