@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevular</title>
+    <link rel="stylesheet" href="admin.css?v=2.3">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Login Form -->
+    <div id="login-container" class="login-container">
+        <div class="login-form">
+            <div class="login-header">
+                <h2>🔐 Admin Girişi</h2>
+                <p>Yönetici paneline erişim için giriş yapın</p>
+            </div>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label for="adminId">Kullanıcı ID</label>
+                    <input type="text" id="adminId" name="adminId" required placeholder="Kullanıcı ID'nizi girin">
+                </div>
+                
+                <div class="input-group">
+                    <label for="adminPassword">Şifre</label>
+                    <input type="password" id="adminPassword" name="adminPassword" required placeholder="Şifrenizi girin">
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <span class="btn-icon">🔑</span>
+                    Giriş Yap
+                </button>
+                
+                <div id="login-error" class="login-error" style="display: none;"></div>
+            </form>
+            
+            <div class="login-footer">
+                <small>Güvenli admin paneli - Sadece yetkili personel</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-layout" style="display: none;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>📅 Cal</h3>
+                <span class="admin-badge">Admin</span>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" data-section="appointments">
+                    <span class="menu-icon">📋</span>
+                    <span class="menu-text">Randevular</span>
+                </a>
+                <a href="#" class="menu-item" data-section="completed">
+                    <span class="menu-icon">✅</span>
+                    <span class="menu-text">Tamamlananlar</span>
+                </a>
+                <a href="#" class="menu-item" data-section="calendar">
+                    <span class="menu-icon">📅</span>
+                    <span class="menu-text">Takvim</span>
+                </a>
+                <a href="#" class="menu-item" data-section="customers">
+                    <span class="menu-icon">👥</span>
+                    <span class="menu-text">Müşteriler</span>
+                </a>
+                <a href="#" class="menu-item" data-section="stats">
+                    <span class="menu-icon">📊</span>
+                    <span class="menu-text">İstatistikler</span>
+                </a>
+                <a href="#" class="menu-item" data-section="reports">
+                    <span class="menu-icon">📈</span>
+                    <span class="menu-text">Raporlar</span>
+                </a>
+                <a href="#" class="menu-item" data-section="settings">
+                    <span class="menu-icon">⚙️</span>
+                    <span class="menu-text">Ayarlar</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="menu-item exit-btn" onclick="logout()">
+                    <span class="menu-icon">🔓</span>
+                    <span class="menu-text">Çıkış</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="appointments-container" id="appointments-section">
+            <div class="appointments-header">
+                <h2>📋 Randevular</h2>
+                                 <div class="header-actions">
+                     <button id="testBtn" class="simple-btn">🧪 Test Ekle</button>
+                     <button id="refreshBtn" class="simple-btn">🔄 Yenile</button>
+                     <button id="clearBtn" class="simple-btn danger">🗑️ Tümünü Sil</button>
+                     <button id="logoutBtn" class="logout-btn" onclick="logout()" title="Güvenli Çıkış">
+                         <span class="logout-icon">🔓</span>
+                         <span class="logout-text">Çıkış</span>
+                     </button>
+                 </div>
+            </div>
+            
+            <div class="filter-container">
+                <input type="date" id="dateFilter" placeholder="Tarihe göre filtrele">
+                <select id="statusFilter">
+                    <option value="">Tüm Durumlar</option>
+                    <option value="pending">Bekleyen</option>
+                    <option value="confirmed">Onaylandı</option>
+                    <option value="completed">Tamamlandı</option>
+                    <option value="cancelled">İptal Edildi</option>
+                </select>
+                <button id="clearFilters" class="simple-btn">Filtreleri Temizle</button>
+            </div>
+            
+            <div id="appointmentsList" class="appointments-list">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Randevular yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completed Appointments Section -->
+        <div id="completed-section" style="display: none;">
+            <div class="section-header">
+                <h2>✅ Tamamlanan Randevular</h2>
+                <p>Başarıyla tamamlanan randevuların listesi</p>
+            </div>
+            
+            <div class="filter-container">
+                <input type="date" id="completedDateFilter" placeholder="Tarihe göre filtrele">
+                <input type="text" id="completedSearchFilter" placeholder="İsim veya telefon ara...">
+                <button id="clearCompletedFilters" class="simple-btn">Filtreleri Temizle</button>
+            </div>
+            
+            <div id="completedAppointmentsList" class="appointments-list">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Tamamlanan randevular yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Section -->
+        <div id="calendar-section" style="display: none;">
+            <div class="section-header">
+                <h2>📅 Takvim Görünümü</h2>
+                <p>Randevularınızı takvim formatında görüntüleyin</p>
+            </div>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prevMonth" class="simple-btn">‹ Önceki</button>
+                    <h3 id="currentMonth"></h3>
+                    <button id="nextMonth" class="simple-btn">Sonraki ›</button>
+                </div>
+                <div id="calendar" class="calendar-grid"></div>
+            </div>
+        </div>
+
+        <!-- Customers Section -->
+        <div id="customers-section" style="display: none;">
+            <div class="section-header">
+                <h2>👥 Müşteriler</h2>
+                <p>Müşteri bilgileri ve randevu geçmişi</p>
+            </div>
+            <div class="customers-container">
+                <div class="search-bar">
+                    <input type="text" id="customerSearch" placeholder="Müşteri ara...">
+                    <button class="simple-btn">🔍</button>
+                </div>
+                <div id="customersList" class="customers-list"></div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div id="stats-section" style="display: none;">
+            <div class="section-header">
+                <h2>📊 İstatistikler</h2>
+                <p>Randevu ve müşteri istatistikleri</p>
+            </div>
+            <div class="stats-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>📈 Bu Ay</h3>
+                        <div class="stat-number" id="thisMonthCount">0</div>
+                        <p>Randevu</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>✅ Tamamlanan</h3>
+                        <div class="stat-number" id="completedCount">0</div>
+                        <p>Randevu</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>⏳ Bekleyen</h3>
+                        <div class="stat-number" id="pendingCount">0</div>
+                        <p>Randevu</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>👥 Müşteri</h3>
+                        <div class="stat-number" id="customerCount">0</div>
+                        <p>Toplam</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>📈 Aylık Trend</h3>
+                    <div id="monthlyChart" class="chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div id="reports-section" style="display: none;">
+            <div class="section-header">
+                <h2>📈 Raporlar</h2>
+                <p>Detaylı raporlar ve analizler</p>
+            </div>
+            <div class="reports-container">
+                <div class="report-filters">
+                    <select id="reportType">
+                        <option value="monthly">Aylık Rapor</option>
+                        <option value="weekly">Haftalık Rapor</option>
+                        <option value="daily">Günlük Rapor</option>
+                    </select>
+                    <input type="month" id="reportMonth">
+                    <button class="simple-btn" onclick="generateReport()">📊 Rapor Oluştur</button>
+                    <button class="simple-btn" onclick="exportReport()">📥 Excel İndir</button>
+                </div>
+                <div id="reportContent" class="report-content"></div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings-section" style="display: none;">
+            <div class="section-header">
+                <h2>⚙️ Ayarlar</h2>
+                <p>Sistem ayarları ve konfigürasyon</p>
+            </div>
+            <div class="settings-container">
+                <div class="settings-group">
+                    <h3>🕒 Çalışma Saatleri</h3>
+                    <div class="form-row">
+                        <label>Başlangıç Saati:</label>
+                        <input type="time" id="startTime" value="09:00">
+                    </div>
+                    <div class="form-row">
+                        <label>Bitiş Saati:</label>
+                        <input type="time" id="endTime" value="18:00">
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>📧 Bildirimler</h3>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" checked> Email bildirimleri</label>
+                        <label><input type="checkbox" checked> Yeni randevu bildirimi</label>
+                        <label><input type="checkbox"> Günlük özet</label>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>🎨 Görünüm</h3>
+                    <div class="form-row">
+                        <label>Tema:</label>
+                        <select id="theme">
+                            <option value="light">Açık</option>
+                            <option value="dark">Koyu</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="simple-btn" onclick="saveSettings()">💾 Ayarları Kaydet</button>
+
+                <!-- Admin Security Settings -->
+                <div class="settings-group security-settings">
+                    <h3>🔐 Admin Güvenlik</h3>
+                    <p class="security-description">Admin giriş bilgilerinizi güvenli bir şekilde değiştirin</p>
+                    
+                    <div class="security-form">
+                        <div class="current-admin-info">
+                            <h4>📝 Mevcut Bilgiler</h4>
+                            <div class="current-info-display">
+                                <div class="info-item">
+                                    <span class="info-label">Kullanıcı ID:</span>
+                                    <span class="info-value" id="currentAdminId">admin</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Son Değişiklik:</span>
+                                    <span class="info-value" id="lastPasswordChange">Hiç değiştirilmemiş</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="security-form-section">
+                            <h4>🔄 Bilgileri Değiştir</h4>
+                            
+                            <div class="form-group">
+                                <label for="currentPassword">🔒 Mevcut Şifre</label>
+                                <input type="password" id="currentPassword" placeholder="Mevcut şifrenizi girin" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newAdminId">👤 Yeni Kullanıcı ID</label>
+                                <input type="text" id="newAdminId" placeholder="Yeni kullanıcı ID (boş bırakılabilir)" maxlength="20">
+                                <small class="field-note">Boş bırakırsanız mevcut ID korunur</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPassword">🔑 Yeni Şifre</label>
+                                <input type="password" id="newPassword" placeholder="Yeni şifrenizi girin" required>
+                                <div class="password-strength" id="passwordStrength"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword">✅ Şifre Tekrar</label>
+                                <input type="password" id="confirmPassword" placeholder="Yeni şifrenizi tekrar girin" required>
+                                <div class="password-match" id="passwordMatch"></div>
+                            </div>
+
+                            <div class="security-actions">
+                                <button class="security-btn save-btn" onclick="changeAdminCredentials()">
+                                    <span class="btn-icon">🔐</span>
+                                    Bilgileri Güncelle
+                                </button>
+                                <button class="security-btn reset-btn" onclick="resetSecurityForm()">
+                                    <span class="btn-icon">🔄</span>
+                                    Formu Temizle
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="security-tips">
+                            <h4>💡 Güvenlik İpuçları</h4>
+                            <ul class="tips-list">
+                                <li>Şifreniz en az 8 karakter olmalı</li>
+                                <li>Büyük-küçük harf, rakam ve özel karakter kullanın</li>
+                                <li>Kolay tahmin edilebilir şifreler kullanmayın</li>
+                                <li>Şifrenizi düzenli olarak değiştirin</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <script src="admin.js?v=2.3"></script>
+</body>
+</html> 

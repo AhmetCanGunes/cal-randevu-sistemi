@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Allow indexing of main pages
+Allow: /index.html
+Allow: /booking.html
+
+# Disallow admin panel from search engines
+Disallow: /admin.html
+Disallow: /admin.css
+Disallow: /admin.js
+
+# Sitemap (if you create one later)
+# Sitemap: https://yourdomain.com/sitemap.xml 

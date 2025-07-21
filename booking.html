@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevu Al - Cal</title>
+    <meta name="description" content="Hızlı ve kolay randevu alma formu. Bilgilerinizi girin ve randevunuzu oluşturun!">
+    <link rel="stylesheet" href="main.css?v=1.5">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <h2>📅 Cal</h2>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Ana Sayfa</a>
+                </li>
+                <li class="nav-item">
+                    <a href="booking.html" class="nav-link nav-cta active">Randevu Al</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a> 
+                <span>></span> 
+                <span>Randevu Al</span>
+            </div>
+            <h1>📅 Randevu Al</h1>
+            <p>Müsait gün için randevu oluşturun</p>
+        </div>
+    </div>
+
+    <!-- Booking Form Section -->
+    <section class="booking-section">
+        <div class="container">
+            <div class="booking-container">
+                <div class="booking-info">
+                    <h2>🎯 Randevu Alma Süreci</h2>
+                    <div class="info-steps">
+                        <div class="info-step">
+                            <div class="step-icon">📝</div>
+                            <div class="step-text">
+                                <h3>1. Bilgileri Girin</h3>
+                                <p>İsim, soyisim, tarih ve saat bilgilerinizi doğru bir şekilde girin</p>
+                            </div>
+                        </div>
+                        <div class="info-step">
+                            <div class="step-icon">✅</div>
+                            <div class="step-text">
+                                <h3>2. Randevu Oluştur</h3>
+                                <p>Formunuzu gönderin ve randevu talebinizi oluşturun</p>
+                            </div>
+                        </div>
+                        <div class="info-step">
+                            <div class="step-icon">⏳</div>
+                            <div class="step-text">
+                                <h3>3. Onay Bekleyin</h3>
+                                <p>Randevunuz onaylanacak ve sizinle iletişime geçilecek</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-tips">
+                        <h3>💡 İpuçları</h3>
+                        <ul>
+                            <li>✅ Lütfen gerçek bilgilerinizi girin</li>
+                            <li>⏰ Randevu saatleri: 09:00 - 18:00</li>
+                            <li>📱 Onay için sizinle iletişime geçilecek</li>
+                            <li>🔄 Randevu değişikliği için bizimle iletişime geçin</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="booking-form-container">
+                    <div class="form-header">
+                        <h2>📋 Randevu Formu</h2>
+                        <p>Tüm alanları doldurarak randevunuzu oluşturun</p>
+                    </div>
+                    
+                    <form id="appointmentForm" class="booking-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">İsim *</label>
+                                <input type="text" id="name" name="name" required placeholder="Adınızı girin">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="surname">Soyisim *</label>
+                                <input type="text" id="surname" name="surname" required placeholder="Soyadınızı girin">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Tarih *</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            
+                            <div class="form-group time-group">
+                                <label for="time">Saat *</label>
+                                <select id="time" name="time" required>
+                                    <option value="">Saat seçin</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="18:00">18:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Telefon (Opsiyonel)</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Telefon numaranız">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">Notlar (Opsiyonel)</label>
+                            <textarea id="notes" name="notes" rows="3" placeholder="Özel notlarınız varsa buraya yazabilirsiniz"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">🚀 Randevu Oluştur</span>
+                            <span class="btn-loading" style="display: none;">Gönderiliyor...</span>
+                        </button>
+                    </form>
+                    
+                    <div id="message" class="message" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>📅 Cal</h3>
+                    <p>Modern randevu alma sistemi</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Hızlı Linkler</h4>
+                    <ul>
+                        <li><a href="booking.html">Randevu Al</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <p>Instagram: @cal</p>
+                    <p>Modern web teknolojileri ile geliştirilmiştir</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Cal. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="booking.js?v=1.3"></script>
+</body>
+</html> 
