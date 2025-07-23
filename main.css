@@ -1031,16 +1031,7 @@ body {
     position: relative;
 }
 
-.form-group.time-group::before {
-    content: "⏰";
-    position: absolute;
-    top: 45px;
-    right: 40px;
-    font-size: 1.1rem;
-    color: #667eea;
-    pointer-events: none;
-    z-index: 1;
-}
+/* Time icon removed - was causing positioning issues on mobile */
 
 /* Comprehensive Mobile Responsive Styles */
 @media (max-width: 768px) {
@@ -1241,12 +1232,6 @@ body {
     /* Time Slot Mobile Styles */
     .form-group.time-group {
         position: relative;
-    }
-    
-    .form-group.time-group::before {
-        top: 43px;
-        right: 35px;
-        font-size: 1rem;
     }
     
     .booking-form select#time {
