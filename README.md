@@ -231,7 +231,6 @@ localStorage.setItem('debug', 'true');
 
 ## 📝 Lisans
 
-Bu proje MIT lisansı altında lisanslanmıştır.
 
 ## 🙏 Teşekkürler
 
