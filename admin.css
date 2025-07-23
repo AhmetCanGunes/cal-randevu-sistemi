@@ -2258,19 +2258,47 @@ body {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
 }
 
-/* Mobile Responsive */
+/* Comprehensive Mobile Responsive */
 @media (max-width: 768px) {
+    /* Login Form Mobile */
+    .login-container {
+        padding: 15px;
+    }
+    
+    .login-form {
+        padding: 30px 20px;
+        margin: 0 10px;
+        max-width: 380px;
+    }
+    
+    .login-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .input-group input {
+        padding: 14px 18px;
+        font-size: 1rem;
+    }
+    
+    .login-btn {
+        padding: 16px 20px;
+        font-size: 1rem;
+    }
+    
+    /* Admin Layout Mobile */
     .admin-layout {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 60px;
+        grid-template-rows: 1fr 65px;
     }
     
     .sidebar {
         width: 100%;
-        height: 60px;
+        height: 65px;
         flex-direction: row;
         position: relative;
         grid-row: 2;
+        background: #4f46e5;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     }
     
     .sidebar-header {
@@ -2282,29 +2310,40 @@ body {
         flex: 1;
         padding: 0;
         overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .sidebar-menu::-webkit-scrollbar {
+        display: none;
     }
     
     .menu-item {
         flex-direction: column;
-        padding: 8px;
-        min-width: 60px;
+        padding: 8px 12px;
+        min-width: 70px;
         text-align: center;
         border-left: none;
         border-top: 3px solid transparent;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
     
     .menu-item.active {
         border-top-color: #fbbf24;
         border-left-color: transparent;
+        background: rgba(255, 255, 255, 0.1);
     }
     
     .menu-icon {
         margin: 0 0 4px 0;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
     
     .menu-text {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
+        font-weight: 500;
     }
     
     .sidebar-footer {
@@ -2314,39 +2353,300 @@ body {
         border-left: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    .main-content {
-        padding: 20px;
-        grid-row: 1;
-        overflow-y: auto;
+    .exit-btn {
+        min-width: 60px;
     }
     
+    /* Main Content Mobile */
+    .main-content {
+        padding: 15px;
+        grid-row: 1;
+        overflow-y: auto;
+        background: #f8f9fa;
+    }
+    
+    /* Appointments Section Mobile */
     .appointments-header {
         flex-direction: column;
         align-items: stretch;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .appointments-header h2 {
+        font-size: 1.8rem;
+        text-align: center;
     }
     
     .header-actions {
         justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
     }
     
+    .simple-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        min-width: auto;
+    }
+    
+    /* Filter Container Mobile */
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .filter-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .filter-group label {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+    
+    .filter-group input,
+    .filter-group select {
+        padding: 12px 14px;
+        font-size: 1rem;
+    }
+    
+    /* Appointments List Mobile */
+    .appointments-list {
+        gap: 15px;
+    }
+    
+    .appointment-card {
+        padding: 15px;
+        margin: 0;
+    }
+    
+    .appointment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .appointment-avatar {
+        align-self: center;
+    }
+    
+    .appointment-main {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .appointment-name {
+        font-size: 1.2rem;
+    }
+    
+    .appointment-details {
+        margin-top: 15px;
+    }
+    
+    .detail-row {
+        padding: 8px 0;
+    }
+    
+    .detail-label {
+        font-size: 0.85rem;
+    }
+    
+    .detail-value {
+        font-size: 0.95rem;
+    }
+    
+    /* Quick Actions Mobile */
+    .quick-actions {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+    }
+    
+    .action-btn {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        justify-content: center;
+    }
+    
+    /* Calendar Mobile */
+    .calendar-container {
+        padding: 15px;
+    }
+    
+    .calendar-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .calendar-nav {
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+        font-size: 0.85rem;
+    }
+    
+    .calendar-day {
+        min-height: 50px;
+        padding: 5px 2px;
+    }
+    
+    .day-number {
+        font-size: 0.9rem;
+    }
+    
+    /* Hover Preview Mobile */
+    .hover-preview {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 300px;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    
+    /* Settings Mobile */
+    .settings-container {
+        padding: 15px;
+    }
+    
+    .settings-group {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .form-row label {
+        font-size: 0.9rem;
+    }
+    
+    .form-row input,
+    .form-row select {
+        padding: 12px 14px;
+        font-size: 1rem;
+    }
+    
+    /* Security Settings Mobile */
+    .security-settings {
+        padding: 20px 15px;
+    }
+    
+    .security-form {
+        gap: 20px;
+    }
+    
+    .current-admin-info {
+        padding: 15px;
+    }
+    
+    .form-group input {
+        padding: 14px 16px;
+        font-size: 1rem;
+    }
+    
+    .security-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .security-btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+    
+    /* Notifications Mobile */
     .notification {
         right: 10px;
         left: 10px;
         max-width: none;
+        margin: 0 5px;
+        font-size: 0.9rem;
+        padding: 12px 16px;
     }
     
-    .placeholder-content {
-        padding: 20px;
+    /* Logout Confirmation Mobile */
+    .logout-confirmation-modal {
+        width: 90%;
+        max-width: 350px;
+        padding: 25px 20px;
     }
     
-    .placeholder-icon {
-        font-size: 3rem;
-    }
-    
-    .filter-container {
+    .logout-confirmation-actions {
         flex-direction: column;
-        align-items: stretch;
+        gap: 15px;
     }
+    
+         .logout-confirm-btn,
+     .logout-cancel-btn {
+         width: 100%;
+         padding: 14px 20px;
+         font-size: 1rem;
+     }
+}
+
+/* Small Mobile Phones - Admin */
+@media (max-width: 480px) {
+    .login-form {
+        padding: 25px 15px;
+        margin: 0 5px;
+        max-width: 340px;
+    }
+    
+    .admin-layout {
+        grid-template-rows: 1fr 60px;
+    }
+    
+    .sidebar {
+        height: 60px;
+    }
+    
+    .menu-item {
+        min-width: 60px;
+        padding: 6px 8px;
+    }
+    
+    .menu-icon {
+        font-size: 1.1rem;
+    }
+    
+    .menu-text {
+        font-size: 0.7rem;
+    }
+    
+    .main-content {
+        padding: 10px;
+    }
+    
+    .appointment-card {
+        padding: 12px;
+    }
+    
+    .simple-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+}
     
     .filter-container input,
     .filter-container select {
