@@ -152,6 +152,9 @@ function showAdminPanel() {
 
 // Setup event listeners
 function setupEventListeners() {
+    // Mobile sidebar functionality
+    setupMobileSidebar();
+    
     // Refresh button
     document.getElementById('refreshBtn').addEventListener('click', function() {
         loadAppointments();
@@ -183,6 +186,9 @@ function setupEventListeners() {
             // Update active state
             document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
             this.classList.add('active');
+            
+            // Close mobile sidebar after menu selection
+            closeMobileSidebar();
         });
     });
     
@@ -204,6 +210,68 @@ function setupEventListeners() {
     }
     if (clearCompletedFilters) {
         clearCompletedFilters.addEventListener('click', clearCompletedFiltersFunc);
+    }
+}
+
+// Mobile sidebar functionality
+function setupMobileSidebar() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    
+    if (mobileMenuToggle && sidebar && sidebarOverlay) {
+        // Toggle sidebar
+        mobileMenuToggle.addEventListener('click', toggleMobileSidebar);
+        
+        // Close sidebar when clicking overlay
+        sidebarOverlay.addEventListener('click', closeMobileSidebar);
+        
+        // Close sidebar when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMobileSidebar();
+            }
+        });
+    }
+}
+
+function toggleMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    
+    if (sidebar && sidebarOverlay && mobileMenuToggle) {
+        const isOpen = sidebar.classList.contains('open');
+        
+        if (isOpen) {
+            closeMobileSidebar();
+        } else {
+            openMobileSidebar();
+        }
+    }
+}
+
+function openMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    
+    if (sidebar && sidebarOverlay && mobileMenuToggle) {
+        sidebar.classList.add('open');
+        sidebarOverlay.classList.add('active');
+        mobileMenuToggle.classList.add('active');
+    }
+}
+
+function closeMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    
+    if (sidebar && sidebarOverlay && mobileMenuToggle) {
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('active');
+        mobileMenuToggle.classList.remove('active');
     }
 }
 
