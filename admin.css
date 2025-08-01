@@ -16,7 +16,10 @@ body {
     font-size: 15px;
 }
 
-/* Login Form Styles */
+/* ============================================
+   LOGIN FORM STYLES - SHARED
+   ============================================ */
+
 .login-container {
     min-height: 100vh;
     display: flex;
@@ -135,1584 +138,1168 @@ body {
     display: none;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Admin Layout Styles */
-.admin-layout {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    min-height: 100vh;
-    background: #f8f9fa;
-}
-
-/* Sidebar Styles */
-.sidebar {
-    width: 250px;
-    background: #4f46e5;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar-header {
-    padding: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.sidebar-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.admin-badge {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-}
-
-.sidebar-menu {
-    flex: 1;
-    padding: 20px 0;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    border-left: 3px solid transparent;
-}
-
-.menu-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-left-color: #fbbf24;
-}
-
-.menu-item.active {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border-left-color: #fbbf24;
-}
-
-.menu-icon {
-    width: 20px;
-    margin-right: 12px;
-    font-size: 1rem;
-}
-
-.menu-text {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.sidebar-footer {
-    padding: 20px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Header Logout Button */
-.logout-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.logout-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.logout-btn:hover::before {
-    left: 100%;
-}
-
-.logout-btn:hover {
-    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
-}
-
-.logout-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
-}
-
-.logout-icon {
-    font-size: 1.1rem;
-    transition: transform 0.3s ease;
-}
-
-.logout-btn:hover .logout-icon {
-    transform: rotate(-10deg) scale(1.1);
-}
-
-.logout-text {
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-/* Sidebar Exit Button - Improved */
-.exit-btn {
-    color: rgba(255, 255, 255, 0.7) !important;
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    font-family: inherit;
-    font-size: inherit;
-    padding: 12px 20px;
-    border-radius: 8px;
-    margin: 10px 0;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.exit-btn .menu-icon {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-.exit-btn:hover {
-    background: rgba(220, 38, 38, 0.15) !important;
-    border-left: 4px solid #dc2626 !important;
-    color: #fca5a5 !important;
-    transform: translateX(5px);
-}
-
-.exit-btn:hover .menu-icon {
-    transform: rotate(-15deg) scale(1.1);
-}
-
-/* Main Content */
-.main-content {
-    flex: 1;
-    padding: 65px 10px 90px 10px; /* Bottom navigation için daha fazla alan */
-    background: #f5f5f5;
-    overflow-y: auto;
-    margin-left: 250px; /* Desktop sidebar için alan */
-}
-
-.appointments-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e5e7eb;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.appointments-header h2 {
-    margin: 0;
-    color: #1f2937;
-    font-size: 2rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.section-header {
-    margin-bottom: 25px;
-}
-
-.section-header h2 {
-    color: #1f2937;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.section-header p {
-    color: #6b7280;
-    font-size: 1rem;
-    margin: 0;
-}
-
-.header-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.simple-btn {
-    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.simple-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.simple-btn.danger {
-    background: #dc2626;
-}
-
-.simple-btn.exit {
-    background: #4f46e5;
-}
-
-/* Filter Container */
-.filter-container {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 25px;
-    padding: 20px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.filter-container input,
-.filter-container select {
-    padding: 10px 14px;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.filter-container input:focus,
-.filter-container select:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-/* Appointments List */
-.appointments-list {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.appointment-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    background: white;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-.appointment-card:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    transform: translateY(-1px);
-}
-
-.appointment-card:last-child {
-    margin-bottom: 0;
-}
-
-/* Completed Appointment Styles */
-.completed-card {
-    border-color: #10b981;
-    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-}
-
-.completed-avatar {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-}
-
-.appointment-header {
-    padding: 15px 18px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-    border-bottom: 1px solid #e5e7eb;
-    transition: all 0.3s ease;
-}
-
-.appointment-header:hover {
-    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-}
-
-.appointment-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.appointment-avatar {
-    flex-shrink: 0;
-}
-
-.avatar-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25);
-}
-
-.appointment-name-section {
-    flex: 1;
-}
-
-.appointment-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 3px;
-}
-
-.appointment-preview {
-    font-size: 0.8rem;
-    color: #6b7280;
-    font-weight: 400;
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.appointment-status {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-}
-
-.status-icon {
-    font-size: 1rem;
-}
-
-.status-pending {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.status-confirmed {
-    background: #d1fae5;
-    color: #065f46;
-}
-
-.status-cancelled {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-.status-completed {
-    background: #dbeafe;
-    color: #1e40af;
-}
-
-.expand-icon {
-    font-size: 1rem;
-    color: #6b7280;
-    transition: transform 0.3s ease;
-    background: rgba(107, 114, 128, 0.08);
-    padding: 4px;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.appointment-content {
-    padding: 0;
-    display: none;
-}
-
-.appointment-card:not(.collapsed) .appointment-content {
-    display: block;
-}
-
-.appointment-card:not(.collapsed) .expand-icon {
-    transform: rotate(180deg);
-}
-
-/* Tabs System */
-.appointment-tabs {
-    background: white;
-}
-
-.tab-buttons {
-    display: flex;
-    border-bottom: 1px solid #e5e7eb;
-    background: #f9fafb;
-}
-
-.tab-btn {
-    flex: 1;
-    padding: 15px 20px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #6b7280;
-    transition: all 0.3s ease;
-    border-bottom: 3px solid transparent;
-}
-
-.tab-btn:hover {
-    background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
-}
-
-.tab-btn.active {
-    color: #667eea;
-    background: white;
-    border-bottom-color: #667eea;
-}
-
-.tab-content {
-    display: none;
-    padding: 20px;
-    animation: fadeIn 0.3s ease;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Detail Cards */
-.detail-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.detail-card {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.3s ease;
-}
-
-.detail-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: #667eea;
-}
-
-.detail-icon {
-    font-size: 1.2rem;
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.detail-info {
-    flex: 1;
-}
-
-.detail-label {
-    font-size: 0.8rem;
-    color: #6b7280;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-}
-
-.detail-value {
-    font-size: 1rem;
-    color: #374151;
-    font-weight: 600;
-}
-
-.phone-link {
-    color: #667eea;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.phone-link:hover {
-    color: #5a6fd8;
-    text-decoration: underline;
-}
-
-/* Notes Section */
-.notes-section {
-    background: linear-gradient(135deg, #fef9e7 0%, #fef3cd 100%);
-    border: 1px solid #fbbf24;
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 15px;
-}
-
-.notes-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-.notes-icon {
-    font-size: 1.2rem;
-}
-
-.notes-title {
-    font-weight: 600;
-    color: #92400e;
-}
-
-.notes-content {
-    color: #a16207;
-    line-height: 1.6;
-    font-style: italic;
-}
-
-/* Admin Notes Section */
-.admin-notes-section {
-    background: linear-gradient(135deg, #e0f2fe 0%, #e1f5fe 100%);
-    border: 1px solid #0284c7;
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 15px;
-}
-
-.admin-notes-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    justify-content: space-between;
-}
-
-.admin-notes-header .notes-title {
-    font-weight: 600;
-    color: #0369a1;
-    flex: 1;
-}
-
-.edit-admin-note-btn {
-    background: #0ea5e9;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 10px;
-    cursor: pointer;
-    color: white;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.edit-admin-note-btn:hover {
-    background: #0284c7;
-    transform: translateY(-1px);
-}
-
-.admin-notes-display {
-    color: #0369a1;
-    line-height: 1.6;
-    min-height: 40px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 6px;
-    border: 1px solid rgba(2, 132, 199, 0.2);
-}
-
-.no-admin-note {
-    color: #64748b;
-    font-style: italic;
-    font-size: 0.9rem;
-}
-
-.admin-notes-edit {
-    margin-top: 10px;
-}
-
-.admin-note-textarea {
-    width: 100%;
-    min-height: 80px;
-    padding: 12px;
-    border: 2px solid #0ea5e9;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-family: inherit;
-    resize: vertical;
-    background: white;
-    color: #0369a1;
-    box-sizing: border-box;
-}
-
-.admin-note-textarea:focus {
-    outline: none;
-    border-color: #0284c7;
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
-}
-
-.admin-note-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    justify-content: flex-end;
-}
-
-.save-admin-note-btn {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 14px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.save-admin-note-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-.cancel-admin-note-btn {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 14px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.cancel-admin-note-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-}
-
-/* Calendar Styles */
-.calendar-container {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    overflow: hidden;
-}
-
-.calendar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 25px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.calendar-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.calendar-header button {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.calendar-header button:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    background: #e5e7eb;
-    padding: 1px;
-}
-
-.calendar-day-header {
-    background: #f8f9fa;
-    padding: 12px 8px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: #6b7280;
-    text-transform: uppercase;
-}
-
-.calendar-day {
-    background: white;
-    min-height: 120px;
-    padding: 8px;
-    position: relative;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.calendar-day:hover {
-    background: #f9fafb;
-}
-
-.calendar-day.other-month {
-    background: #f8f9fa;
-    opacity: 0.6;
-}
-
-.calendar-day.other-month:hover {
-    background: #f3f4f6;
-}
-
-.day-number {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #374151;
-    margin-bottom: 4px;
-    flex-shrink: 0;
-}
-
-.calendar-day.other-month .day-number {
-    color: #9ca3af;
-}
-
-/* Removed: day-appointments styles - no longer showing appointments directly on calendar */
-
-/* Calendar Popup Styles */
-.appointment-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    padding: 20px;
-}
-
-.appointment-popup {
-    background: white;
-    border-radius: 12px;
-    max-width: 400px;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.popup-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 25px;
-    border-bottom: 1px solid #e5e7eb;
-    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-}
-
-.popup-header h3 {
-    margin: 0;
-    color: #374151;
-    font-size: 1.2rem;
-}
-
-.popup-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #6b7280;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-}
-
-.popup-close:hover {
-    background: #e5e7eb;
-    color: #374151;
-}
-
-.popup-content {
-    padding: 25px;
-}
-
-.popup-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.popup-avatar .avatar-circle {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
-}
-
-.popup-details {
-    flex: 1;
-}
-
-.popup-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 4px;
-}
-
-.popup-datetime {
-    color: #6b7280;
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-}
-
-.popup-status {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.popup-contact, .popup-notes {
-    margin: 15px 0;
-    padding: 15px;
-    background: #f9fafb;
-    border-radius: 8px;
-    border-left: 3px solid #667eea;
-}
-
-.popup-contact strong, .popup-notes strong {
-    color: #374151;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.notes-text {
-    color: #6b7280;
-    line-height: 1.5;
-    font-style: italic;
-}
-
-.popup-actions {
-    display: flex;
-    gap: 10px;
-    padding: 20px 25px;
-    border-top: 1px solid #e5e7eb;
-    background: #f9fafb;
-}
-
-.popup-btn {
-    flex: 1;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 0.9rem;
-}
-
-.edit-btn {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
-}
-
-.edit-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-}
-
-.whatsapp-btn {
-    background: linear-gradient(135deg, #25d366 0%, #20c55a 100%);
-    color: white;
-}
-
-.whatsapp-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-}
-
-/* Day Appointments Popup */
-.day-appointments-popup {
-    max-width: 500px;
-}
-
-.day-appointments-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.day-appointment-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 12px 15px;
-    background: #f9fafb;
-    border-radius: 8px;
-    border-left: 4px solid #6b7280;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.day-appointment-item:hover {
-    background: #f3f4f6;
-    transform: translateX(2px);
-}
-
-.day-appointment-item.status-pending {
-    border-left-color: #f59e0b;
-    background: #fef3c7;
-}
-
-.day-appointment-item.status-confirmed {
-    border-left-color: #10b981;
-    background: #d1fae5;
-}
-
-.day-appointment-item.status-completed {
-    border-left-color: #3b82f6;
-    background: #dbeafe;
-}
-
-.day-appointment-item.status-cancelled {
-    border-left-color: #ef4444;
-    background: #fee2e2;
-}
-
-.appointment-time-detail {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #374151;
-    min-width: 60px;
-}
-
-.appointment-customer-detail {
-    flex: 1;
-    font-weight: 500;
-    color: #374151;
-}
-
-.appointment-status-detail {
-    font-size: 1.2rem;
-}
-
-/* Days with appointments styling */
-.calendar-day.has-appointment {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-    border: 2px solid #667eea;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.calendar-day.has-appointment:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-}
-
-.calendar-day.has-appointment .day-number {
-    color: white;
-    font-weight: 700;
-}
-
-/* Appointment indicator for all days with appointments */
-.calendar-day.has-appointment::after {
-    content: '📅';
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    font-size: 0.8rem;
-    opacity: 0.9;
-}
-
-/* Hover Preview Styles */
-.hover-preview {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    border: 1px solid #e5e7eb;
-    z-index: 9999;
-    min-width: 220px;
-    max-width: 280px;
-    pointer-events: none;
-    animation: hoverFadeIn 0.2s ease-out;
-}
-
-@keyframes hoverFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
+/* ============================================
+   DESKTOP ADMIN LAYOUT (769px and above)
+   ============================================ */
+
+@media (min-width: 769px) {
+    /* Desktop Layout */
+    .admin-layout {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        min-height: 100vh;
+        background: #f8f9fa;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    /* Desktop Sidebar */
+    .sidebar {
+        width: 250px;
+        background: #4f46e5;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1000;
+    }
+
+    .sidebar-header {
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .sidebar-header h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .admin-badge {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .sidebar-menu {
+        flex: 1;
+        padding: 20px 0;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+    }
+
+    .menu-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left-color: #fbbf24;
+    }
+
+    .menu-item.active {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        border-left-color: #fbbf24;
+    }
+
+    .menu-icon {
+        width: 20px;
+        margin-right: 12px;
+        font-size: 1rem;
+    }
+
+    .menu-text {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .sidebar-footer {
+        padding: 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Desktop Main Content */
+    .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        background: #f5f5f5;
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+
+    /* Hide mobile navigation on desktop */
+    .mobile-bottom-nav {
+        display: none !important;
+    }
+
+    /* Desktop Header Actions */
+    .header-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .simple-btn {
+        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .simple-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .simple-btn.danger {
+        background: #dc2626;
+    }
+
+    /* Desktop Filter Container */
+    .filter-container {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .filter-row {
+        display: flex;
+        gap: 15px;
+        flex: 1;
+    }
+
+    .filter-group {
+        flex: 1;
+    }
+
+    /* Desktop Appointments List */
+    .appointments-list {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    /* Desktop Appointment Cards */
+    .appointment-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        background: white;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .appointment-card:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        transform: translateY(-1px);
+    }
+
+    .appointment-header {
+        padding: 15px 18px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        border-bottom: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+    }
+
+    .appointment-header:hover {
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    }
+
+    .appointment-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .appointment-avatar {
+        flex-shrink: 0;
+    }
+
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25);
+    }
+
+    .appointment-name-section {
+        flex: 1;
+    }
+
+    .appointment-name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 3px;
+    }
+
+    .appointment-preview {
+        font-size: 0.8rem;
+        color: #6b7280;
+        font-weight: 400;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .appointment-status {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .status-icon {
+        font-size: 1rem;
+    }
+
+    .status-pending {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .status-confirmed {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .status-cancelled {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .status-completed {
+        background: #dbeafe;
+        color: #1e40af;
+    }
+
+    .expand-icon {
+        font-size: 1rem;
+        color: #6b7280;
+        transition: transform 0.3s ease;
+        background: rgba(107, 114, 128, 0.08);
+        padding: 4px;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .appointment-content {
+        padding: 0;
+        display: none;
+    }
+
+    .appointment-card:not(.collapsed) .appointment-content {
+        display: block;
+    }
+
+    .appointment-card:not(.collapsed) .expand-icon {
+        transform: rotate(180deg);
+    }
+
+    /* Desktop Calendar */
+    .calendar-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+    }
+
+    .calendar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 25px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .calendar-header h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .calendar-header button {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .calendar-header button:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1px;
+        background: #e5e7eb;
+        padding: 1px;
+    }
+
+    .calendar-day-header {
+        background: #f8f9fa;
+        padding: 12px 8px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #6b7280;
+        text-transform: uppercase;
+    }
+
+    .calendar-day {
+        background: white;
+        min-height: 120px;
+        padding: 8px;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calendar-day:hover {
+        background: #f9fafb;
+    }
+
+    .calendar-day.other-month {
+        background: #f8f9fa;
+        opacity: 0.6;
+    }
+
+    .calendar-day.other-month:hover {
+        background: #f3f4f6;
+    }
+
+    .day-number {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #374151;
+        margin-bottom: 4px;
+        flex-shrink: 0;
+    }
+
+    .calendar-day.other-month .day-number {
+        color: #9ca3af;
+    }
+
+    /* Desktop Settings */
+    .settings-container {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .settings-group {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .settings-group:last-child {
+        border-bottom: none;
+    }
+
+    .settings-group h3 {
+        color: #2d3436;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .form-row label {
+        color: #374151;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .form-row input,
+    .form-row select {
+        padding: 8px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 0.9rem;
+    }
+
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .checkbox-group label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #374151;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        margin: 0;
     }
 }
 
-.hover-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 12px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-    border-radius: 8px 8px 0 0;
-}
+/* ============================================
+   MOBILE ADMIN LAYOUT (768px and below)
+   ============================================ */
 
-.hover-date {
-    font-weight: 600;
-}
-
-.hover-count {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 0.7rem;
-}
-
-.hover-appointments {
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.hover-appointment {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    border-left: 3px solid #6b7280;
-    background: #f9fafb;
-    transition: all 0.15s ease;
-}
-
-.hover-appointment.status-pending {
-    background: #fef3c7;
-    border-left-color: #f59e0b;
-    color: #92400e;
-}
-
-.hover-appointment.status-confirmed {
-    background: #d1fae5;
-    border-left-color: #10b981;
-    color: #065f46;
-}
-
-.hover-appointment.status-completed {
-    background: #dbeafe;
-    border-left-color: #3b82f6;
-    color: #1e40af;
-}
-
-.hover-appointment.status-cancelled {
-    background: #fee2e2;
-    border-left-color: #ef4444;
-    color: #991b1b;
-}
-
-.hover-time {
-    font-weight: 600;
-    min-width: 35px;
-    font-size: 0.7rem;
-}
-
-.hover-name {
-    flex: 1;
-    font-weight: 500;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.hover-status {
-    font-size: 0.8rem;
-    opacity: 0.8;
-}
-
-/* Logout Confirmation Modal */
-.logout-confirmation-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    animation: fadeIn 0.3s ease;
-}
-
-.logout-confirmation-modal {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    max-width: 450px;
-    width: 90%;
-    padding: 0;
-    overflow: hidden;
-    animation: slideIn 0.3s ease;
-}
-
-.logout-confirmation-header {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    color: white;
-    padding: 24px;
-    text-align: center;
-}
-
-.logout-confirmation-icon {
-    font-size: 3rem;
-    margin-bottom: 16px;
-    animation: pulse 2s infinite;
-}
-
-.logout-confirmation-header h3 {
-    margin: 0;
-    font-size: 1.4rem;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-.logout-confirmation-body {
-    padding: 24px;
-    text-align: center;
-}
-
-.logout-confirmation-body p {
-    margin: 0;
-    color: #6b7280;
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
-.logout-confirmation-actions {
-    padding: 24px;
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    background: #f9fafb;
-}
-
-.logout-confirm-btn,
-.logout-cancel-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-    min-width: 140px;
-    justify-content: center;
-}
-
-.logout-confirm-btn {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-}
-
-.logout-confirm-btn:hover {
-    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
-}
-
-.logout-cancel-btn {
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
-}
-
-.logout-cancel-btn:hover {
-    background: #e5e7eb;
-    border-color: #9ca3af;
-    transform: translateY(-1px);
-}
-
-.btn-icon {
-    font-size: 1rem;
-}
-
-.btn-text {
-    font-weight: 600;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+@media (max-width: 768px) {
+    /* Mobile Body and HTML */
+    body, html {
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
-    to {
-        opacity: 1;
+    
+    /* Mobile Login Form */
+    .login-container {
+        padding: 15px;
+        min-height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-}
+    
+    .login-form {
+        width: 100%;
+        max-width: 350px;
+        padding: 25px 20px;
+        border-radius: 12px;
+        background: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-header h2 {
+        font-size: 1.4rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .input-group {
+        margin-bottom: 15px;
+    }
+    
+    .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+        display: block;
+    }
+    
+    .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+    
+    .login-btn {
+        width: 100%;
+        padding: 14px;
+        background: #4f46e5;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
 
-@keyframes fadeOut {
-    from {
-        opacity: 1;
+    /* Mobile Admin Layout */
+    .admin-layout {
+        display: flex;
+        min-height: 100vh;
+        background: #f5f5f5;
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
     }
-    to {
-        opacity: 0;
-    }
-}
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-30px) scale(0.9);
+    /* Hide desktop sidebar on mobile */
+    .sidebar {
+        display: none;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
 
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
+    /* Mobile Main Content */
+    .main-content {
+        flex: 1;
+        padding: 80px 10px 90px 10px;
+        background: #f8f9fa;
+        overflow-y: auto;
+        margin-left: 0;
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
     }
-    50% {
+
+    /* Mobile Header */
+    .mobile-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+        color: white;
+        z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: block;
+    }
+
+    .mobile-header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+    }
+
+    .mobile-header h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .mobile-header-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .mobile-action-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+    }
+
+    .mobile-action-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
         transform: scale(1.1);
     }
+
+    /* Mobile Bottom Navigation */
+    .mobile-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px 0;
+        z-index: 1000;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        min-width: 60px;
+    }
+
+    .bottom-nav-item:hover {
+        background: #f3f4f6;
+    }
+
+    .bottom-nav-item.active {
+        color: #4f46e5;
+    }
+
+    .bottom-nav-item.active .bottom-nav-icon {
+        transform: scale(1.1);
+    }
+
+    .bottom-nav-icon {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+        transition: transform 0.3s ease;
+    }
+
+    .bottom-nav-text {
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    .logout-item {
+        color: #ef4444;
+    }
+
+    .logout-item:hover {
+        background: #fef2f2;
+    }
+
+    .logout-item.active {
+        color: #dc2626;
+    }
+
+    /* Mobile Header Actions */
+    .appointments-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #e5e7eb;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .appointments-header h2 {
+        margin: 0;
+        color: #1f2937;
+        font-size: 2rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .simple-btn {
+        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .simple-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .simple-btn.danger {
+        background: #dc2626;
+    }
+
+    /* Mobile Filter Container */
+    .filter-container {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .filter-container input,
+    .filter-container select {
+        padding: 10px 14px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        background: white;
+        transition: all 0.3s ease;
+    }
+
+    .filter-container input:focus,
+    .filter-container select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    /* Mobile Appointments List */
+    .appointments-list {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    /* Mobile Appointment Cards */
+    .appointment-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        background: white;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .appointment-card:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        transform: translateY(-1px);
+    }
+
+    .appointment-card:last-child {
+        margin-bottom: 0;
+    }
+
+    .appointment-header {
+        padding: 15px 18px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        border-bottom: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+    }
+
+    .appointment-header:hover {
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    }
+
+    .appointment-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .appointment-avatar {
+        flex-shrink: 0;
+    }
+
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25);
+    }
+
+    .appointment-name-section {
+        flex: 1;
+    }
+
+    .appointment-name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 3px;
+    }
+
+    .appointment-preview {
+        font-size: 0.8rem;
+        color: #6b7280;
+        font-weight: 400;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .appointment-status {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .status-icon {
+        font-size: 1rem;
+    }
+
+    .status-pending {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .status-confirmed {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .status-cancelled {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .status-completed {
+        background: #dbeafe;
+        color: #1e40af;
+    }
+
+    .expand-icon {
+        font-size: 1rem;
+        color: #6b7280;
+        transition: transform 0.3s ease;
+        background: rgba(107, 114, 128, 0.08);
+        padding: 4px;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .appointment-content {
+        padding: 0;
+        display: none;
+    }
+
+    .appointment-card:not(.collapsed) .appointment-content {
+        display: block;
+    }
+
+    .appointment-card:not(.collapsed) .expand-icon {
+        transform: rotate(180deg);
+    }
+
+    /* Mobile Calendar */
+    .calendar-container {
+        background: white;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .calendar-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .calendar-nav {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        background: #f3f4f6;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1px;
+        background: #e5e7eb;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .calendar-day:hover {
+        background: #f9fafb;
+    }
+
+    .calendar-day.has-appointment {
+        background: #dbeafe;
+        color: #1d4ed8;
+        font-weight: 600;
+    }
+
+    .day-number {
+        font-size: 0.85rem;
+    }
+
+    /* Mobile Settings */
+    .settings-container {
+        padding: 0;
+    }
+
+    .settings-group {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .settings-group h3 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        color: #1f2937;
+    }
+
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .form-row label {
+        font-size: 0.9rem;
+        color: #374151;
+        font-weight: 500;
+    }
+
+    .form-row input,
+    .form-row select {
+        padding: 12px 14px;
+        font-size: 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: white;
+    }
+
+    /* Mobile Security Settings */
+    .security-settings {
+        padding: 16px;
+        margin-top: 15px;
+    }
+
+    .security-form {
+        gap: 15px;
+    }
+
+    .current-admin-info {
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+    }
+
+    .security-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .security-btn {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .save-btn {
+        background: #4f46e5;
+        color: white;
+    }
+
+    .reset-btn {
+        background: #f3f4f6;
+        color: #374151;
+    }
+
+    /* Mobile Notifications */
+    .notification {
+        position: fixed;
+        top: 70px;
+        left: 10px;
+        right: 10px;
+        max-width: none;
+        font-size: 0.9rem;
+        padding: 12px 16px;
+        border-radius: 8px;
+        z-index: 1001;
+    }
+
+    /* Mobile Logout Modal */
+    .logout-confirmation-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .logout-confirmation-modal {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+    }
+
+    .logout-confirmation-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .logout-confirm-btn,
+    .logout-cancel-btn {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .logout-confirm-btn {
+        background: #dc2626;
+        color: white;
+    }
+
+    .logout-cancel-btn {
+        background: #f3f4f6;
+        color: #374151;
+    }
 }
 
-/* Timeline Styles */
-.timeline {
-    position: relative;
-    padding-left: 25px;
-}
-
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, #667eea, #764ba2);
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 18px;
-    padding-left: 20px;
-}
-
-.timeline-dot {
-    position: absolute;
-    left: -8px;
-    top: 5px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 3px solid white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.timeline-dot.created {
-    background: #10b981;
-}
-
-.timeline-dot.confirmed {
-    background: #059669;
-}
-
-.timeline-dot.cancelled {
-    background: #ef4444;
-}
-
-.timeline-dot.completed {
-    background: #8b5cf6;
-}
-
-.timeline-content {
-    background: #f9fafb;
-    border-radius: 6px;
-    padding: 12px;
-    border-left: 3px solid #667eea;
-}
-
-.timeline-title {
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 5px;
-}
-
-.timeline-time {
-    font-size: 0.85rem;
-    color: #6b7280;
-}
-
-/* Quick Actions Grid */
-.quick-actions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 12px;
-}
-
-.quick-action-btn {
-    background: white;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 15px 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-    color: inherit;
-}
-
-.quick-action-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.quick-action-btn.whatsapp {
-    border-color: #25d366;
-    color: #25d366;
-}
-
-.quick-action-btn.whatsapp:hover {
-    background: #25d366;
-    color: white;
-}
-
-
-
-.quick-action-btn.edit {
-    border-color: #f59e0b;
-    color: #f59e0b;
-}
-
-.quick-action-btn.edit:hover {
-    background: #f59e0b;
-    color: white;
-}
-
-.quick-action-btn.mail {
-    border-color: #f59e0b;
-    color: #f59e0b;
-}
-
-.quick-action-btn.mail:hover {
-    background: #f59e0b;
-    color: white;
-}
-
-.qa-icon {
-    font-size: 1.4rem;
-    margin-bottom: 3px;
-}
-
-.qa-text {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-/* Legacy styles for backward compatibility */
-.appointment-details {
-    margin-bottom: 20px;
-}
-
-.appointment-detail {
-    margin-bottom: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid #f3f4f6;
-}
-
-.appointment-detail:last-child {
-    border-bottom: none;
-}
-
-.appointment-detail strong {
-    color: #374151;
-    margin-right: 10px;
-}
-
-.appointment-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding: 15px 18px;
-    background: #f9fafb;
-    border-top: 1px solid #e5e7eb;
-    justify-content: center;
-}
-
-.action-btn {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-}
-
-.confirm-btn {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-}
-
-.confirm-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-}
-
-.cancel-btn {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
-}
-
-.cancel-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-}
-
-.complete-btn {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    color: white;
-}
-
-.complete-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-}
-
-.delete-btn {
-    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-    color: white;
-}
-
-.delete-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(107, 114, 128, 0.4);
-}
+/* ============================================
+   SHARED STYLES (Both Mobile and Desktop)
+   ============================================ */
 
 /* Loading */
 .loading {
@@ -1744,50 +1331,7 @@ body {
     line-height: 1.6;
 }
 
-/* Section Placeholder */
-.section-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.placeholder-content {
-    text-align: center;
-    max-width: 400px;
-    padding: 40px;
-}
-
-.placeholder-icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    opacity: 0.7;
-}
-
-.placeholder-content h2 {
-    color: #374151;
-    margin-bottom: 15px;
-    font-size: 1.8rem;
-}
-
-.placeholder-content p {
-    color: #6b7280;
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
-
-.placeholder-note {
-    background: #f3f4f6;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px 0;
-    font-size: 0.9rem;
-}
-
-/* Notification Styles */
+/* Notifications */
 .notification {
     position: fixed;
     top: 20px;
@@ -1862,2099 +1406,12 @@ body {
     font-size: 1rem;
 }
 
-/* Calendar Styles */
-.calendar-container {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.calendar-header h3 {
-    color: #2d3436;
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    background: #e5e7eb;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.calendar-day-header {
-    background: #f3f4f6;
-    padding: 12px 8px;
-    text-align: center;
-    font-weight: 600;
-    color: #6b7280;
-    font-size: 0.85rem;
-}
-
-.calendar-day {
-    background: white;
-    padding: 12px 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    min-height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.calendar-day:hover {
-    background: #f9fafb;
-}
-
-.calendar-day.other-month {
-    color: #9ca3af;
-    background: #f9fafb;
-}
-
-.calendar-day.has-appointment {
-    background: #dbeafe;
-    color: #1e40af;
-    font-weight: 600;
-}
-
-/* Settings Styles */
-.settings-container {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.settings-group {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.settings-group:last-child {
-    border-bottom: none;
-}
-
-.settings-group h3 {
-    color: #2d3436;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    gap: 15px;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.form-row label {
-    color: #374151;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.form-row input,
-.form-row select {
-    padding: 8px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 0.9rem;
-}
-
-.checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #374151;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-.checkbox-group input[type="checkbox"] {
-    margin: 0;
-}
-
 /* No Data Message */
 .no-data {
     text-align: center;
     padding: 40px 20px;
     color: #6b7280;
     font-size: 1rem;
-}
-
-/* Notifications */
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    z-index: 10000;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    max-width: 300px;
-    word-wrap: break-word;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.notification.show {
-    transform: translateX(0);
-}
-
-.notification.success {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-}
-
-.notification.error {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-}
-
-.notification.info {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-}
-
-/* YENİ MOBİL ADMIN - TAM EKRAN */
-@media (max-width: 768px) {
-    /* Body ve HTML tam ekran */
-    body, html {
-        width: 100vw;
-        height: 100vh;
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-    
-    /* Login Form */
-    .login-container {
-        padding: 15px;
-        min-height: 100vh;
-        width: 100vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .login-form {
-        width: 100%;
-        max-width: 350px;
-        padding: 25px 20px;
-        border-radius: 12px;
-        background: white;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-    
-    .login-header h2 {
-        font-size: 1.4rem;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    
-    .input-group {
-        margin-bottom: 15px;
-    }
-    
-    .input-group label {
-        font-size: 0.9rem;
-        margin-bottom: 5px;
-        display: block;
-    }
-    
-    .input-group input {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 1rem;
-    }
-    
-    .login-btn {
-        width: 100%;
-        padding: 14px;
-        background: #4f46e5;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-    
-    /* Admin Layout - Tam Ekran */
-    .admin-layout {
-        display: flex;
-        min-height: 100vh;
-        background: #f5f5f5;
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Mobilde sidebar'ı gizle */
-    .sidebar {
-        display: none;
-    }
-
-    /* Mobilde main content'i tam genişlik yap */
-    .main-content {
-        margin-left: 0;
-        padding-bottom: 90px; /* Bottom navigation için alan */
-    }
-
-    /* Mobilde bottom navigation'ı göster */
-    .mobile-bottom-nav {
-        display: flex;
-    }
-    
-    /* Desktop Sidebar */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-}
-
-.sidebar-header {
-    padding: 20px 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.sidebar-header h3 {
-    color: white;
-    font-size: 1.3rem;
-    margin: 0;
-}
-
-.admin-badge {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.7rem;
-}
-
-.sidebar-menu {
-    flex: 1;
-    padding: 20px 0;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-}
-
-.menu-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-left-color: #4f46e5;
-}
-
-.menu-item.active {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    border-left-color: #4f46e5;
-}
-
-.menu-icon {
-    font-size: 1.2rem;
-    margin-right: 12px;
-    width: 20px;
-    text-align: center;
-}
-
-.menu-text {
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.sidebar-footer {
-    padding: 20px 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.exit-btn {
-    width: 100%;
-    background: rgba(239, 68, 68, 0.2);
-    color: #ef4444;
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.exit-btn:hover {
-    background: rgba(239, 68, 68, 0.3);
-    border-color: rgba(239, 68, 68, 0.5);
-}
-
-    /* Instagram Tarzı Bottom Navigation - Sadece Mobil */
-    .mobile-bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: white;
-        border-top: 1px solid #e5e7eb;
-        display: none; /* Varsayılan olarak gizli */
-        justify-content: space-around;
-        align-items: center;
-        padding: 8px 0;
-        z-index: 1000;
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-.bottom-nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    min-width: 60px;
-}
-
-.bottom-nav-item:hover {
-    background: #f3f4f6;
-}
-
-.bottom-nav-item.active {
-    color: #4f46e5;
-}
-
-.bottom-nav-item.active .bottom-nav-icon {
-    transform: scale(1.1);
-}
-
-.bottom-nav-icon {
-    font-size: 1.5rem;
-    margin-bottom: 4px;
-    transition: transform 0.3s ease;
-}
-
-.bottom-nav-text {
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-align: center;
-    line-height: 1.2;
-}
-
-.logout-item {
-    color: #ef4444;
-}
-
-.logout-item:hover {
-    background: #fef2f2;
-}
-
-.logout-item.active {
-    color: #dc2626;
-}
-    
-    /* Mobile Menu Toggle */
-    .mobile-menu-toggle {
-        position: fixed;
-        top: 15px;
-        left: 15px;
-        z-index: 1001;
-        background: #4f46e5;
-        border: none;
-        border-radius: 8px;
-        padding: 10px;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-    
-    .mobile-menu-toggle .bar {
-        width: 25px;
-        height: 3px;
-        background: white;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-toggle.active .bar:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .mobile-menu-toggle.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .mobile-menu-toggle.active .bar:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    /* Sidebar Overlay */
-    .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-    }
-    
-    .sidebar-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    /* Sidebar Header */
-    .sidebar-header {
-        padding: 20px 15px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .sidebar-header h3 {
-        color: white;
-        font-size: 1.3rem;
-        margin: 0;
-    }
-    
-    .admin-badge {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 0.7rem;
-    }
-    
-    /* Sidebar Menu */
-    .sidebar-menu {
-        flex: 1;
-        padding: 20px 0;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
-    
-    .menu-item {
-        display: flex;
-        align-items: center;
-        padding: 15px 20px;
-        text-decoration: none;
-        color: rgba(255, 255, 255, 0.8);
-        cursor: pointer;
-        border: none;
-        background: none;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-    }
-    
-    .menu-item:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-    }
-    
-    .menu-item.active {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border-left: 4px solid white;
-    }
-    
-    .menu-icon {
-        font-size: 1.2rem;
-        margin-right: 15px;
-        width: 20px;
-        text-align: center;
-    }
-    
-    .menu-text {
-        font-size: 1rem;
-        font-weight: 500;
-    }
-    
-    /* Sidebar Footer */
-    .sidebar-footer {
-        padding: 20px 15px;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .exit-btn {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        padding: 15px 20px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-    }
-    
-    .exit-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
-    
-    /* Hamburger Menu Button */
-    .mobile-menu-toggle {
-        position: fixed;
-        top: 15px;
-        left: 15px;
-        z-index: 1001;
-        background: #4f46e5;
-        border: none;
-        color: white;
-        padding: 10px;
-        border-radius: 8px;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
-    
-    .mobile-menu-toggle .bar {
-        width: 20px;
-        height: 2px;
-        background: white;
-        transition: all 0.3s ease;
-    }
-    
-    .mobile-menu-toggle.active .bar:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .mobile-menu-toggle.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .mobile-menu-toggle.active .bar:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    /* Overlay */
-    .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-    }
-    
-    .sidebar-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    /* Main Content - Tam Ekran */
-    .main-content {
-        flex: 1;
-        padding: 70px 15px 20px 15px;
-        width: 100vw;
-        height: 100vh;
-        margin-left: 0;
-        background: #f8f9fa;
-        overflow-y: auto;
-        position: relative;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    /* Tüm Sayfalar İçin Tam Ekran */
-    .appointments-section,
-    .completed-section,
-    .calendar-section,
-    .settings-section {
-        flex: 1;
-        width: 100%;
-        height: 100%;
-        overflow-y: auto;
-        padding: 0;
-        margin: 0;
-    }
-    
-         /* Mobile Sections - Clean & Organized */
-     .appointments-header,
-     .section-header {
-         margin-bottom: 15px;
-         text-align: center;
-     }
-     
-     .appointments-header h2,
-     .section-header h2 {
-         font-size: 1.5rem;
-         margin-bottom: 8px;
-         color: #1f2937;
-     }
-     
-     .appointments-header p,
-     .section-header p {
-         font-size: 0.85rem;
-         color: #6b7280;
-         margin-bottom: 15px;
-     }
-     
-     .header-actions {
-         display: flex;
-         justify-content: center;
-         gap: 8px;
-         flex-wrap: wrap;
-         margin-bottom: 15px;
-     }
-     
-     .simple-btn,
-     .btn {
-         padding: 8px 14px;
-         font-size: 0.85rem;
-         border-radius: 8px;
-         border: none;
-         cursor: pointer;
-         font-weight: 500;
-         transition: all 0.2s;
-     }
-     
-     .simple-btn {
-         background: white;
-         color: #374151;
-         border: 1px solid #d1d5db;
-     }
-     
-     .simple-btn:hover {
-         background: #f9fafb;
-         border-color: #9ca3af;
-     }
-     
-     .simple-btn.danger {
-         background: #fef2f2;
-         color: #dc2626;
-         border-color: #fecaca;
-     }
-    
-    /* Filter Container Mobile */
-    .filter-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-    
-    .filter-row {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .filter-group {
-        width: 100%;
-    }
-    
-    .filter-group label {
-        font-size: 0.9rem;
-        margin-bottom: 8px;
-    }
-    
-    .filter-group input,
-    .filter-group select {
-        padding: 12px 14px;
-        font-size: 1rem;
-    }
-    
-    /* Appointments List Mobile */
-    .appointments-list {
-        gap: 15px;
-    }
-    
-    .appointment-card {
-        padding: 15px;
-        margin: 0;
-    }
-    
-    .appointment-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    
-    .appointment-avatar {
-        align-self: center;
-    }
-    
-    .appointment-main {
-        text-align: center;
-        width: 100%;
-    }
-    
-    .appointment-name {
-        font-size: 1.2rem;
-    }
-    
-    .appointment-details {
-        margin-top: 15px;
-    }
-    
-    .detail-row {
-        padding: 8px 0;
-    }
-    
-    .detail-label {
-        font-size: 0.85rem;
-    }
-    
-    .detail-value {
-        font-size: 0.95rem;
-    }
-    
-    /* Quick Actions Mobile */
-    .quick-actions {
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 15px;
-    }
-    
-    .action-btn {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 0.9rem;
-        justify-content: center;
-    }
-    
-    /* Calendar Mobile */
-    .calendar-container {
-        padding: 15px;
-    }
-    
-    .calendar-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .calendar-nav {
-        justify-content: center;
-        gap: 20px;
-    }
-    
-    .calendar-grid {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 2px;
-        font-size: 0.85rem;
-    }
-    
-    .calendar-day {
-        min-height: 50px;
-        padding: 5px 2px;
-    }
-    
-    .day-number {
-        font-size: 0.9rem;
-    }
-    
-    /* Hover Preview Mobile */
-    .hover-preview {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        max-width: 300px;
-        max-height: 70vh;
-        overflow-y: auto;
-    }
-    
-    /* Settings Mobile */
-    .settings-container {
-        padding: 15px;
-    }
-    
-    .settings-group {
-        padding: 20px 15px;
-        margin-bottom: 20px;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .form-row label {
-        font-size: 0.9rem;
-    }
-    
-    .form-row input,
-    .form-row select {
-        padding: 12px 14px;
-        font-size: 1rem;
-    }
-    
-    /* Security Settings Mobile */
-    .security-settings {
-        padding: 20px 15px;
-    }
-    
-    .security-form {
-        gap: 20px;
-    }
-    
-    .current-admin-info {
-        padding: 15px;
-    }
-    
-    .form-group input {
-        padding: 14px 16px;
-        font-size: 1rem;
-    }
-    
-    .security-actions {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .security-btn {
-        width: 100%;
-        padding: 14px 20px;
-        font-size: 1rem;
-    }
-    
-    /* Notifications Mobile */
-    .notification {
-        right: 10px;
-        left: 10px;
-        max-width: none;
-        margin: 0 5px;
-        font-size: 0.9rem;
-        padding: 12px 16px;
-    }
-    
-    /* Logout Confirmation Mobile */
-    .logout-confirmation-modal {
-        width: 90%;
-        max-width: 350px;
-        padding: 25px 20px;
-    }
-    
-    .logout-confirmation-actions {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-         .logout-confirm-btn,
-     .logout-cancel-btn {
-         width: 100%;
-         padding: 14px 20px;
-         font-size: 1rem;
-     }
-}
-
-/* Small Mobile Phones - Admin */
-@media (max-width: 480px) {
-    .login-form {
-        padding: 25px 15px;
-        margin: 0 5px;
-        max-width: 340px;
-    }
-    
-    .admin-layout {
-        grid-template-rows: 1fr 60px;
-    }
-    
-    .sidebar {
-        height: 60px;
-    }
-    
-    .menu-item {
-        min-width: 60px;
-        padding: 6px 8px;
-    }
-    
-    .menu-icon {
-        font-size: 1.1rem;
-    }
-    
-    .menu-text {
-        font-size: 0.7rem;
-    }
-    
-    .main-content {
-        padding: 10px;
-    }
-    
-    .appointment-card {
-        padding: 12px;
-    }
-    
-    .simple-btn {
-        padding: 8px 12px;
-        font-size: 0.85rem;
-    }
-}
-    
-    .filter-container input,
-    .filter-container select {
-        width: 100%;
-    }
-    
-    .appointment-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-    }
-    
-    .appointment-info {
-        gap: 10px;
-    }
-    
-    .avatar-circle {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
-    
-    .appointment-name {
-        font-size: 1rem;
-    }
-    
-    .appointment-preview {
-        font-size: 0.8rem;
-    }
-    
-    .header-actions {
-        justify-content: space-between;
-        gap: 10px;
-    }
-    
-    .appointment-status {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-    }
-    
-    .appointment-actions {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .action-btn {
-        width: 100%;
-        justify-content: center;
-        padding: 10px 16px;
-        font-size: 0.85rem;
-    }
-    
-    /* Tab system mobile */
-    .tab-buttons {
-        flex-direction: column;
-    }
-    
-    .tab-btn {
-        padding: 12px 15px;
-        font-size: 0.85rem;
-    }
-    
-    .tab-content {
-        padding: 15px;
-    }
-    
-    .detail-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .detail-card {
-        padding: 12px;
-    }
-    
-    .quick-actions-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    
-    .quick-action-btn {
-        padding: 12px 8px;
-    }
-    
-    .qa-icon {
-        font-size: 1.2rem;
-    }
-    
-    .qa-text {
-        font-size: 0.7rem;
-    }
-    
-    /* Timeline mobile */
-    .timeline {
-        padding-left: 18px;
-    }
-    
-    .timeline-item {
-        padding-left: 15px;
-    }
-    
-    .timeline-content {
-        padding: 10px;
-    }
-    
-    /* Admin notes mobile */
-    .admin-notes-section {
-        padding: 12px;
-        margin-top: 12px;
-    }
-    
-    .admin-notes-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
-    
-    .edit-admin-note-btn {
-        align-self: flex-end;
-        padding: 8px 12px;
-    }
-    
-    .admin-note-textarea {
-        min-height: 60px;
-        padding: 10px;
-        font-size: 0.85rem;
-    }
-    
-    .admin-note-actions {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .save-admin-note-btn,
-    .cancel-admin-note-btn {
-        width: 100%;
-        justify-content: center;
-        padding: 10px 14px;
-    }
-    
-    /* Calendar mobile */
-    .calendar-header {
-        padding: 15px;
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .calendar-header h3 {
-        font-size: 1.2rem;
-    }
-    
-    .calendar-header button {
-        padding: 10px 15px;
-        font-size: 0.9rem;
-    }
-    
-    .calendar-day {
-        min-height: 80px;
-        padding: 6px;
-    }
-    
-    .day-number {
-        font-size: 0.8rem;
-        margin-bottom: 2px;
-    }
-    
-    /* Removed: mobile day-appointment styles - no longer needed */
-    
-    .appointment-popup {
-        margin: 10px;
-        max-height: 90vh;
-    }
-    
-    .popup-header {
-        padding: 15px 20px;
-    }
-    
-    .popup-header h3 {
-        font-size: 1.1rem;
-    }
-    
-    .popup-content {
-        padding: 20px;
-    }
-    
-    .popup-info {
-        flex-direction: column;
-        text-align: center;
-        gap: 12px;
-    }
-    
-    .popup-avatar .avatar-circle {
-        width: 60px;
-        height: 60px;
-        font-size: 1.4rem;
-    }
-    
-    .popup-actions {
-        flex-direction: column;
-        padding: 15px 20px;
-    }
-    
-    .popup-btn {
-        padding: 12px 16px;
-    }
-    
-    .day-appointments-popup {
-        margin: 10px;
-    }
-    
-    .day-appointment-item {
-        padding: 10px 12px;
-        gap: 10px;
-    }
-    
-    .appointment-time-detail {
-        min-width: 50px;
-        font-size: 0.8rem;
-    }
-    
-    .appointment-customer-detail {
-        font-size: 0.9rem;
-    }
-    
-    /* Hover preview mobile - disable on mobile */
-    .hover-preview {
-        display: none;
-    }
-    
-    .calendar-day.has-appointment::after {
-        font-size: 0.7rem;
-        top: 2px;
-        right: 2px;
-    }
-    
-    .calendar-day.has-appointment {
-        box-shadow: 0 1px 4px rgba(102, 126, 234, 0.3);
-    }
-    
-    /* Mobile logout button adjustments */
-    .logout-btn {
-        padding: 8px 12px;
-        font-size: 0.8rem;
-        gap: 6px;
-    }
-    
-    .logout-text {
-        display: none; /* Hide text on mobile, keep only icon */
-    }
-    
-    .logout-icon {
-        font-size: 1.2rem;
-    }
-    
-    /* Mobile logout confirmation modal */
-    .logout-confirmation-modal {
-        max-width: 320px;
-        margin: 20px;
-    }
-    
-    .logout-confirmation-header h3 {
-        font-size: 1.2rem;
-    }
-    
-    .logout-confirmation-icon {
-        font-size: 2.5rem;
-    }
-    
-    .logout-confirmation-actions {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .logout-confirm-btn,
-    .logout-cancel-btn {
-        width: 100%;
-        min-width: auto;
-    }
-    
-    /* Mobile adaptations for new sections */
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .customers-list {
-        grid-template-columns: 1fr;
-    }
-    
-    .calendar-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .report-filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-    
-    .chart {
-        height: 150px;
-    }
-    
-    .search-bar {
-        flex-direction: column;
-    }
-    
-    .notification {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        max-width: none;
-    }
-    
-    /* Login form mobile */
-    .login-form {
-        padding: 30px 20px;
-        margin: 0 10px;
-    }
-    
-    .login-header h2 {
-        font-size: 1.5rem;
-    }
-    
-    .input-group input {
-        padding: 10px 14px;
-    }
-    
-    .login-btn {
-        padding: 12px 18px;
-    }
-
-
-/* Admin Security Settings */
-.security-settings {
-    background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
-    border: 2px solid #fecaca;
-    border-radius: 12px;
-    padding: 25px;
-    margin-top: 30px;
-    position: relative;
-    overflow: hidden;
-}
-
-.security-settings::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #dc2626, #ef4444, #f87171);
-}
-
-.security-settings h3 {
-    color: #dc2626;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.security-description {
-    color: #7f1d1d;
-    font-size: 0.95rem;
-    margin-bottom: 25px;
-    background: rgba(255, 255, 255, 0.7);
-    padding: 12px 16px;
-    border-radius: 8px;
-    border-left: 3px solid #dc2626;
-}
-
-.security-form {
-    display: grid;
-    gap: 25px;
-}
-
-/* Current Admin Info */
-.current-admin-info {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.current-admin-info h4 {
-    color: #374151;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.current-info-display {
-    display: grid;
-    gap: 12px;
-}
-
-.info-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #f3f4f6;
-}
-
-.info-item:last-child {
-    border-bottom: none;
-}
-
-.info-label {
-    font-weight: 500;
-    color: #6b7280;
-}
-
-.info-value {
-    font-weight: 600;
-    color: #374151;
-    font-family: 'Courier New', monospace;
-}
-
-/* Security Form Section */
-.security-form-section {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.security-form-section h4 {
-    color: #374151;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.security-form-section .form-group {
-    margin-bottom: 20px;
-}
-
-.security-form-section .form-group:last-of-type {
-    margin-bottom: 25px;
-}
-
-.security-form-section label {
-    display: block;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-}
-
-.security-form-section input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    background: #fafafa;
-}
-
-.security-form-section input:focus {
-    outline: none;
-    border-color: #dc2626;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
-}
-
-.field-note {
-    display: block;
-    color: #6b7280;
-    font-size: 0.8rem;
-    margin-top: 4px;
-    font-style: italic;
-}
-
-/* Password Strength Indicator */
-.password-strength {
-    margin-top: 8px;
-    height: 4px;
-    border-radius: 2px;
-    background: #e5e7eb;
-    position: relative;
-    overflow: hidden;
-}
-
-.password-strength.weak {
-    background: linear-gradient(90deg, #ef4444 30%, #e5e7eb 30%);
-}
-
-.password-strength.medium {
-    background: linear-gradient(90deg, #f59e0b 60%, #e5e7eb 60%);
-}
-
-.password-strength.strong {
-    background: linear-gradient(90deg, #10b981 100%, #e5e7eb 100%);
-}
-
-.password-strength::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 8px;
-    left: 0;
-    font-size: 0.75rem;
-    font-weight: 500;
-}
-
-.password-strength.weak::after {
-    content: 'Zayıf';
-    color: #ef4444;
-}
-
-.password-strength.medium::after {
-    content: 'Orta';
-    color: #f59e0b;
-}
-
-.password-strength.strong::after {
-    content: 'Güçlü';
-    color: #10b981;
-}
-
-/* Password Match Indicator */
-.password-match {
-    margin-top: 6px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.password-match.match {
-    color: #10b981;
-}
-
-.password-match.no-match {
-    color: #ef4444;
-}
-
-/* Security Actions */
-.security-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-}
-
-.security-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.security-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.security-btn:hover::before {
-    left: 100%;
-}
-
-.save-btn {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-}
-
-.save-btn:hover {
-    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
-}
-
-.save-btn:active {
-    transform: translateY(0);
-}
-
-.reset-btn {
-    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
-}
-
-.reset-btn:hover {
-    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4);
-}
-
-.reset-btn:active {
-    transform: translateY(0);
-}
-
-.btn-icon {
-    font-size: 1rem;
-}
-
-/* Security Tips */
-.security-tips {
-    background: #f0f9ff;
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid #bae6fd;
-}
-
-.security-tips h4 {
-    color: #0369a1;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.tips-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.tips-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-    color: #0c4a6e;
-    line-height: 1.4;
-}
-
-.tips-list li::before {
-    content: '🔹';
-    flex-shrink: 0;
-    margin-top: 1px;
-}
-
-.tips-list li:last-child {
-    margin-bottom: 0;
-}
-
-/* Mobile Security Settings */
-@media (max-width: 768px) {
-    .security-settings {
-        padding: 20px 15px;
-        margin-top: 20px;
-    }
-    
-    .security-actions {
-        flex-direction: column;
-    }
-    
-    .security-btn {
-        padding: 14px 20px;
-    }
-    
-    .info-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-    }
-    
-    .current-info-display,
-    .security-form {
-        gap: 15px;
-    }
-    
-    .current-admin-info,
-    .security-form-section,
-    .security-tips {
-        padding: 15px;
-    }
-}
-
-/* Mobile Appointment Cards - Modern Design */
-@media (max-width: 768px) {
-    .appointments-list {
-        gap: 12px;
-        padding: 0;
-    }
-    
-    .appointment-card {
-        background: white;
-        border-radius: 12px;
-        padding: 16px;
-        margin: 0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        border: 1px solid #f1f3f4;
-    }
-    
-    .appointment-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        margin-bottom: 12px;
-    }
-    
-    .appointment-avatar {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 8px;
-    }
-    
-    .appointment-main {
-        width: 100%;
-    }
-    
-    .appointment-name {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #1f2937;
-        margin-bottom: 4px;
-    }
-    
-    .appointment-time {
-        font-size: 0.9rem;
-        color: #6b7280;
-    }
-    
-    .appointment-status {
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        margin-top: 8px;
-        display: inline-block;
-    }
-    
-    .appointment-details {
-        margin-top: 12px;
-        border-top: 1px solid #f3f4f6;
-        padding-top: 12px;
-    }
-    
-    .detail-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 6px 0;
-        border-bottom: 1px solid #f9fafb;
-    }
-    
-    .detail-row:last-child {
-        border-bottom: none;
-    }
-    
-    .detail-label {
-        font-size: 0.8rem;
-        color: #6b7280;
-        font-weight: 500;
-    }
-    
-    .detail-value {
-        font-size: 0.85rem;
-        color: #1f2937;
-        font-weight: 500;
-        text-align: right;
-    }
-    
-    /* Mobile Quick Actions */
-    .quick-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 12px;
-        flex-wrap: wrap;
-    }
-    
-    .action-btn {
-        flex: 1;
-        min-width: 0;
-        padding: 10px 12px;
-        font-size: 0.8rem;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        transition: all 0.2s;
-    }
-    
-    .action-btn.confirm {
-        background: #dcfce7;
-        color: #166534;
-    }
-    
-    .action-btn.cancel {
-        background: #fee2e2;
-        color: #dc2626;
-    }
-    
-    .action-btn.edit {
-        background: #dbeafe;
-        color: #1d4ed8;
-    }
-    
-    .action-btn.delete {
-        background: #fef2f2;
-        color: #dc2626;
-    }
-    
-    /* Mobile Filters - Collapsible */
-    .filter-container {
-        background: white;
-        border-radius: 12px;
-        padding: 12px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
-    
-    .filter-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-    
-    .filter-group {
-        margin-bottom: 0;
-    }
-    
-    .filter-group label {
-        font-size: 0.8rem;
-        color: #6b7280;
-        margin-bottom: 4px;
-        font-weight: 500;
-    }
-    
-    .filter-group input,
-    .filter-group select {
-        width: 100%;
-        padding: 10px 12px;
-        font-size: 0.9rem;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        background: white;
-    }
-    
-    .filter-group input:focus,
-    .filter-group select:focus {
-        outline: none;
-        border-color: #4f46e5;
-        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
-    }
-    
-    /* Mobile Calendar - Simplified */
-    .calendar-container {
-        background: white;
-        border-radius: 12px;
-        padding: 15px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-    
-    .calendar-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-    
-    .calendar-nav {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-top: 10px;
-    }
-    
-    .nav-btn {
-        padding: 8px 12px;
-        background: #f3f4f6;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 0.9rem;
-    }
-    
-    .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 1px;
-        background: #e5e7eb;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-    
-    .calendar-day {
-        aspect-ratio: 1;
-        background: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 4px;
-        font-size: 0.8rem;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-    
-    .calendar-day:hover {
-        background: #f9fafb;
-    }
-    
-    .calendar-day.has-appointment {
-        background: #dbeafe;
-        color: #1d4ed8;
-        font-weight: 600;
-    }
-    
-    .day-number {
-        font-size: 0.85rem;
-    }
-    
-    /* Mobile Settings Forms */
-    .settings-container {
-        padding: 0;
-    }
-    
-    .settings-group {
-        background: white;
-        border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
-    
-    .settings-group h3 {
-        font-size: 1.1rem;
-        margin-bottom: 12px;
-        color: #1f2937;
-    }
-    
-    .form-row {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-    
-    .form-row label {
-        font-size: 0.9rem;
-        color: #374151;
-        font-weight: 500;
-    }
-    
-    .form-row input,
-    .form-row select {
-        padding: 12px 14px;
-        font-size: 1rem;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        background: white;
-    }
-    
-    /* Mobile Security Settings */
-    .security-settings {
-        padding: 16px;
-        margin-top: 15px;
-    }
-    
-    .security-form {
-        gap: 15px;
-    }
-    
-    .current-admin-info {
-        padding: 12px;
-        border-radius: 8px;
-    }
-    
-    .form-group {
-        margin-bottom: 15px;
-    }
-    
-    .form-group label {
-        font-size: 0.9rem;
-        margin-bottom: 6px;
-    }
-    
-    .form-group input {
-        width: 100%;
-        padding: 12px 14px;
-        font-size: 1rem;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-    }
-    
-    .security-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .security-btn {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 0.95rem;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-weight: 500;
-    }
-    
-    .save-btn {
-        background: #4f46e5;
-        color: white;
-    }
-    
-    .reset-btn {
-        background: #f3f4f6;
-        color: #374151;
-    }
-    
-    /* Mobile Notifications */
-    .notification {
-        position: fixed;
-        top: 70px;
-        left: 10px;
-        right: 10px;
-        max-width: none;
-        font-size: 0.9rem;
-        padding: 12px 16px;
-        border-radius: 8px;
-        z-index: 1001;
-    }
-    
-    /* Mobile Logout Modal */
-    .logout-confirmation-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 2000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-    
-    .logout-confirmation-modal {
-        background: white;
-        border-radius: 12px;
-        padding: 20px;
-        width: 100%;
-        max-width: 320px;
-        text-align: center;
-    }
-    
-    .logout-confirmation-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 20px;
-    }
-    
-    .logout-confirm-btn,
-    .logout-cancel-btn {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 0.95rem;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-weight: 500;
-    }
-    
-    .logout-confirm-btn {
-        background: #dc2626;
-        color: white;
-    }
-    
-    .logout-cancel-btn {
-        background: #f3f4f6;
-        color: #374151;
-    }
 }
 
 /* Small Mobile Optimization */

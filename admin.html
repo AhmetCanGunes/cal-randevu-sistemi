@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#4f46e5">
     <title>Randevular</title>
     <link rel="stylesheet" href="admin.css?v=2.4">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -79,6 +83,21 @@
                     <span class="menu-icon">🔓</span>
                     <span class="menu-text">Çıkış</span>
                 </button>
+            </div>
+        </div>
+
+        <!-- Mobile Header -->
+        <div class="mobile-header" id="mobileHeader">
+            <div class="mobile-header-content">
+                <h2>📋 Admin Panel</h2>
+                <div class="mobile-header-actions">
+                    <button class="mobile-action-btn" onclick="loadAppointments()" title="Yenile">
+                        <span>🔄</span>
+                    </button>
+                    <button class="mobile-action-btn" onclick="showLogoutConfirmation()" title="Çıkış">
+                        <span>🔓</span>
+                    </button>
+                </div>
             </div>
         </div>
 

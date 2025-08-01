@@ -122,6 +122,9 @@ function showAdminPanel() {
     document.getElementById('login-container').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'grid';
     
+    // Initialize device-specific features
+    initializeDeviceFeatures();
+    
     setupEventListeners();
     
     // Check if there's a saved section state
@@ -142,14 +145,115 @@ function showAdminPanel() {
     }
 }
 
+// Initialize device-specific features
+function initializeDeviceFeatures() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Mobile-specific initialization
+        document.body.classList.add('mobile-device');
+        document.body.classList.remove('desktop-device');
+        
+        // Show mobile header
+        const mobileHeader = document.getElementById('mobileHeader');
+        if (mobileHeader) {
+            mobileHeader.style.display = 'block';
+        }
+        
+        // Hide desktop sidebar
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.style.display = 'none';
+        }
+        
+        console.log('📱 Mobile features initialized');
+    } else {
+        // Desktop-specific initialization
+        document.body.classList.add('desktop-device');
+        document.body.classList.remove('mobile-device');
+        
+        // Hide mobile header
+        const mobileHeader = document.getElementById('mobileHeader');
+        if (mobileHeader) {
+            mobileHeader.style.display = 'none';
+        }
+        
+        // Show desktop sidebar
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.style.display = 'flex';
+        }
+        
+        console.log('🖥️ Desktop features initialized');
+    }
+}
+
 // Setup event listeners
 function setupEventListeners() {
-    // Mobile sidebar functionality
-    setupMobileSidebar();
+    // Device detection
+    const isMobile = window.innerWidth <= 768;
+    
+    // Mobile-specific functionality
+    if (isMobile) {
+        setupMobileFeatures();
+    } else {
+        setupDesktopFeatures();
+    }
+    
+    // Shared functionality
+    setupSharedFeatures();
+}
+
+// Mobile-specific features
+function setupMobileFeatures() {
+    console.log('📱 Setting up mobile features');
     
     // Touch gesture support for mobile
     setupTouchGestures();
     
+    // Mobile-specific event listeners
+    document.querySelectorAll('.bottom-nav-item[data-section]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.getAttribute('data-section');
+            switchSection(section);
+            
+            // Update active state
+            document.querySelectorAll('.bottom-nav-item').forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // Mobile-specific optimizations
+    optimizeForMobile();
+}
+
+// Desktop-specific features
+function setupDesktopFeatures() {
+    console.log('🖥️ Setting up desktop features');
+    
+    // Desktop sidebar functionality
+    setupDesktopSidebar();
+    
+    // Desktop-specific event listeners
+    document.querySelectorAll('.menu-item[data-section]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.getAttribute('data-section');
+            switchSection(section);
+            
+            // Update active state
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // Desktop-specific optimizations
+    optimizeForDesktop();
+}
+
+// Shared functionality for both mobile and desktop
+function setupSharedFeatures() {
     // Refresh button
     document.getElementById('refreshBtn').addEventListener('click', function() {
         loadAppointments();
@@ -164,35 +268,6 @@ function setupEventListeners() {
     // Test appointment button
     document.getElementById('testBtn').addEventListener('click', function() {
         createTestAppointment();
-    });
-    
-    // Sidebar menu items
-    document.querySelectorAll('.menu-item[data-section]').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const section = this.getAttribute('data-section');
-            switchSection(section);
-            
-            // Update active state
-            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Close mobile sidebar after menu selection
-            closeMobileSidebar();
-        });
-    });
-
-    // Bottom navigation items
-    document.querySelectorAll('.bottom-nav-item[data-section]').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const section = this.getAttribute('data-section');
-            switchSection(section);
-            
-            // Update active state
-            document.querySelectorAll('.bottom-nav-item').forEach(m => m.classList.remove('active'));
-            this.classList.add('active');
-        });
     });
     
     // Filter functionality
@@ -214,6 +289,139 @@ function setupEventListeners() {
     if (clearCompletedFilters) {
         clearCompletedFilters.addEventListener('click', clearCompletedFiltersFunc);
     }
+    
+    // Responsive design adjustments
+    window.addEventListener('resize', handleResize);
+}
+
+// Mobile optimizations
+function optimizeForMobile() {
+    // Disable hover effects on mobile
+    document.body.classList.add('mobile-device');
+    
+    // Optimize touch targets
+    const touchTargets = document.querySelectorAll('.menu-item, .bottom-nav-item, .action-btn');
+    touchTargets.forEach(target => {
+        target.style.minHeight = '44px';
+        target.style.minWidth = '44px';
+    });
+    
+    // Reduce animations for better performance
+    const animatedElements = document.querySelectorAll('.appointment-card, .simple-btn');
+    animatedElements.forEach(element => {
+        element.style.transition = 'all 0.2s ease';
+    });
+}
+
+// Desktop optimizations
+function optimizeForDesktop() {
+    // Enable hover effects on desktop
+    document.body.classList.add('desktop-device');
+    
+    // Enable desktop-specific features
+    enableDesktopFeatures();
+}
+
+// Handle window resize
+function handleResize() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile && !document.body.classList.contains('mobile-device')) {
+        // Switch to mobile mode
+        document.body.classList.remove('desktop-device');
+        document.body.classList.add('mobile-device');
+        setupMobileFeatures();
+    } else if (!isMobile && !document.body.classList.contains('desktop-device')) {
+        // Switch to desktop mode
+        document.body.classList.remove('mobile-device');
+        document.body.classList.add('desktop-device');
+        setupDesktopFeatures();
+    }
+}
+
+// Desktop sidebar functionality
+function setupDesktopSidebar() {
+    // Desktop sidebar specific features
+    console.log('🖥️ Desktop sidebar setup complete');
+}
+
+// Enable desktop-specific features
+function enableDesktopFeatures() {
+    // Enable hover previews for calendar
+    enableCalendarHover();
+    
+    // Enable keyboard navigation
+    enableKeyboardNavigation();
+}
+
+// Enable calendar hover functionality for desktop
+function enableCalendarHover() {
+    const calendarDays = document.querySelectorAll('.calendar-day.has-appointment');
+    calendarDays.forEach(day => {
+        day.addEventListener('mouseenter', (e) => {
+            // Show hover preview
+            const date = day.getAttribute('data-date');
+            if (date) {
+                showHoverPreview(e, new Date(date), getAppointmentsForDate(date));
+            }
+        });
+        
+        day.addEventListener('mouseleave', () => {
+            hideHoverPreview();
+        });
+    });
+}
+
+// Enable keyboard navigation for desktop
+function enableKeyboardNavigation() {
+    document.addEventListener('keydown', function(e) {
+        // Escape key to close modals
+        if (e.key === 'Escape') {
+            const modals = document.querySelectorAll('.confirmation-overlay');
+            modals.forEach(modal => {
+                if (modal.style.display === 'flex') {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // Arrow keys for navigation (desktop only)
+        if (e.altKey) {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    navigateSection('prev');
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    navigateSection('next');
+                    break;
+            }
+        }
+    });
+}
+
+// Navigate between sections
+function navigateSection(direction) {
+    const sections = ['appointments', 'completed', 'calendar', 'settings'];
+    const currentSection = localStorage.getItem('adminCurrentSection') || 'appointments';
+    const currentIndex = sections.indexOf(currentSection);
+    
+    let newIndex;
+    if (direction === 'next') {
+        newIndex = (currentIndex + 1) % sections.length;
+    } else {
+        newIndex = (currentIndex - 1 + sections.length) % sections.length;
+    }
+    
+    switchSection(sections[newIndex]);
+}
+
+// Get appointments for a specific date
+function getAppointmentsForDate(dateString) {
+    return getAppointments().then(appointments => {
+        return appointments.filter(app => app.date === dateString);
+    });
 }
 
 // Mobile sidebar functionality
