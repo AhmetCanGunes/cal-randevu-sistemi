@@ -449,25 +449,58 @@
             display: none !important;
         }
         
-        /* Boş içerik alanını gizle */
+        /* Boş içerik alanını tamamen gizle - Tüm olası seçiciler */
         .no-appointments,
         .appointments-list .loading,
         .appointments-list .no-data,
         .appointments-list:empty::before,
-        .appointments-list:empty::after {
+        .appointments-list:empty::after,
+        .appointments-list p,
+        .appointments-list .message,
+        .appointments-list .empty-state,
+        .appointments-list .no-data-message,
+        .appointments-list .loading-message,
+        .appointments-list .placeholder,
+        .appointments-list .empty-content,
+        .appointments-list .no-appointments-message,
+        .appointments-list .loading-spinner + p,
+        .appointments-list .no-appointments-text,
+        .appointments-list .empty-text,
+        .appointments-list .no-data-text {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            font-size: 0 !important;
+            line-height: 0 !important;
         }
         
-        /* Ana içerik alanının üst kısmını kaldır */
-        .appointments-container {
+        /* Ana içerik alanının üst kısmını tamamen kaldır */
+        .appointments-container,
+        .admin-layout .appointments-container,
+        #appointments-section {
             padding-top: 0 !important;
             margin-top: 0 !important;
+            min-height: auto !important;
         }
         
         /* Header'ı üstten başlat */
-        .appointments-header {
+        .appointments-header,
+        .admin-layout .appointments-header,
+        #appointments-section .appointments-header {
             margin-top: 0 !important;
-            padding-top: 10px !important;
+            padding-top: 5px !important;
+            border-top: none !important;
+        }
+        
+        /* Appointments list'i tamamen gizle eğer boşsa */
+        .appointments-list:empty,
+        .appointments-list:blank {
+            display: none !important;
+            height: 0 !important;
+            min-height: 0 !important;
         }
     }
     
