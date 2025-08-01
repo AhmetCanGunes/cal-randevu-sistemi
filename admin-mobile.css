@@ -410,8 +410,8 @@
         overflow-y: visible;
         padding: 0;
         margin: 0;
-        padding-bottom: 400px; /* Sayfa altına scroll için daha fazla boşluk */
-        min-height: calc(100vh + 300px); /* Minimum yükseklik garantisi */
+        padding-bottom: 120px; /* Footer için boşluk */
+        min-height: calc(100vh + 100px); /* Minimum yükseklik garantisi */
     }
     
     /* Mobile Sections - Clean & Organized */
@@ -1314,5 +1314,56 @@
             height: 30px;
             font-size: 0.7rem;
         }
+    }
+    
+    /* Mobil Footer */
+    .mobile-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 20px;
+        text-align: center;
+        font-size: 0.85rem;
+        font-weight: 500;
+        z-index: 1000;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .mobile-footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .footer-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0.9;
+    }
+    
+    .footer-subtitle {
+        font-size: 0.75rem;
+        opacity: 0.7;
+    }
+    
+    .footer-version {
+        font-size: 0.7rem;
+        opacity: 0.6;
+        padding: 4px 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
     }
 } 
