@@ -409,6 +409,16 @@
             display: none !important; /* Masaüstünde menü butonunu gizle */
         }
         
+        /* Masaüstünde mobil menü toggle butonunu tamamen gizle */
+        .mobile-menu-toggle,
+        .admin-layout .mobile-menu-toggle,
+        #mobileMenuToggle {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        
         /* Masaüstünde sidebar varsa main content margin'ini ayarla */
         .admin-layout .main-content {
             margin-left: 250px; /* Sidebar genişliği */
