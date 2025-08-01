@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Randevular</title>
-    <link rel="stylesheet" href="admin.css?v=2.3">
-    <link rel="stylesheet" href="admin-mobile.css?v=1.0">
+    <link rel="stylesheet" href="admin.css?v=2.4">
+    <link rel="stylesheet" href="admin-mobile.css?v=1.1">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
@@ -82,7 +82,7 @@
             </nav>
             
             <div class="sidebar-footer">
-                <button class="menu-item exit-btn" onclick="logout()">
+                <button class="menu-item exit-btn" onclick="showLogoutConfirmation()">
                     <span class="menu-icon">🔓</span>
                     <span class="menu-text">Çıkış</span>
                 </button>
@@ -95,10 +95,10 @@
             <div class="appointments-header">
                 <h2>📋 Randevular</h2>
                                  <div class="header-actions">
-                     <button id="testBtn" class="simple-btn">🧪 Test Ekle</button>
-                     <button id="refreshBtn" class="simple-btn">🔄 Yenile</button>
-                     <button id="clearBtn" class="simple-btn danger">🗑️ Tümünü Sil</button>
-                     <button id="logoutBtn" class="logout-btn" onclick="logout()" title="Güvenli Çıkış">
+                     <button id="testBtn" class="simple-btn test-btn">🧪 Test Ekle</button>
+                     <button id="refreshBtn" class="simple-btn refresh-btn">🔄 Yenile</button>
+                     <button id="clearBtn" class="simple-btn danger clear-all-btn" onclick="showClearAllConfirmation()">🗑️ Tümünü Sil</button>
+                     <button id="logoutBtn" class="logout-btn" onclick="showLogoutConfirmation()" title="Güvenli Çıkış">
                          <span class="logout-icon">🔓</span>
                          <span class="logout-text">Çıkış</span>
                      </button>
@@ -106,15 +106,23 @@
             </div>
             
             <div class="filter-container">
-                <input type="date" id="dateFilter" placeholder="Tarihe göre filtrele">
-                <select id="statusFilter">
-                    <option value="">Tüm Durumlar</option>
-                    <option value="pending">Bekleyen</option>
-                    <option value="confirmed">Onaylandı</option>
-                    <option value="completed">Tamamlandı</option>
-                    <option value="cancelled">İptal Edildi</option>
-                </select>
-                <button id="clearFilters" class="simple-btn">Filtreleri Temizle</button>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="dateFilter">📅 Tarih Filtresi</label>
+                        <input type="date" id="dateFilter" placeholder="Tarihe göre filtrele">
+                    </div>
+                    <div class="filter-group">
+                        <label for="statusFilter">📊 Durum Filtresi</label>
+                        <select id="statusFilter">
+                            <option value="">Tüm Durumlar</option>
+                            <option value="pending">Bekleyen</option>
+                            <option value="confirmed">Onaylandı</option>
+                            <option value="completed">Tamamlandı</option>
+                            <option value="cancelled">İptal Edildi</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="clearFilters" class="simple-btn clear-filters-btn">🧹 Filtreleri Temizle</button>
             </div>
             
             <div id="appointmentsList" class="appointments-list">
@@ -160,9 +168,17 @@
             </div>
             
             <div class="filter-container">
-                <input type="date" id="completedDateFilter" placeholder="Tarihe göre filtrele">
-                <input type="text" id="completedSearchFilter" placeholder="İsim veya telefon ara...">
-                <button id="clearCompletedFilters" class="simple-btn">Filtreleri Temizle</button>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="completedDateFilter">📅 Tarih Filtresi</label>
+                        <input type="date" id="completedDateFilter" placeholder="Tarihe göre filtrele">
+                    </div>
+                    <div class="filter-group">
+                        <label for="completedSearchFilter">🔍 Arama</label>
+                        <input type="text" id="completedSearchFilter" placeholder="İsim veya telefon ara...">
+                    </div>
+                </div>
+                <button id="clearCompletedFilters" class="simple-btn clear-filters-btn">🧹 Filtreleri Temizle</button>
             </div>
             
             <div id="completedAppointmentsList" class="appointments-list">
@@ -208,9 +224,9 @@
             </div>
             <div class="calendar-container">
                 <div class="calendar-header">
-                    <button id="prevMonth" class="simple-btn">‹ Önceki</button>
+                    <button id="prevMonth" class="simple-btn calendar-nav-btn">‹ Önceki</button>
                     <h3 id="currentMonth"></h3>
-                    <button id="nextMonth" class="simple-btn">Sonraki ›</button>
+                    <button id="nextMonth" class="simple-btn calendar-nav-btn">Sonraki ›</button>
                 </div>
                 <div id="calendar" class="calendar-grid"></div>
             </div>
@@ -242,8 +258,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <!-- Settings Section -->
         <div id="settings-section" style="display: none;">
@@ -281,7 +295,7 @@
                         </select>
                     </div>
                 </div>
-                <button class="simple-btn" onclick="saveSettings()">💾 Ayarları Kaydet</button>
+                <button class="simple-btn save-settings-btn" onclick="saveSettings()">💾 Ayarları Kaydet</button>
 
                 <!-- Admin Security Settings -->
                 <div class="settings-group security-settings">
@@ -383,7 +397,40 @@
         </div>
         </div>
     </div>
+
+    <!-- Confirmation Modals -->
+    <div id="clearAllConfirmation" class="confirmation-overlay" style="display: none;">
+        <div class="confirmation-modal">
+            <div class="confirmation-header">
+                <h3>⚠️ Dikkat!</h3>
+                <p>Tüm randevuları silmek istediğinizden emin misiniz?</p>
+            </div>
+            <div class="confirmation-content">
+                <p>Bu işlem geri alınamaz ve tüm randevu verilerini kalıcı olarak silecektir.</p>
+            </div>
+            <div class="confirmation-actions">
+                <button class="confirmation-btn cancel-btn" onclick="hideClearAllConfirmation()">❌ İptal</button>
+                <button class="confirmation-btn confirm-btn" onclick="clearAllAppointments()">🗑️ Evet, Tümünü Sil</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="logoutConfirmation" class="confirmation-overlay" style="display: none;">
+        <div class="confirmation-modal">
+            <div class="confirmation-header">
+                <h3>🔓 Çıkış Yap</h3>
+                <p>Admin panelinden çıkış yapmak istediğinizden emin misiniz?</p>
+            </div>
+            <div class="confirmation-content">
+                <p>Çıkış yaptıktan sonra tekrar giriş yapmanız gerekecektir.</p>
+            </div>
+            <div class="confirmation-actions">
+                <button class="confirmation-btn cancel-btn" onclick="hideLogoutConfirmation()">❌ İptal</button>
+                <button class="confirmation-btn confirm-btn" onclick="logout()">🔓 Evet, Çıkış Yap</button>
+            </div>
+        </div>
+    </div>
     
-    <script src="admin.js?v=2.3"></script>
+    <script src="admin.js?v=2.4"></script>
 </body>
 </html> 

@@ -56,80 +56,50 @@ function handleLogin(event) {
         errorDiv.textContent = 'Kullanıcı ID veya şifre hatalı!';
         errorDiv.style.display = 'block';
         
-        // Hide error after 3 seconds
-        setTimeout(() => {
-            errorDiv.style.display = 'none';
-        }, 3000);
-    }
+            // Hide error after 3 seconds
+    setTimeout(() => {
+        errorDiv.style.display = 'none';
+    }, 3000);
 }
 
 function logout() {
-    // Show confirmation dialog
-    showLogoutConfirmation();
+    // Clear session and redirect to login
+    localStorage.removeItem('adminSession');
+    showLoginForm();
+    showNotification('Başarıyla çıkış yapıldı!', 'success');
 }
 
 function showLogoutConfirmation() {
-    const overlay = document.createElement('div');
-    overlay.className = 'logout-confirmation-overlay';
-    
-    overlay.innerHTML = `
-        <div class="logout-confirmation-modal">
-            <div class="logout-confirmation-header">
-                <div class="logout-confirmation-icon">🔓</div>
-                <h3>Çıkış Yapmak İstediğinizden Emin misiniz?</h3>
-            </div>
-            <div class="logout-confirmation-body">
-                <p>Oturumunuz sonlandırılacak ve giriş sayfasına yönlendirileceksiniz.</p>
-            </div>
-            <div class="logout-confirmation-actions">
-                <button class="logout-confirm-btn" onclick="confirmLogout()">
-                    <span class="btn-icon">✅</span>
-                    <span class="btn-text">Evet, Çıkış Yap</span>
-                </button>
-                <button class="logout-cancel-btn" onclick="cancelLogout()">
-                    <span class="btn-icon">❌</span>
-                    <span class="btn-text">İptal</span>
-                </button>
-            </div>
-        </div>
-    `;
-    
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-            cancelLogout();
-        }
-    });
-    
-    document.body.appendChild(overlay);
-    
-    // Focus trap for accessibility
-    const confirmBtn = overlay.querySelector('.logout-confirm-btn');
-    confirmBtn.focus();
+    document.getElementById('logoutConfirmation').style.display = 'flex';
 }
 
-function confirmLogout() {
-    // Remove session data
-    localStorage.removeItem('adminSession');
-    
-    // Remove confirmation modal
-    const overlay = document.querySelector('.logout-confirmation-overlay');
-    if (overlay) {
-        overlay.remove();
-    }
-    
-    // Show login form with animation
-    showLoginForm();
-    showNotification('Güvenli bir şekilde çıkış yaptınız. Teşekkürler! 👋', 'success');
+function hideLogoutConfirmation() {
+    document.getElementById('logoutConfirmation').style.display = 'none';
 }
 
-function cancelLogout() {
-    const overlay = document.querySelector('.logout-confirmation-overlay');
-    if (overlay) {
-        overlay.style.animation = 'fadeOut 0.3s ease';
-        setTimeout(() => {
-            overlay.remove();
-        }, 300);
-    }
+function showClearAllConfirmation() {
+    document.getElementById('clearAllConfirmation').style.display = 'flex';
+}
+
+function hideClearAllConfirmation() {
+    document.getElementById('clearAllConfirmation').style.display = 'none';
+}
+
+function clearAllAppointments() {
+    // Clear all appointments from localStorage
+    localStorage.removeItem('appointments');
+    localStorage.removeItem('completedAppointments');
+    
+    // Hide confirmation modal
+    hideClearAllConfirmation();
+    
+    // Reload appointments
+    loadAppointments();
+    loadCompletedAppointments();
+    
+    // Show success notification
+    showNotification('Tüm randevular başarıyla silindi!', 'success');
+}
 }
 
 function showLoginForm() {
@@ -179,14 +149,9 @@ function setupEventListeners() {
         showNotification('Veriler yenilendi', 'success');
     });
     
-    // Clear all data button
+    // Clear all data button - now uses confirmation modal
     document.getElementById('clearBtn').addEventListener('click', function() {
-        if (confirm('TÜM randevuları silmek istediğinizden emin misiniz? Bu işlem geri alınamaz!')) {
-            localStorage.removeItem('appointments');
-            loadAppointments();
-            loadCompletedAppointments();
-            showNotification('Tüm randevular silindi', 'success');
-        }
+        showClearAllConfirmation();
     });
     
     // Test appointment button
