@@ -145,9 +145,24 @@ function showAdminPanel() {
     document.getElementById('login-container').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'grid';
     
-    // Load appointments by default
-    loadAppointments();
     setupEventListeners();
+    
+    // Check if there's a saved section state
+    const savedSection = localStorage.getItem('adminCurrentSection');
+    if (savedSection) {
+        // Switch to saved section
+        switchSection(savedSection);
+        
+        // Update active menu item
+        document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+        const activeMenuItem = document.querySelector(`[data-section="${savedSection}"]`);
+        if (activeMenuItem) {
+            activeMenuItem.classList.add('active');
+        }
+    } else {
+        // Default to appointments section
+        loadAppointments();
+    }
 }
 
 // Setup event listeners
@@ -1267,6 +1282,9 @@ function cancelAdminNoteEdit(appointmentId) {
 
 // Switch between sections
 function switchSection(section) {
+    // Save current section to localStorage
+    localStorage.setItem('adminCurrentSection', section);
+    
     // Hide placeholder first
     const placeholder = document.getElementById('section-placeholder');
     if (placeholder) {
@@ -1293,7 +1311,6 @@ function switchSection(section) {
             case 'calendar':
                 loadCalendar();
                 break;
-
             case 'settings':
                 loadSettings();
                 break;
