@@ -1515,4 +1515,16 @@
         margin: 0 auto;
         /* Boş alan - sadece scroll için */
     }
+    
+    /* Admin panelinde footer içeriklerini gizle */
+    .mobile-footer .footer-sections,
+    .mobile-footer .footer-brand,
+    .mobile-footer .footer-section,
+    .mobile-footer .footer-brand-title,
+    .mobile-footer .footer-brand-subtitle,
+    .mobile-footer .footer-section-title,
+    .mobile-footer .footer-link,
+    .mobile-footer .footer-copyright {
+        display: none !important;
+    }
 } 
