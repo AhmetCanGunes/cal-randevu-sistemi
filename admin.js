@@ -121,7 +121,7 @@ function showLoginForm() {
 function showAdminPanel() {
     document.getElementById('login-container').style.display = 'none';
     const adminPanel = document.getElementById('admin-panel');
-    adminPanel.style.display = 'grid';
+    adminPanel.style.display = 'flex';
     adminPanel.classList.add('show');
     
     // Initialize device-specific features
