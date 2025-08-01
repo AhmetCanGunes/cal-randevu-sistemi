@@ -120,7 +120,9 @@ function showLoginForm() {
 
 function showAdminPanel() {
     document.getElementById('login-container').style.display = 'none';
-    document.getElementById('admin-panel').style.display = 'grid';
+    const adminPanel = document.getElementById('admin-panel');
+    adminPanel.style.display = 'grid';
+    adminPanel.classList.add('show');
     
     // Initialize device-specific features
     initializeDeviceFeatures();
@@ -141,6 +143,7 @@ function showAdminPanel() {
         }
     } else {
         // Default to appointments section
+        switchSection('appointments');
         loadAppointments();
     }
 }
@@ -166,6 +169,12 @@ function initializeDeviceFeatures() {
             sidebar.style.display = 'none';
         }
         
+        // Show mobile bottom navigation
+        const mobileBottomNav = document.querySelector('.mobile-bottom-nav');
+        if (mobileBottomNav) {
+            mobileBottomNav.style.display = 'flex';
+        }
+        
         console.log('📱 Mobile features initialized');
     } else {
         // Desktop-specific initialization
@@ -182,6 +191,12 @@ function initializeDeviceFeatures() {
         const sidebar = document.getElementById('sidebar');
         if (sidebar) {
             sidebar.style.display = 'flex';
+        }
+        
+        // Hide mobile bottom navigation
+        const mobileBottomNav = document.querySelector('.mobile-bottom-nav');
+        if (mobileBottomNav) {
+            mobileBottomNav.style.display = 'none';
         }
         
         console.log('🖥️ Desktop features initialized');
