@@ -400,9 +400,6 @@
     .appointments-section,
     .completed-section,
     .calendar-section,
-    .customers-section,
-    .stats-section,
-    .reports-section,
     .settings-section {
         flex: 1;
         width: 100%;

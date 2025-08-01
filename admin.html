@@ -74,18 +74,7 @@
                     <span class="menu-icon">📅</span>
                     <span class="menu-text">Takvim</span>
                 </a>
-                <a href="#" class="menu-item" data-section="customers">
-                    <span class="menu-icon">👥</span>
-                    <span class="menu-text">Müşteriler</span>
-                </a>
-                <a href="#" class="menu-item" data-section="stats">
-                    <span class="menu-icon">📊</span>
-                    <span class="menu-text">İstatistikler</span>
-                </a>
-                <a href="#" class="menu-item" data-section="reports">
-                    <span class="menu-icon">📈</span>
-                    <span class="menu-text">Raporlar</span>
-                </a>
+
                 <a href="#" class="menu-item" data-section="settings">
                     <span class="menu-icon">⚙️</span>
                     <span class="menu-text">Ayarlar</span>
@@ -173,77 +162,7 @@
             </div>
         </div>
 
-        <!-- Customers Section -->
-        <div id="customers-section" style="display: none;">
-            <div class="section-header">
-                <h2>👥 Müşteriler</h2>
-                <p>Müşteri bilgileri ve randevu geçmişi</p>
-            </div>
-            <div class="customers-container">
-                <div class="search-bar">
-                    <input type="text" id="customerSearch" placeholder="Müşteri ara...">
-                    <button class="simple-btn">🔍</button>
-                </div>
-                <div id="customersList" class="customers-list"></div>
-            </div>
-        </div>
 
-        <!-- Stats Section -->
-        <div id="stats-section" style="display: none;">
-            <div class="section-header">
-                <h2>📊 İstatistikler</h2>
-                <p>Randevu ve müşteri istatistikleri</p>
-            </div>
-            <div class="stats-dashboard">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>📈 Bu Ay</h3>
-                        <div class="stat-number" id="thisMonthCount">0</div>
-                        <p>Randevu</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>✅ Tamamlanan</h3>
-                        <div class="stat-number" id="completedCount">0</div>
-                        <p>Randevu</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>⏳ Bekleyen</h3>
-                        <div class="stat-number" id="pendingCount">0</div>
-                        <p>Randevu</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>👥 Müşteri</h3>
-                        <div class="stat-number" id="customerCount">0</div>
-                        <p>Toplam</p>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <h3>📈 Aylık Trend</h3>
-                    <div id="monthlyChart" class="chart"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Reports Section -->
-        <div id="reports-section" style="display: none;">
-            <div class="section-header">
-                <h2>📈 Raporlar</h2>
-                <p>Detaylı raporlar ve analizler</p>
-            </div>
-            <div class="reports-container">
-                <div class="report-filters">
-                    <select id="reportType">
-                        <option value="monthly">Aylık Rapor</option>
-                        <option value="weekly">Haftalık Rapor</option>
-                        <option value="daily">Günlük Rapor</option>
-                    </select>
-                    <input type="month" id="reportMonth">
-                    <button class="simple-btn" onclick="generateReport()">📊 Rapor Oluştur</button>
-                    <button class="simple-btn" onclick="exportReport()">📥 Excel İndir</button>
-                </div>
-                <div id="reportContent" class="report-content"></div>
-            </div>
-        </div>
 
         <!-- Settings Section -->
         <div id="settings-section" style="display: none;">

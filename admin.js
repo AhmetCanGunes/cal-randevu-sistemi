@@ -1293,15 +1293,7 @@ function switchSection(section) {
             case 'calendar':
                 loadCalendar();
                 break;
-            case 'customers':
-                loadCustomers();
-                break;
-            case 'stats':
-                loadStats();
-                break;
-            case 'reports':
-                loadReports();
-                break;
+
             case 'settings':
                 loadSettings();
                 break;
@@ -1317,9 +1309,6 @@ function showSectionPlaceholder(section) {
     const mainContent = document.querySelector('.main-content');
     const sectionNames = {
         'calendar': '📅 Takvim',
-        'customers': '👥 Müşteriler', 
-        'stats': '📊 İstatistikler',
-        'reports': '📈 Raporlar',
         'settings': '⚙️ Ayarlar'
     };
     
@@ -1683,162 +1672,7 @@ function editAppointmentFromCalendar(appointmentId) {
 }
 
 // Customers Section Functions
-async function loadCustomers() {
-    const appointments = await getAppointments();
-    const customers = getUniqueCustomers(appointments);
-    displayCustomers(customers);
-    
-    // Setup search
-    document.getElementById('customerSearch').oninput = (e) => {
-        const filtered = customers.filter(customer => 
-            customer.name.toLowerCase().includes(e.target.value.toLowerCase())
-        );
-        displayCustomers(filtered);
-    };
-}
 
-function getUniqueCustomers(appointments) {
-    const customerMap = new Map();
-    
-    appointments.forEach(app => {
-        const key = `${app.name}_${app.surname}`;
-        if (!customerMap.has(key)) {
-            customerMap.set(key, {
-                name: `${app.name} ${app.surname}`,
-                phone: app.phone,
-                appointments: []
-            });
-        }
-        customerMap.get(key).appointments.push(app);
-    });
-    
-    return Array.from(customerMap.values());
-}
-
-function displayCustomers(customers) {
-    const container = document.getElementById('customersList');
-    if (customers.length === 0) {
-        container.innerHTML = '<div class="no-data">Müşteri bulunamadı</div>';
-        return;
-    }
-    
-    container.innerHTML = customers.map(customer => `
-        <div class="customer-card">
-            <h3>${customer.name}</h3>
-            <p>📱 ${customer.phone || 'Telefon belirtilmemiş'}</p>
-            <p>📅 ${customer.appointments.length} randevu</p>
-            <small>Son randevu: ${customer.appointments[customer.appointments.length - 1].date}</small>
-        </div>
-    `).join('');
-}
-
-// Stats Section Functions
-async function loadStats() {
-    const appointments = await getAppointments();
-    
-    // Calculate stats
-    const now = new Date();
-    const thisMonth = appointments.filter(app => {
-        const appDate = new Date(app.date);
-        return appDate.getMonth() === now.getMonth() && appDate.getFullYear() === now.getFullYear();
-    });
-    
-    const completed = appointments.filter(app => app.status === 'completed');
-    const pending = appointments.filter(app => app.status === 'pending');
-    const customers = getUniqueCustomers(appointments);
-    
-    // Update UI
-    document.getElementById('thisMonthCount').textContent = thisMonth.length;
-    document.getElementById('completedCount').textContent = completed.length;
-    document.getElementById('pendingCount').textContent = pending.length;
-    document.getElementById('customerCount').textContent = customers.length;
-    
-    // Generate simple chart
-    generateMonthlyChart(appointments);
-}
-
-function generateMonthlyChart(appointments) {
-    const chart = document.getElementById('monthlyChart');
-    const monthCounts = new Array(12).fill(0);
-    
-    appointments.forEach(app => {
-        const month = new Date(app.date).getMonth();
-        monthCounts[month]++;
-    });
-    
-    const max = Math.max(...monthCounts);
-    chart.innerHTML = monthCounts.map((count, index) => {
-        const height = max > 0 ? (count / max) * 100 : 0;
-        return `
-            <div class="chart-bar" style="height: ${height}%;" title="${count} randevu">
-                <span class="chart-month">${index + 1}</span>
-            </div>
-        `;
-    }).join('');
-}
-
-// Reports Section Functions
-function loadReports() {
-    document.getElementById('reportMonth').value = new Date().toISOString().slice(0, 7);
-}
-
-async function generateReport() {
-    const type = document.getElementById('reportType').value;
-    const month = document.getElementById('reportMonth').value;
-    const appointments = await getAppointments();
-    
-    let filtered = appointments;
-    if (month) {
-        filtered = appointments.filter(app => app.date.startsWith(month));
-    }
-    
-    const reportContent = document.getElementById('reportContent');
-    reportContent.innerHTML = `
-        <div class="report-summary">
-            <h3>📊 ${type === 'monthly' ? 'Aylık' : type === 'weekly' ? 'Haftalık' : 'Günlük'} Rapor</h3>
-            <p>Toplam Randevu: ${filtered.length}</p>
-            <p>Tamamlanan: ${filtered.filter(a => a.status === 'completed').length}</p>
-            <p>Bekleyen: ${filtered.filter(a => a.status === 'pending').length}</p>
-            <p>İptal Edilen: ${filtered.filter(a => a.status === 'cancelled').length}</p>
-        </div>
-        <div class="report-table">
-            <table>
-                <thead>
-                    <tr><th>Tarih</th><th>İsim</th><th>Saat</th><th>Durum</th></tr>
-                </thead>
-                <tbody>
-                    ${filtered.map(app => `
-                        <tr>
-                            <td>${app.date}</td>
-                            <td>${app.name} ${app.surname}</td>
-                            <td>${app.time}</td>
-                            <td>${getStatusText(app.status)}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        </div>
-    `;
-}
-
-function exportReport() {
-    // Simple CSV export
-    getAppointments().then(appointments => {
-        const csv = 'Tarih,İsim,Soyisim,Saat,Telefon,Durum\n' + 
-            appointments.map(app => 
-                `${app.date},${app.name},${app.surname},${app.time},${app.phone || ''},${getStatusText(app.status)}`
-            ).join('\n');
-        
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'randevular.csv';
-        a.click();
-        
-        showNotification('Rapor indirildi', 'success');
-    });
-}
 
 // Settings Section Functions
 function loadSettings() {
