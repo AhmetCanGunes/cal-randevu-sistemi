@@ -70,7 +70,14 @@ function logout() {
 }
 
 function showLogoutConfirmation() {
-    document.getElementById('logoutConfirmation').style.display = 'flex';
+    console.log('showLogoutConfirmation called');
+    const modal = document.getElementById('logoutConfirmation');
+    if (modal) {
+        modal.style.display = 'flex';
+        console.log('Modal shown');
+    } else {
+        console.error('logoutConfirmation modal not found');
+    }
 }
 
 function hideLogoutConfirmation() {
