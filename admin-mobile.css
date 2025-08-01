@@ -413,6 +413,22 @@
         .admin-layout .main-content {
             margin-left: 250px; /* Sidebar genişliği */
         }
+        
+        /* Sidebar header'ını gizle */
+        .sidebar-header {
+            display: none !important;
+        }
+        
+        /* Sidebar'ın üst kısmındaki boşluğu kaldır */
+        .sidebar {
+            padding-top: 0 !important;
+        }
+        
+        /* Sidebar menu'yu üstten başlat */
+        .sidebar-menu {
+            margin-top: 0 !important;
+            padding-top: 20px !important;
+        }
     }
     
     /* Tüm Sayfalar İçin Tam Ekran */
