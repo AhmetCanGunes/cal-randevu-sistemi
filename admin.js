@@ -181,6 +181,19 @@ function setupEventListeners() {
             closeMobileSidebar();
         });
     });
+
+    // Bottom navigation items
+    document.querySelectorAll('.bottom-nav-item[data-section]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.getAttribute('data-section');
+            switchSection(section);
+            
+            // Update active state
+            document.querySelectorAll('.bottom-nav-item').forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
     
     // Filter functionality
     document.getElementById('dateFilter').addEventListener('change', filterAppointments);
@@ -1290,6 +1303,15 @@ function switchSection(section) {
     } else {
         // Fallback to placeholder
         showSectionPlaceholder(section);
+    }
+    
+    // Update bottom navigation active state
+    document.querySelectorAll('.bottom-nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    const activeBottomNav = document.querySelector(`.bottom-nav-item[data-section="${section}"]`);
+    if (activeBottomNav) {
+        activeBottomNav.classList.add('active');
     }
 }
 
