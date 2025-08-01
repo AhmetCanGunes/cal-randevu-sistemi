@@ -2551,11 +2551,12 @@ body {
     .main-content {
         flex: 1;
         padding: 70px 15px 20px 15px;
-        width: 100%;
+        width: 100vw;
+        height: 100vh;
         margin-left: 0;
         background: #f8f9fa;
         overflow-y: auto;
-        min-height: calc(100vh - 130px);
+        position: relative;
     }
     
          /* Mobile Sections - Clean & Organized */
