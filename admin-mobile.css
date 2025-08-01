@@ -414,20 +414,39 @@
             margin-left: 250px; /* Sidebar genişliği */
         }
         
-        /* Sidebar header'ını gizle */
-        .sidebar-header {
+        /* Sidebar header'ını tamamen gizle - Tüm olası seçiciler */
+        .sidebar-header,
+        .admin-layout .sidebar-header,
+        .sidebar .sidebar-header,
+        #sidebar .sidebar-header {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
         }
         
-        /* Sidebar'ın üst kısmındaki boşluğu kaldır */
-        .sidebar {
+        /* Sidebar'ın üst kısmındaki tüm boşlukları kaldır */
+        .sidebar,
+        .admin-layout .sidebar,
+        #sidebar {
             padding-top: 0 !important;
+            margin-top: 0 !important;
         }
         
         /* Sidebar menu'yu üstten başlat */
-        .sidebar-menu {
+        .sidebar-menu,
+        .admin-layout .sidebar-menu,
+        #sidebar .sidebar-menu {
             margin-top: 0 !important;
-            padding-top: 20px !important;
+            padding-top: 10px !important;
+        }
+        
+        /* Admin badge'i de gizle */
+        .admin-badge,
+        .sidebar-header .admin-badge {
+            display: none !important;
         }
     }
     
