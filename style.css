@@ -221,6 +221,8 @@ body {
     display: flex;
     gap: 20px;
     margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn {
@@ -2435,6 +2437,8 @@ body.admin-page .admin-layout {
     .hero-buttons {
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        gap: 15px;
     }
 
     .hero-stats {
