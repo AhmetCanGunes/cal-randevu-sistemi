@@ -402,11 +402,16 @@
     /* Masaüstü için boşluğu kaldır */
     @media (min-width: 769px) {
         .main-content {
-            padding: 20px 15px 20px 15px; /* Üst padding'i azalt */
+            padding: 0 15px 20px 15px !important; /* Üst padding'i tamamen kaldır */
         }
         
         .mobile-menu-toggle {
-            display: none; /* Masaüstünde menü butonunu gizle */
+            display: none !important; /* Masaüstünde menü butonunu gizle */
+        }
+        
+        /* Masaüstünde sidebar varsa main content margin'ini ayarla */
+        .admin-layout .main-content {
+            margin-left: 250px; /* Sidebar genişliği */
         }
     }
     
