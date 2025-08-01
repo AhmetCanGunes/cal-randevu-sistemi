@@ -399,6 +399,17 @@
         scroll-behavior: smooth;
     }
     
+    /* Masaüstü için boşluğu kaldır */
+    @media (min-width: 769px) {
+        .main-content {
+            padding: 20px 15px 20px 15px; /* Üst padding'i azalt */
+        }
+        
+        .mobile-menu-toggle {
+            display: none; /* Masaüstünde menü butonunu gizle */
+        }
+    }
+    
     /* Tüm Sayfalar İçin Tam Ekran */
     .appointments-section,
     .completed-section,
