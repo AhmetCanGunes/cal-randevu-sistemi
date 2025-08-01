@@ -448,6 +448,27 @@
         .sidebar-header .admin-badge {
             display: none !important;
         }
+        
+        /* Boş içerik alanını gizle */
+        .no-appointments,
+        .appointments-list .loading,
+        .appointments-list .no-data,
+        .appointments-list:empty::before,
+        .appointments-list:empty::after {
+            display: none !important;
+        }
+        
+        /* Ana içerik alanının üst kısmını kaldır */
+        .appointments-container {
+            padding-top: 0 !important;
+            margin-top: 0 !important;
+        }
+        
+        /* Header'ı üstten başlat */
+        .appointments-header {
+            margin-top: 0 !important;
+            padding-top: 10px !important;
+        }
     }
     
     /* Tüm Sayfalar İçin Tam Ekran */
