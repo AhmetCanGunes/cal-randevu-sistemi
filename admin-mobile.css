@@ -407,7 +407,7 @@
         overflow-y: auto;
         padding: 0;
         margin: 0;
-        padding-bottom: 100px; /* Geri dön butonu için boşluk */
+        padding-bottom: 120px; /* Sayfa altına scroll için boşluk */
     }
     
     /* Mobile Sections - Clean & Organized */
@@ -1274,37 +1274,7 @@
         margin-right: 12px;
     }
     
-    /* Geri Dön Butonu */
-    .back-to-top-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        padding: 15px 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        transition: all 0.3s ease;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-    }
-    
-    .back-to-top-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-    }
-    
-    .back-to-top-btn:active {
-        transform: translateY(0);
-    }
+
     
     /* Avatar Circle Responsive */
     .avatar-circle {
