@@ -1746,3 +1746,131 @@ body {
   line-height: 1.6;
   font-style: italic;
 }
+
+/* Minimalist ve Kompakt UI/UX */
+.appointment-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(102,126,234,0.06);
+  margin-bottom: 18px;
+  padding: 18px 20px 14px 20px;
+}
+.appointment-header {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.appointment-info {
+  gap: 10px;
+}
+.avatar-circle {
+  width: 38px;
+  height: 38px;
+  font-size: 1rem;
+  margin-right: 6px;
+}
+.appointment-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.appointment-preview {
+  font-size: 0.92rem;
+}
+.detail-grid {
+  gap: 8px 16px;
+  margin-bottom: 10px;
+}
+.detail-card {
+  border-radius: 7px;
+  padding: 7px 10px;
+  gap: 7px;
+}
+.detail-icon {
+  font-size: 1.05rem;
+}
+.detail-label {
+  font-size: 0.92rem;
+}
+.detail-value {
+  font-size: 1rem;
+}
+
+/* Minimal Butonlar */
+.simple-btn, .action-btn {
+  border-radius: 6px;
+  font-size: 0.95rem;
+  padding: 7px 13px;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(102,126,234,0.06);
+  margin: 0 2px 2px 0;
+}
+.header-actions {
+  gap: 7px;
+}
+.appointment-actions {
+  gap: 7px;
+  margin-top: 10px;
+}
+.action-btn {
+  padding: 7px 13px;
+  font-size: 0.95rem;
+}
+
+/* WhatsApp ve E-posta Butonları */
+.quick-actions-grid {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+.quick-action-btn {
+  border-radius: 6px;
+  font-size: 0.93rem;
+  padding: 7px 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(102,126,234,0.06);
+}
+.quick-action-btn.whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+.quick-action-btn.whatsapp:hover {
+  background: #1ebe57;
+}
+.quick-action-btn.mail {
+  background: #3b82f6;
+  color: #fff;
+}
+.quick-action-btn.mail:hover {
+  background: #2563eb;
+}
+.qa-icon {
+  font-size: 1.1rem;
+}
+
+/* Tab butonları daha küçük */
+.tab-btn {
+  font-size: 0.97rem;
+  padding: 8px 0;
+}
+
+/* Notlar ve gridler daha kompakt */
+.notes-section {
+  border-radius: 7px;
+  padding: 8px 12px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+.notes-header {
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.notes-title {
+  font-size: 0.98rem;
+}
+.notes-content {
+  font-size: 0.95rem;
+}
