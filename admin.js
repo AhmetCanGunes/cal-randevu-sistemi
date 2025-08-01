@@ -1933,4 +1933,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector('#settings-section').style.display !== 'none') {
         loadAdminSecurityInfo();
     }
-}); 
+});
+
+// Scroll to top function
+function scrollToTop() {
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+} 
