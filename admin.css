@@ -317,12 +317,13 @@ body {
 }
 
 /* Main Content */
-    .main-content {
-        flex: 1;
-        padding: 65px 10px 90px 10px; /* Bottom navigation için daha fazla alan */
-        background: #f5f5f5;
-        overflow-y: auto;
-    }
+.main-content {
+    flex: 1;
+    padding: 65px 10px 90px 10px; /* Bottom navigation için daha fazla alan */
+    background: #f5f5f5;
+    overflow-y: auto;
+    margin-left: 250px; /* Desktop sidebar için alan */
+}
 
 .appointments-header {
     display: flex;
@@ -2117,8 +2118,127 @@ body {
         margin: 0;
         padding: 0;
     }
+
+    /* Mobilde sidebar'ı gizle */
+    .sidebar {
+        display: none;
+    }
+
+    /* Mobilde main content'i tam genişlik yap */
+    .main-content {
+        margin-left: 0;
+        padding-bottom: 90px; /* Bottom navigation için alan */
+    }
+
+    /* Mobilde bottom navigation'ı göster */
+    .mobile-bottom-nav {
+        display: flex;
+    }
     
-    /* Instagram Tarzı Bottom Navigation */
+    /* Desktop Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 20px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-header h3 {
+    color: white;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.admin-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+}
+
+.sidebar-menu {
+    flex: 1;
+    padding: 20px 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left-color: #4f46e5;
+}
+
+.menu-item.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-left-color: #4f46e5;
+}
+
+.menu-icon {
+    font-size: 1.2rem;
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-text {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.sidebar-footer {
+    padding: 20px 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.exit-btn {
+    width: 100%;
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.exit-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+    /* Instagram Tarzı Bottom Navigation - Sadece Mobil */
     .mobile-bottom-nav {
         position: fixed;
         bottom: 0;
@@ -2126,7 +2246,7 @@ body {
         right: 0;
         background: white;
         border-top: 1px solid #e5e7eb;
-        display: flex;
+        display: none; /* Varsayılan olarak gizli */
         justify-content: space-around;
         align-items: center;
         padding: 8px 0;
@@ -2134,56 +2254,56 @@ body {
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .bottom-nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        padding: 8px 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border-radius: 8px;
-        min-width: 60px;
-    }
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    min-width: 60px;
+}
 
-    .bottom-nav-item:hover {
-        background: #f3f4f6;
-    }
+.bottom-nav-item:hover {
+    background: #f3f4f6;
+}
 
-    .bottom-nav-item.active {
-        color: #4f46e5;
-    }
+.bottom-nav-item.active {
+    color: #4f46e5;
+}
 
-    .bottom-nav-item.active .bottom-nav-icon {
-        transform: scale(1.1);
-    }
+.bottom-nav-item.active .bottom-nav-icon {
+    transform: scale(1.1);
+}
 
-    .bottom-nav-icon {
-        font-size: 1.5rem;
-        margin-bottom: 4px;
-        transition: transform 0.3s ease;
-    }
+.bottom-nav-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    transition: transform 0.3s ease;
+}
 
-    .bottom-nav-text {
-        font-size: 0.7rem;
-        font-weight: 500;
-        text-align: center;
-        line-height: 1.2;
-    }
+.bottom-nav-text {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+}
 
-    .logout-item {
-        color: #ef4444;
-    }
+.logout-item {
+    color: #ef4444;
+}
 
-    .logout-item:hover {
-        background: #fef2f2;
-    }
+.logout-item:hover {
+    background: #fef2f2;
+}
 
-    .logout-item.active {
-        color: #dc2626;
-    }
+.logout-item.active {
+    color: #dc2626;
+}
     
     /* Mobile Menu Toggle */
     .mobile-menu-toggle {
