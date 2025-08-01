@@ -1,0 +1,1278 @@
+/* Admin Panel Mobile CSS - Özel Mobil Optimizasyonları */
+
+/* Mobil için temel ayarlar */
+@media (max-width: 768px) {
+    /* Performance optimizations for mobile */
+    * {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* Allow text selection for inputs and textareas */
+    input, textarea, [contenteditable] {
+        -webkit-user-select: text;
+        -khtml-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+    }
+    
+    /* Optimize animations for mobile */
+    .appointment-card,
+    .simple-btn,
+    .action-btn,
+    .menu-item,
+    .calendar-day {
+        transition: all 0.2s ease;
+        will-change: transform;
+    }
+    
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+    /* Body ve HTML tam ekran */
+    body, html {
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-size: 14px;
+    }
+    
+    /* Login Form - Mobil Optimize */
+    .login-container {
+        padding: 10px;
+        min-height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .login-form {
+        width: 100%;
+        max-width: 320px;
+        padding: 25px 20px;
+        border-radius: 15px;
+        background: white;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        margin: 0 10px;
+    }
+    
+    .login-header h2 {
+        font-size: 1.4rem;
+        text-align: center;
+        margin-bottom: 15px;
+        color: #1f2937;
+    }
+    
+    .login-header p {
+        font-size: 0.9rem;
+        text-align: center;
+        margin-bottom: 25px;
+        color: #6b7280;
+    }
+    
+    .input-group {
+        margin-bottom: 18px;
+    }
+    
+    .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        display: block;
+        color: #374151;
+        font-weight: 500;
+    }
+    
+    .input-group input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        font-size: 1rem;
+        background: #fafafa;
+        transition: all 0.3s ease;
+    }
+    
+    .input-group input:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .login-btn {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* Admin Layout - Tam Ekran Mobil */
+    .admin-layout {
+        display: flex;
+        min-height: 100vh;
+        background: #f8f9fa;
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Sol Sidebar - Tam Ekran Mobil */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100vw;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        z-index: 1000;
+        transition: left 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
+    
+    /* Mobile Menu Toggle - Modern */
+    .mobile-menu-toggle {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1001;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        border: none;
+        border-radius: 12px;
+        padding: 12px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-toggle:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    }
+    
+    .mobile-menu-toggle .bar {
+        width: 24px;
+        height: 3px;
+        background: white;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-toggle.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .mobile-menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+    
+    /* Sidebar Overlay */
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Sidebar Header - Mobil */
+    .sidebar-header {
+        padding: 25px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-header h3 {
+        color: white;
+        font-size: 1.5rem;
+        margin: 0;
+        font-weight: 700;
+    }
+    
+    .admin-badge {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Sidebar Menu - Mobil */
+    .sidebar-menu {
+        flex: 1;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.9);
+        cursor: pointer;
+        border: none;
+        background: none;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 0 15px;
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .menu-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .menu-item:hover::before {
+        left: 100%;
+    }
+    
+    .menu-item:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        transform: translateX(5px);
+    }
+    
+    .menu-item.active {
+        background: rgba(255, 255, 255, 0.25);
+        color: white;
+        border-left: 4px solid #fbbf24;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+    
+    .menu-icon {
+        font-size: 1.3rem;
+        margin-right: 15px;
+        width: 24px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    
+    .menu-item:hover .menu-icon {
+        transform: scale(1.1);
+    }
+    
+    .menu-text {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    
+    /* Sidebar Footer - Mobil */
+    .sidebar-footer {
+        padding: 20px 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(0, 0, 0, 0.1);
+    }
+    
+    .exit-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        background: rgba(220, 38, 38, 0.2);
+        color: #fca5a5;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .exit-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.3), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .exit-btn:hover::before {
+        left: 100%;
+    }
+    
+    .exit-btn:hover {
+        background: rgba(220, 38, 38, 0.3);
+        color: #fecaca;
+        transform: translateX(5px);
+    }
+    
+    /* Main Content - Tam Ekran Mobil */
+    .main-content {
+        flex: 1;
+        padding: 70px 15px 20px 15px;
+        width: 100vw;
+        height: 100vh;
+        margin-left: 0;
+        background: #f8f9fa;
+        overflow-y: auto;
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Tüm Sayfalar İçin Tam Ekran */
+    .appointments-section,
+    .completed-section,
+    .calendar-section,
+    .customers-section,
+    .stats-section,
+    .reports-section,
+    .settings-section {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Mobile Sections - Clean & Organized */
+    .appointments-header,
+    .section-header {
+        margin-bottom: 20px;
+        text-align: center;
+        padding: 20px 15px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 15px;
+    }
+    
+    .appointments-header h2,
+    .section-header h2 {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+        color: #1f2937;
+        font-weight: 700;
+    }
+    
+    .appointments-header p,
+    .section-header p {
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+    
+    .header-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
+    
+    .simple-btn,
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .simple-btn {
+        background: white;
+        color: #374151;
+        border: 2px solid #e5e7eb;
+    }
+    
+    .simple-btn:hover {
+        background: #f9fafb;
+        border-color: #d1d5db;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .simple-btn.danger {
+        background: #fef2f2;
+        color: #dc2626;
+        border-color: #fecaca;
+    }
+    
+    .simple-btn.danger:hover {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+    
+    /* Filter Container Mobile */
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .filter-container input,
+    .filter-container select {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        font-size: 1rem;
+        background: #fafafa;
+        transition: all 0.3s ease;
+    }
+    
+    .filter-container input:focus,
+    .filter-container select:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    /* Appointments List Mobile */
+    .appointments-list {
+        gap: 15px;
+        padding: 0;
+    }
+    
+    .appointment-card {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f1f3f4;
+        transition: all 0.3s ease;
+    }
+    
+    .appointment-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+    
+    .appointment-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    .appointment-avatar {
+        align-self: center;
+    }
+    
+    .avatar-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .appointment-main {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .appointment-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 5px;
+    }
+    
+    .appointment-preview {
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-bottom: 10px;
+    }
+    
+    .appointment-status {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .appointment-details {
+        margin-top: 20px;
+        border-top: 1px solid #f3f4f6;
+        padding-top: 15px;
+    }
+    
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #f9fafb;
+    }
+    
+    .detail-row:last-child {
+        border-bottom: none;
+    }
+    
+    .detail-label {
+        font-size: 0.85rem;
+        color: #6b7280;
+        font-weight: 500;
+    }
+    
+    .detail-value {
+        font-size: 0.9rem;
+        color: #1f2937;
+        font-weight: 600;
+        text-align: right;
+    }
+    
+    /* Quick Actions Mobile */
+    .quick-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .action-btn {
+        flex: 1;
+        min-width: 0;
+        padding: 12px 16px;
+        font-size: 0.85rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .action-btn.confirm {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+    }
+    
+    .action-btn.cancel {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+    }
+    
+    .action-btn.edit {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+    }
+    
+    .action-btn.delete {
+        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        color: white;
+    }
+    
+    /* Calendar Mobile - Fixed */
+    .calendar-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        margin-bottom: 20px;
+    }
+    
+    .calendar-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+    }
+    
+    .calendar-header h3 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0;
+    }
+    
+    .calendar-header button {
+        padding: 10px 16px;
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        color: #374151;
+    }
+    
+    .calendar-header button:hover {
+        background: #f3f4f6;
+        border-color: #d1d5db;
+        transform: translateY(-1px);
+    }
+    
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1px;
+        background: #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .calendar-day-header {
+        background: #f8f9fa;
+        padding: 12px 8px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #6b7280;
+        text-transform: uppercase;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .calendar-day {
+        aspect-ratio: 1;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        border-right: 1px solid #f3f4f6;
+        border-bottom: 1px solid #f3f4f6;
+    }
+    
+    .calendar-day:nth-child(7n) {
+        border-right: none;
+    }
+    
+    .calendar-day:hover {
+        background: #f9fafb;
+        transform: scale(1.02);
+    }
+    
+    .calendar-day.has-appointment {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    
+    .calendar-day.has-appointment:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .calendar-day.other-month {
+        background: #f8f9fa;
+        color: #9ca3af;
+        opacity: 0.7;
+    }
+    
+    .calendar-day.other-month:hover {
+        background: #f3f4f6;
+        opacity: 0.9;
+    }
+    
+    .day-number {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+    
+    .calendar-day.other-month .day-number {
+        color: #9ca3af;
+    }
+    
+    .calendar-day.has-appointment .day-number {
+        color: white;
+    }
+    
+    /* Calendar day with appointments indicator */
+    .calendar-day.has-appointment::after {
+        content: '📅';
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        font-size: 0.7rem;
+        opacity: 0.8;
+    }
+    
+    /* Settings Mobile */
+    .settings-container {
+        padding: 0;
+    }
+    
+    .settings-group {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .settings-group h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        color: #1f2937;
+        font-weight: 700;
+    }
+    
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .form-row label {
+        font-size: 0.9rem;
+        color: #374151;
+        font-weight: 600;
+    }
+    
+    .form-row input,
+    .form-row select {
+        padding: 14px 16px;
+        font-size: 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        background: #fafafa;
+        transition: all 0.3s ease;
+    }
+    
+    .form-row input:focus,
+    .form-row select:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    /* Security Settings Mobile */
+    .security-settings {
+        padding: 20px;
+        margin-top: 15px;
+        border-radius: 15px;
+    }
+    
+    .security-form {
+        gap: 20px;
+    }
+    
+    .current-admin-info {
+        padding: 15px;
+        border-radius: 10px;
+    }
+    
+    .form-group {
+        margin-bottom: 18px;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        background: #fafafa;
+    }
+    
+    .security-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .security-btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .save-btn {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    }
+    
+    .save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    }
+    
+    .reset-btn {
+        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+    }
+    
+    .reset-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4);
+    }
+    
+    /* Notifications Mobile */
+    .notification {
+        position: fixed;
+        top: 80px;
+        left: 15px;
+        right: 15px;
+        max-width: none;
+        font-size: 0.9rem;
+        padding: 15px 20px;
+        border-radius: 12px;
+        z-index: 1001;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    /* Mobile-specific loading states */
+    .loading {
+        padding: 40px 20px;
+        text-align: center;
+    }
+    
+    .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid #f3f4f6;
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+    }
+    
+    /* Mobile scroll indicators */
+    .appointments-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .appointments-list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 2px;
+    }
+    
+    .appointments-list::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 2px;
+    }
+    
+    .appointments-list::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+    
+    /* Mobile pull-to-refresh visual feedback */
+    .main-content {
+        overscroll-behavior-y: contain;
+    }
+    
+    /* Mobile keyboard adjustments */
+    @media (max-height: 600px) {
+        .login-container {
+            padding: 10px;
+        }
+        
+        .login-form {
+            padding: 20px 15px;
+        }
+        
+        .main-content {
+            padding: 60px 15px 15px 15px;
+        }
+    }
+    
+    /* Mobile landscape optimizations */
+    @media (max-width: 768px) and (orientation: landscape) {
+        .sidebar {
+            width: 300px;
+            left: -300px;
+        }
+        
+        .main-content {
+            padding: 60px 15px 15px 15px;
+        }
+        
+        .appointment-card {
+            padding: 15px;
+        }
+        
+        .filter-container {
+            padding: 15px;
+        }
+    }
+    
+    /* Logout Confirmation Mobile */
+    .logout-confirmation-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    .logout-confirmation-modal {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        width: 100%;
+        max-width: 350px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .logout-confirmation-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+    }
+    
+    .logout-confirm-btn,
+    .logout-cancel-btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .logout-confirm-btn {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    }
+    
+    .logout-confirm-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    }
+    
+    .logout-cancel-btn {
+        background: #f3f4f6;
+        color: #374151;
+        border: 2px solid #e5e7eb;
+    }
+    
+    .logout-cancel-btn:hover {
+        background: #e5e7eb;
+        border-color: #d1d5db;
+        transform: translateY(-1px);
+    }
+}
+
+/* Küçük Mobil Telefonlar İçin Ek Optimizasyonlar */
+@media (max-width: 480px) {
+    /* Disable hover effects on mobile */
+    .appointment-card:hover,
+    .simple-btn:hover,
+    .action-btn:hover,
+    .menu-item:hover,
+    .calendar-day:hover,
+    .quick-action-btn:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Optimize touch targets */
+    .action-btn,
+    .simple-btn,
+    .menu-item {
+        min-height: 44px; /* Apple's recommended touch target size */
+    }
+    
+    /* Improve text readability */
+    .appointment-name {
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+    
+    .detail-value {
+        font-size: 0.9rem;
+    }
+    
+    /* Optimize spacing for small screens */
+    .appointment-card {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+    
+    .filter-container {
+        padding: 12px;
+    }
+    
+    .settings-group {
+        padding: 15px;
+    }
+    
+    /* Improve calendar readability */
+    .calendar-container {
+        padding: 15px;
+    }
+    
+    .calendar-header {
+        padding: 12px;
+        gap: 10px;
+    }
+    
+    .calendar-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .calendar-header button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .calendar-grid {
+        gap: 1px;
+    }
+    
+    .calendar-day {
+        font-size: 0.75rem;
+        padding: 6px 4px;
+        min-height: 40px;
+    }
+    
+    .calendar-day-header {
+        padding: 8px 4px;
+        font-size: 0.75rem;
+    }
+    
+    .day-number {
+        font-size: 0.8rem;
+        margin-bottom: 1px;
+    }
+    
+    .calendar-day.has-appointment::after {
+        font-size: 0.6rem;
+        top: 1px;
+        right: 1px;
+    }
+    
+    /* Optimize sidebar for small screens */
+    .sidebar-header {
+        padding: 15px 12px;
+    }
+    
+    .sidebar-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .menu-item {
+        padding: 12px 12px;
+        margin: 0 8px;
+        font-size: 0.85rem;
+    }
+    
+    .menu-icon {
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+    
+    /* Improve login form for small screens */
+    .login-form {
+        padding: 20px 15px;
+        margin: 0 5px;
+        max-width: 300px;
+    }
+    
+    .login-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .input-group input {
+        padding: 12px 14px;
+    }
+    
+    .login-btn {
+        padding: 14px 16px;
+    }
+    .main-content {
+        padding: 65px 10px 20px 10px;
+    }
+    
+    .appointment-card {
+        padding: 15px;
+    }
+    
+    .filter-container {
+        padding: 15px;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        width: 100%;
+    }
+    
+    .calendar-day {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+    
+    .menu-text {
+        font-size: 0.9rem;
+    }
+    
+    .login-form {
+        padding: 20px 15px;
+        margin: 0 5px;
+    }
+    
+    .sidebar-header {
+        padding: 20px 15px;
+    }
+    
+    .sidebar-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .menu-item {
+        padding: 14px 15px;
+        margin: 0 10px;
+        font-size: 0.9rem;
+    }
+    
+    .menu-icon {
+        font-size: 1.1rem;
+        margin-right: 12px;
+    }
+} 

@@ -155,6 +155,9 @@ function setupEventListeners() {
     // Mobile sidebar functionality
     setupMobileSidebar();
     
+    // Touch gesture support for mobile
+    setupTouchGestures();
+    
     // Refresh button
     document.getElementById('refreshBtn').addEventListener('click', function() {
         loadAppointments();
@@ -232,6 +235,30 @@ function setupMobileSidebar() {
                 closeMobileSidebar();
             }
         });
+        
+        // Close sidebar when clicking menu items (mobile)
+        const menuItems = sidebar.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Small delay to allow the section switch to complete
+                setTimeout(() => {
+                    closeMobileSidebar();
+                }, 100);
+            });
+        });
+        
+        // Prevent body scroll when sidebar is open
+        sidebar.addEventListener('transitionstart', function() {
+            if (sidebar.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            }
+        });
+        
+        sidebar.addEventListener('transitionend', function() {
+            if (!sidebar.classList.contains('open')) {
+                document.body.style.overflow = '';
+            }
+        });
     }
 }
 
@@ -272,7 +299,58 @@ function closeMobileSidebar() {
         sidebar.classList.remove('open');
         sidebarOverlay.classList.remove('active');
         mobileMenuToggle.classList.remove('active');
+        
+        // Re-enable body scroll
+        document.body.style.overflow = '';
     }
+}
+
+// Touch gesture support for mobile sidebar
+function setupTouchGestures() {
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isDragging = false;
+    
+    document.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isDragging = false;
+    });
+    
+    document.addEventListener('touchmove', function(e) {
+        if (!isDragging) {
+            currentX = e.touches[0].clientX;
+            currentY = e.touches[0].clientY;
+            
+            const deltaX = Math.abs(currentX - startX);
+            const deltaY = Math.abs(currentY - startY);
+            
+            // If horizontal movement is greater than vertical and significant
+            if (deltaX > deltaY && deltaX > 50) {
+                isDragging = true;
+            }
+        }
+    });
+    
+    document.addEventListener('touchend', function(e) {
+        if (isDragging) {
+            const deltaX = currentX - startX;
+            const sidebar = document.getElementById('sidebar');
+            
+            // Swipe right to open sidebar (if it's closed)
+            if (deltaX > 100 && sidebar && !sidebar.classList.contains('open')) {
+                openMobileSidebar();
+            }
+            // Swipe left to close sidebar (if it's open)
+            else if (deltaX < -100 && sidebar && sidebar.classList.contains('open')) {
+                closeMobileSidebar();
+            }
+        }
+        
+        isDragging = false;
+    });
 }
 
 // Load and display appointments
