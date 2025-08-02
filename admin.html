@@ -121,9 +121,15 @@
                 <div class="appointments-header">
                     <h2>📋 Randevular</h2>
                     <div class="header-actions">
-                        <button id="testBtn" class="simple-btn test-btn">🧪 Test Ekle</button>
-                        <button id="refreshBtn" class="simple-btn refresh-btn">🔄 Yenile</button>
-                        <button id="clearBtn" class="simple-btn danger clear-all-btn" onclick="showClearAllConfirmation()">🗑️ Tümünü Sil</button>
+                        <button id="testBtn" class="minimal-btn test-btn" title="Test randevusu ekle">
+                            <span class="btn-icon">🧪</span>
+                        </button>
+                        <button id="refreshBtn" class="minimal-btn refresh-btn" title="Yenile">
+                            <span class="btn-icon">🔄</span>
+                        </button>
+                        <button id="clearBtn" class="minimal-btn danger clear-all-btn" onclick="showClearAllConfirmation()" title="Tümünü sil">
+                            <span class="btn-icon">🗑️</span>
+                        </button>
                     </div>
                 </div>
                 
@@ -143,8 +149,30 @@
                                 <option value="cancelled">İptal Edildi</option>
                             </select>
                         </div>
+                        <div class="filter-group">
+                            <label for="searchInput">🔍 Arama</label>
+                            <input type="text" id="searchInput" placeholder="İsim, telefon veya not ara...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="timeFilter">🕒 Saat Filtresi</label>
+                            <select id="timeFilter">
+                                <option value="">Tüm Saatler</option>
+                                <option value="morning">Sabah (08:00-12:00)</option>
+                                <option value="afternoon">Öğleden Sonra (12:00-17:00)</option>
+                                <option value="evening">Akşam (17:00-22:00)</option>
+                            </select>
+                        </div>
                     </div>
-                    <button id="clearFilters" class="simple-btn clear-filters-btn">🧹 Filtreleri Temizle</button>
+                    <div class="filter-actions">
+                        <button id="clearFilters" class="filter-btn clear-filters-btn">
+                            <span class="btn-icon">🧹</span>
+                            <span>Filtreleri Temizle</span>
+                        </button>
+                        <button id="exportBtn" class="filter-btn export-btn">
+                            <span class="btn-icon">📊</span>
+                            <span>Dışa Aktar</span>
+                        </button>
+                    </div>
                 </div>
                 
                 <div id="appointmentsList" class="appointments-list">

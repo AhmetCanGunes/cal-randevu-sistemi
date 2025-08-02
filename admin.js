@@ -2052,6 +2052,148 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Gelişmiş filtre fonksiyonları
+function setupAdvancedFilters() {
+    const dateFilter = document.getElementById('dateFilter');
+    const statusFilter = document.getElementById('statusFilter');
+    const searchInput = document.getElementById('searchInput');
+    const timeFilter = document.getElementById('timeFilter');
+    const clearFiltersBtn = document.getElementById('clearFilters');
+    const exportBtn = document.getElementById('exportBtn');
+    
+    // Event listeners
+    dateFilter.addEventListener('change', filterAppointments);
+    statusFilter.addEventListener('change', filterAppointments);
+    searchInput.addEventListener('input', filterAppointments);
+    timeFilter.addEventListener('change', filterAppointments);
+    clearFiltersBtn.addEventListener('click', clearAllFilters);
+    exportBtn.addEventListener('click', exportAppointments);
+}
+
+function filterAppointments() {
+    const dateFilter = document.getElementById('dateFilter').value;
+    const statusFilter = document.getElementById('statusFilter').value;
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const timeFilter = document.getElementById('timeFilter').value;
+    
+    getAppointments().then(appointments => {
+        let filteredAppointments = appointments;
+        
+        // Tarih filtresi
+        if (dateFilter) {
+            filteredAppointments = filteredAppointments.filter(appointment => 
+                appointment.date === dateFilter
+            );
+        }
+        
+        // Durum filtresi
+        if (statusFilter) {
+            filteredAppointments = filteredAppointments.filter(appointment => 
+                appointment.status === statusFilter
+            );
+        }
+        
+        // Arama filtresi
+        if (searchTerm) {
+            filteredAppointments = filteredAppointments.filter(appointment => {
+                const name = (appointment.name + ' ' + (appointment.surname || '')).toLowerCase();
+                const phone = (appointment.phone || '').toLowerCase();
+                const notes = (appointment.notes || '').toLowerCase();
+                
+                return name.includes(searchTerm) || phone.includes(searchTerm) || notes.includes(searchTerm);
+            });
+        }
+        
+        // Saat filtresi
+        if (timeFilter) {
+            filteredAppointments = filteredAppointments.filter(appointment => {
+                const hour = parseInt(appointment.time.split(':')[0]);
+                
+                switch(timeFilter) {
+                    case 'morning':
+                        return hour >= 8 && hour < 12;
+                    case 'afternoon':
+                        return hour >= 12 && hour < 17;
+                    case 'evening':
+                        return hour >= 17 && hour < 22;
+                    default:
+                        return true;
+                }
+            });
+        }
+        
+        displayAppointments(filteredAppointments);
+        updateFilterCount(filteredAppointments.length, appointments.length);
+    });
+}
+
+function clearAllFilters() {
+    document.getElementById('dateFilter').value = '';
+    document.getElementById('statusFilter').value = '';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('timeFilter').value = '';
+    
+    getAppointments().then(appointments => {
+        displayAppointments(appointments);
+        updateFilterCount(appointments.length, appointments.length);
+        showNotification('Filtreler temizlendi!', 'success');
+    });
+}
+
+function updateFilterCount(filteredCount, totalCount) {
+    const header = document.querySelector('.appointments-header h2');
+    if (filteredCount !== totalCount) {
+        header.innerHTML = `📋 Randevular (${filteredCount}/${totalCount})`;
+    } else {
+        header.innerHTML = '📋 Randevular';
+    }
+}
+
+function exportAppointments() {
+    getAppointments().then(appointments => {
+        if (appointments.length === 0) {
+            showNotification('Dışa aktarılacak randevu bulunamadı!', 'error');
+            return;
+        }
+        
+        // CSV formatında dışa aktarma
+        let csvContent = 'data:text/csv;charset=utf-8,';
+        csvContent += 'İsim,Soyisim,Telefon,Tarih,Saat,Durum,Notlar\n';
+        
+        appointments.forEach(appointment => {
+            const name = appointment.name || '';
+            const surname = appointment.surname || '';
+            const phone = appointment.phone || '';
+            const date = appointment.date || '';
+            const time = appointment.time || '';
+            const status = getStatusText(appointment.status);
+            const notes = (appointment.notes || '').replace(/"/g, '""');
+            
+            csvContent += `"${name}","${surname}","${phone}","${date}","${time}","${status}","${notes}"\n`;
+        });
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `randevular_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showNotification('Randevular başarıyla dışa aktarıldı!', 'success');
+    });
+}
+
+// Event listeners'ları güncelle
+function setupEventListeners() {
+    // Mevcut event listeners
+    document.getElementById('testBtn').addEventListener('click', createTestAppointment);
+    document.getElementById('refreshBtn').addEventListener('click', loadAppointments);
+    
+    // Gelişmiş filtreler
+    setupAdvancedFilters();
+}
+
 
 
  
