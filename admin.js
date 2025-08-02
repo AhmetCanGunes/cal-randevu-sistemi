@@ -1439,31 +1439,43 @@ function switchSection(section) {
         placeholder.style.display = 'none';
     }
     
-    // Hide all sections
+    // Hide all sections first
     const allSections = document.querySelectorAll('[id$="-section"]');
-    allSections.forEach(s => s.style.display = 'none');
+    console.log('Found sections:', allSections.length);
+    allSections.forEach(s => {
+        console.log('Hiding section:', s.id);
+        s.style.display = 'none';
+    });
     
     // Show selected section
     const targetSection = document.getElementById(section + '-section');
+    console.log('Target section:', section + '-section', 'Found:', !!targetSection);
+    
     if (targetSection) {
+        console.log('Showing section:', targetSection.id);
         targetSection.style.display = 'block';
         
         // Load section-specific data
         switch(section) {
             case 'appointments':
+                console.log('Loading appointments...');
                 loadAppointments();
                 break;
             case 'completed':
+                console.log('Loading completed appointments...');
                 loadCompletedAppointments();
                 break;
             case 'calendar':
+                console.log('Loading calendar...');
                 loadCalendar();
                 break;
             case 'settings':
+                console.log('Loading settings...');
                 loadSettings();
                 break;
         }
     } else {
+        console.log('Section not found, showing placeholder');
         // Fallback to placeholder
         showSectionPlaceholder(section);
     }
@@ -1480,11 +1492,15 @@ function switchSection(section) {
     const activeMobileNav = document.querySelector(`.bottom-nav-item[data-section="${section}"]`);
     
     if (activeDesktopMenu) {
+        console.log('Setting active desktop menu:', section);
         activeDesktopMenu.classList.add('active');
     }
     if (activeMobileNav) {
+        console.log('Setting active mobile nav:', section);
         activeMobileNav.classList.add('active');
     }
+    
+    console.log('✅ Section switch completed');
 }
 
 // Show placeholder for future sections
