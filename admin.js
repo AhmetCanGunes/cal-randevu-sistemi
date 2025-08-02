@@ -3,11 +3,14 @@
 // Initialize admin panel
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Simple Admin Panel loaded');
+    console.log('📋 DOM Content Loaded event triggered');
     
     // Check if user is logged in
     if (isLoggedIn()) {
+        console.log('✅ User is logged in, showing admin panel');
         showAdminPanel();
     } else {
+        console.log('❌ User is not logged in, showing login form');
         showLoginForm();
     }
 });
@@ -99,33 +102,22 @@ function showLoginForm() {
 }
 
 function showAdminPanel() {
+    console.log('🎯 showAdminPanel function called');
+    
     document.getElementById('login-container').style.display = 'none';
-    const adminPanel = document.getElementById('admin-panel');
-    adminPanel.style.display = 'flex';
-    adminPanel.classList.add('show');
+    document.getElementById('admin-panel').style.display = 'flex';
     
-    // Initialize device-specific features
-    initializeDeviceFeatures();
-    
+    console.log('📱 Setting up event listeners...');
     setupEventListeners();
     
-    // Check if there's a saved section state
-    const savedSection = localStorage.getItem('adminCurrentSection');
-    if (savedSection) {
-        // Switch to saved section
-        switchSection(savedSection);
-        
-        // Update active menu item
-        document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-        const activeMenuItem = document.querySelector(`[data-section="${savedSection}"]`);
-        if (activeMenuItem) {
-            activeMenuItem.classList.add('active');
-        }
-    } else {
-        // Default to appointments section
-        switchSection('appointments');
-        loadAppointments();
-    }
+    // Load saved section or default to appointments
+    const savedSection = localStorage.getItem('adminCurrentSection') || 'appointments';
+    console.log('📂 Loading saved section:', savedSection);
+    switchSection(savedSection);
+    
+    // Initialize device-specific features
+    console.log('🔧 Initializing device features...');
+    initializeDeviceFeatures();
 }
 
 // Initialize device-specific features
@@ -185,21 +177,30 @@ function initializeDeviceFeatures() {
 
 // Setup event listeners
 function setupEventListeners() {
+    console.log('🔧 setupEventListeners function called');
+    
     // Device detection
     const isMobile = window.innerWidth <= 768;
+    console.log('📱 Device detection - isMobile:', isMobile, 'Window width:', window.innerWidth);
     
     // Mobile-specific functionality
     if (isMobile) {
+        console.log('📱 Setting up mobile features...');
         setupMobileFeatures();
     } else {
+        console.log('🖥️ Setting up desktop features...');
         setupDesktopFeatures();
     }
     
     // Shared functionality
+    console.log('🔄 Setting up shared features...');
     setupSharedFeatures();
     
     // Universal menu event listeners (works for both mobile and desktop)
+    console.log('🌐 Setting up universal menu listeners...');
     setupUniversalMenuListeners();
+    
+    console.log('✅ setupEventListeners completed');
 }
 
 // Universal menu event listeners for both mobile and desktop
