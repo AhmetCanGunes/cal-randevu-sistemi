@@ -1,0 +1,30 @@
+{
+  "name": "3333",
+  "version": "1.0.0",
+  "description": "Instagram linklerinden gelen kullanıcılar için **modern, responsive ve kullanıcı dostu** randevu alma web uygulaması.",
+  "main": "admin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmetCanGunes/cal-randevu-sistemi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AhmetCanGunes/cal-randevu-sistemi/issues"
+  },
+  "homepage": "https://github.com/AhmetCanGunes/cal-randevu-sistemi#readme",
+  "dependencies": {
+    "next": "^15.4.5",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  }
+}

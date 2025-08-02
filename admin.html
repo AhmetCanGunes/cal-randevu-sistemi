@@ -6,379 +6,743 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#4f46e5">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="admin.css?v=2.4">
+    <meta name="theme-color" content="#8b5cf6">
+    <title>Job Board Dashboard</title>
+    <link rel="stylesheet" href="admin.css?v=3.0">
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
-    <script src="admin.js?v=2.4"></script>
-    <script>
-        console.log('JavaScript yüklendi!');
-        console.log('showLogoutConfirmation fonksiyonu:', typeof showLogoutConfirmation);
-    </script>
-  </head>
-  <body>
-    <!-- Login Form -->
-    <div id="login-container" class="login-container">
-        <div class="login-form">
-            <div class="login-header">
-                <h2>🔐 Admin Girişi</h2>
-                <p>Yönetici paneline erişim için giriş yapın</p>
-            </div>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="input-group">
-                    <label for="adminId">Kullanıcı ID</label>
-                    <input type="text" id="adminId" name="adminId" required placeholder="Kullanıcı ID'nizi girin">
-                </div>
-                <div class="input-group">
-                    <label for="adminPassword">Şifre</label>
-                    <input type="password" id="adminPassword" name="adminPassword" required placeholder="Şifrenizi girin">
-                </div>
-                <button type="submit" class="login-btn">
-                    <span class="btn-icon">🔑</span>
-                    Giriş Yap
-                </button>
-                <div id="login-error" class="login-error" style="display: none;"></div>
-            </form>
-            <div class="login-footer">
-                <small>Güvenli admin paneli - Sadece yetkili personel</small>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modern Dashboard -->
-    <div id="admin-panel" style="display: none;">
-        <div class="max-w-6xl mx-auto py-8 px-4">
-            <h1 class="text-3xl font-bold mb-6 flex items-center gap-2">
-                <i data-lucide="layout-dashboard" class="w-8 h-8 text-blue-500"></i>
-                Admin Dashboard
-            </h1>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
-                    <span class="text-gray-500">Toplam Randevu</span>
-                    <span class="text-2xl font-bold" id="totalAppointments">0</span>
-                </div>
-                <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
-                    <span class="text-gray-500">Bugünkü Randevular</span>
-                    <span class="text-2xl font-bold" id="todayAppointments">0</span>
-                </div>
-                <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
-                    <span class="text-gray-500">Bekleyen Onaylar</span>
-                    <span class="text-2xl font-bold" id="pendingAppointments">0</span>
-                </div>
-                <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
-                    <span class="text-gray-500">Tamamlanan</span>
-                    <span class="text-2xl font-bold" id="completedAppointments">0</span>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow p-6">
-                    <h2 class="font-semibold mb-4">Aylık Randevu Trendi</h2>
-                    <canvas id="appointmentChart"></canvas>
-                </div>
-                <div class="bg-white rounded-xl shadow p-6">
-                    <h2 class="font-semibold mb-4">Son Randevular</h2>
-                    <div id="recentAppointmentsList"></div>
-                </div>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc;
+        }
+        .job-board-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 24px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            background: #f8fafc;
+        }
+        .top-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #8b5cf6;
+        }
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #8b5cf6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+        .nav-menu {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .nav-item:hover {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        .nav-item.active {
+            background: #8b5cf6;
+            color: white;
+        }
+        .upgrade-section {
+            margin-top: 32px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+        }
+        .upgrade-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .upgrade-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .upgrade-description {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        .upgrade-btn {
+            background: white;
+            color: #8b5cf6;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .upgrade-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .logout-btn {
+            margin-top: auto;
+            padding: 12px 16px;
+            color: #ef4444;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .logout-btn:hover {
+            background: #fef2f2;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 400px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        .filter-btn {
+            padding: 10px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover {
+            border-color: #8b5cf6;
+        }
+        .filter-badge {
+            background: #8b5cf6;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .user-profile:hover {
+            background: #f1f5f9;
+        }
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        .job-board-content {
+            padding: 24px;
+        }
+        .job-board-header {
+            margin-bottom: 24px;
+        }
+        .job-board-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        .applied-filters {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .filter-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-tag .remove-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 16px;
+            padding: 0;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .clear-all {
+            color: #8b5cf6;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .job-count {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        .sort-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 14px;
+        }
+        .job-listings {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .job-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .job-card:hover {
+            border-color: #8b5cf6;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
+        }
+        .job-card.selected {
+            border-color: #8b5cf6;
+            background: #faf5ff;
+        }
+        .job-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        .company-logo {
+            width: 48px;
+            height: 48px;
+            background: #8b5cf6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .job-info {
+            flex: 1;
+        }
+        .job-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .job-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .job-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .job-location {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .job-salary {
+            color: #059669;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
+        }
+        .job-posted {
+            color: #64748b;
+            font-size: 12px;
+        }
+        .job-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            color: #64748b;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+        }
+        .action-btn.primary {
+            background: #8b5cf6;
+            color: white;
+            border-color: #8b5cf6;
+        }
+        .action-btn.primary:hover {
+            background: #7c3aed;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .job-board-content {
+                padding: 16px;
+            }
+        }
+    </style>
+    <script src="admin.js?v=3.0"></script>
+</head>
+<body>
+    <div class="job-board-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                <div class="logo-icon">W</div>
+                <span>wwwork</span>
             </div>
             
-            <!-- Hızlı İşlemler -->
-            <div class="bg-white rounded-xl shadow p-6">
-                <h2 class="font-semibold mb-4 flex items-center gap-2">
-                    <i data-lucide="zap" class="w-5 h-5 text-yellow-500"></i>
-                    Hızlı İşlemler
-                </h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <button onclick="showAppointmentsList()" class="flex flex-col items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-all group">
-                        <i data-lucide="list" class="w-8 h-8 text-blue-600 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium text-blue-900">Randevu Listesi</span>
-                    </button>
-                    <button onclick="createTestAppointment()" class="flex flex-col items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-all group">
-                        <i data-lucide="plus" class="w-8 h-8 text-green-600 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium text-green-900">Yeni Randevu</span>
-                    </button>
-                    <button onclick="exportAppointments()" class="flex flex-col items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-all group">
-                        <i data-lucide="download" class="w-8 h-8 text-purple-600 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium text-purple-900">Dışa Aktar</span>
-                    </button>
-                    <button onclick="showSettings()" class="flex flex-col items-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-all group">
-                        <i data-lucide="settings" class="w-8 h-8 text-orange-600 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-medium text-orange-900">Ayarlar</span>
-                    </button>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item active">
+                    <i data-lucide="briefcase" class="w-5 h-5"></i>
+                    <span>Job Board</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Schedule</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span>Messenger</span>
+                </a>
+            </nav>
+            
+            <div class="upgrade-section">
+                <div class="upgrade-icon">
+                    <i data-lucide="user" class="w-6 h-6"></i>
                 </div>
+                <div class="upgrade-title">Get Upgrade</div>
+                <div class="upgrade-description">Step to the next level, with more features</div>
+                <button class="upgrade-btn">Learn more</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Appointments List (Hidden by default) -->
-    <div class="appointments-container" id="appointments-section" style="display: none;">
-        
-        <!-- Back to Dashboard Button -->
-        <div class="max-w-6xl mx-auto py-4 px-4">
-            <button onclick="showDashboard()" class="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors mb-4">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                <span>Dashboard'a Dön</span>
+            
+            <button class="logout-btn" onclick="logout()">
+                <i data-lucide="log-out" class="w-5 h-5"></i>
+                <span>Logout</span>
             </button>
         </div>
-        
-        <div class="filter-container">
-            <div class="filter-row">
-                <div class="filter-group">
-                    <label for="dateFilter">📅 Tarih Filtresi</label>
-                    <input type="date" id="dateFilter" placeholder="Tarihe göre filtrele">
-                </div>
-                <div class="filter-group">
-                    <label for="statusFilter">📊 Durum Filtresi</label>
-                    <select id="statusFilter">
-                        <option value="">Tüm Durumlar</option>
-                        <option value="pending">Bekleyen</option>
-                        <option value="confirmed">Onaylandı</option>
-                        <option value="completed">Tamamlandı</option>
-                        <option value="cancelled">İptal Edildi</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="searchInput">🔍 Arama</label>
-                    <input type="text" id="searchInput" placeholder="İsim, telefon veya not ara...">
-                </div>
-                <div class="filter-group">
-                    <label for="timeFilter">🕒 Saat Filtresi</label>
-                    <select id="timeFilter">
-                        <option value="">Tüm Saatler</option>
-                        <option value="morning">Sabah (08:00-12:00)</option>
-                        <option value="afternoon">Öğleden Sonra (12:00-17:00)</option>
-                        <option value="evening">Akşam (17:00-22:00)</option>
-                    </select>
-                </div>
-            </div>
-            <div class="filter-actions">
-                <button id="clearFilters" class="filter-btn clear-filters-btn">
-                    <span class="btn-icon">🧹</span>
-                    <span>Filtreleri Temizle</span>
-                </button>
-                <button id="exportBtn" class="filter-btn export-btn">
-                    <span class="btn-icon">📊</span>
-                    <span>Dışa Aktar</span>
-                </button>
-            </div>
-        </div>
-        
-        <div id="appointmentsList" class="appointments-list">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>Randevular yükleniyor...</p>
-            </div>
-        </div>
-        
-        <!-- Mobil Footer - Boş Alan -->
-        <div class="mobile-footer">
-            <div class="mobile-footer-content">
-                <!-- Boş alan - sadece scroll için -->
-            </div>
-        </div>
-    </div>
 
-    <!-- Completed Appointments Section -->
-    <div id="completed-section" style="display: none;">
-        <div class="section-header">
-            <h2>✅ Tamamlanan Randevular</h2>
-            <p>Başarıyla tamamlanan randevuların listesi</p>
-        </div>
-        
-        <div class="filter-container">
-            <div class="filter-row">
-                <div class="filter-group">
-                    <label for="completedDateFilter">📅 Tarih Filtresi</label>
-                    <input type="date" id="completedDateFilter" placeholder="Tarihe göre filtrele">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Header -->
+            <div class="top-header">
+                <div class="search-container">
+                    <i data-lucide="search" class="w-5 h-5 text-gray-400"></i>
+                    <input type="text" class="search-input" placeholder="Quick Search (ctrl+D)">
                 </div>
-                <div class="filter-group">
-                    <label for="completedSearchFilter">🔍 Arama</label>
-                    <input type="text" id="completedSearchFilter" placeholder="İsim veya telefon ara...">
-                </div>
-            </div>
-            <button id="clearCompletedFilters" class="simple-btn clear-filters-btn">🧹 Filtreleri Temizle</button>
-        </div>
-        
-        <div id="completedAppointmentsList" class="appointments-list">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>Tamamlanan randevular yükleniyor...</p>
-            </div>
-        </div>
-        
-        <!-- Mobil Footer - Boş Alan -->
-        <div class="mobile-footer">
-            <div class="mobile-footer-content">
-                <!-- Boş alan - sadece scroll için -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Calendar Section -->
-    <div id="calendar-section" style="display: none;">
-        <div class="section-header">
-            <h2>📅 Takvim Görünümü</h2>
-            <p>Randevularınızı takvim formatında görüntüleyin</p>
-        </div>
-        <div class="calendar-container">
-            <div class="calendar-header">
-                <button id="prevMonth" class="simple-btn calendar-nav-btn">‹ Önceki</button>
-                <h3 id="currentMonth"></h3>
-                <button id="nextMonth" class="simple-btn calendar-nav-btn">Sonraki ›</button>
-            </div>
-            <div id="calendar" class="calendar-grid"></div>
-        </div>
-        
-        <!-- Mobil Footer - Boş Alan -->
-        <div class="mobile-footer">
-            <div class="mobile-footer-content">
-                <!-- Boş alan - sadece scroll için -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Settings Section -->
-    <div id="settings-section" style="display: none;">
-        <div class="section-header">
-            <h2>⚙️ Ayarlar</h2>
-            <p>Sistem ayarları ve konfigürasyon</p>
-        </div>
-        <div class="settings-container">
-            <div class="settings-group">
-                <h3>🕒 Çalışma Saatleri</h3>
-                <div class="form-row">
-                    <label>Başlangıç Saati:</label>
-                    <input type="time" id="startTime" value="09:00">
-                </div>
-                <div class="form-row">
-                    <label>Bitiş Saati:</label>
-                    <input type="time" id="endTime" value="18:00">
-                </div>
-            </div>
-            <div class="settings-group">
-                <h3>📧 Bildirimler</h3>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" checked> Email bildirimleri</label>
-                    <label><input type="checkbox" checked> Yeni randevu bildirimi</label>
-                    <label><input type="checkbox"> Günlük özet</label>
-                </div>
-            </div>
-            <div class="settings-group">
-                <h3>🎨 Görünüm</h3>
-                <div class="form-row">
-                    <label>Tema:</label>
-                    <select id="theme">
-                        <option value="light">Açık</option>
-                        <option value="dark">Koyu</option>
-                    </select>
-                </div>
-            </div>
-            <button class="simple-btn save-settings-btn" onclick="saveSettings()">💾 Ayarları Kaydet</button>
-
-            <!-- Admin Security Settings -->
-            <div class="settings-group security-settings">
-                <h3>�� Admin Güvenlik</h3>
-                <p class="security-description">Admin giriş bilgilerinizi güvenli bir şekilde değiştirin</p>
                 
-                <div class="security-form">
-                    <div class="current-admin-info">
-                        <h4>�� Mevcut Bilgiler</h4>
-                        <div class="current-info-display">
-                            <div class="info-item">
-                                <span class="info-label">Kullanıcı ID:</span>
-                                <span class="info-value" id="currentAdminId">admin</span>
+                <div class="user-profile">
+                    <div class="user-avatar">AD</div>
+                    <span>Anne Douglas</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <!-- Job Board Content -->
+            <div class="job-board-content">
+                <div class="job-board-header">
+                    <h1 class="job-board-title">Job Board</h1>
+                    
+                    <!-- Search and Filter Bar -->
+                    <div style="display: flex; gap: 12px; margin-bottom: 16px; align-items: center;">
+                        <div style="flex: 1; position: relative;">
+                            <i data-lucide="search" class="w-5 h-5 text-gray-400" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%);"></i>
+                            <input type="text" placeholder="Search by job title, company, keywords" style="width: 100%; padding: 12px 12px 12px 40px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <button class="filter-btn">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <span>Anywhere</span>
+                        </button>
+                        <button class="filter-btn">
+                            <i data-lucide="filter" class="w-4 h-4"></i>
+                            <span>Filters</span>
+                            <div class="filter-badge">4</div>
+                        </button>
+                    </div>
+
+                    <!-- Applied Filters -->
+                    <div class="applied-filters">
+                        <div class="filter-tag">
+                            Design
+                            <button class="remove-btn">×</button>
+                        </div>
+                        <div class="filter-tag">
+                            Regular
+                            <button class="remove-btn">×</button>
+                        </div>
+                        <div class="filter-tag">
+                            Full time
+                            <button class="remove-btn">×</button>
+                        </div>
+                        <div class="filter-tag">
+                            B2B
+                            <button class="remove-btn">×</button>
+                        </div>
+                        <a href="#" class="clear-all">Clear All</a>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                        <div class="job-count">We've found 523 jobs!</div>
+                        <div class="sort-container">
+                            Sort by: Date
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Listings -->
+                <div class="job-listings">
+                    <!-- UX Designer - Dropbox -->
+                    <div class="job-card" onclick="selectJob(this)">
+                        <div class="job-header">
+                            <div class="company-logo">D</div>
+                            <div class="job-info">
+                                <div class="job-title">UX Designer</div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Remote</span>
+                                    <span class="job-tag">Sketch</span>
+                                </div>
+                                <div class="job-location">Dropbox — Warszawa</div>
+                                <div class="job-salary">8.8 - 13.7k PLN</div>
                             </div>
-                            <div class="info-item">
-                                <span class="info-label">Son Değişiklik:</span>
-                                <span class="info-value" id="lastPasswordChange">Hiç değiştirilmemiş</span>
+                        </div>
+                        <div class="job-meta">
+                            <div class="job-posted">2 days ago</div>
+                            <div class="job-actions">
+                                <button class="action-btn">Save</button>
+                                <button class="action-btn primary">Apply</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="security-form-section">
-                        <h4>🔄 Bilgileri Değiştir</h4>
-                        
-                        <div class="form-group">
-                            <label for="currentPassword">🔒 Mevcut Şifre</label>
-                            <input type="password" id="currentPassword" placeholder="Mevcut şifrenizi girin" required>
+                    <!-- Product Designer - Twitch -->
+                    <div class="job-card selected" onclick="selectJob(this)">
+                        <div class="job-header">
+                            <div class="company-logo">T</div>
+                            <div class="job-info">
+                                <div class="job-title">Product Designer</div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Remote</span>
+                                </div>
+                                <div class="job-location">Twitch — Wroclaw</div>
+                                <div class="job-salary">8.2 - 13.5k PLN</div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="newAdminId">👤 Yeni Kullanıcı ID</label>
-                            <input type="text" id="newAdminId" placeholder="Yeni kullanıcı ID (boş bırakılabilir)" maxlength="20">
-                            <small class="field-note">Boş bırakırsanız mevcut ID korunur</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="newPassword">🔑 Yeni Şifre</label>
-                            <input type="password" id="newPassword" placeholder="Yeni şifrenizi girin" required>
-                            <div class="password-strength" id="passwordStrength"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="confirmPassword">✅ Şifre Tekrar</label>
-                            <input type="password" id="confirmPassword" placeholder="Yeni şifrenizi tekrar girin" required>
-                            <div class="password-match" id="passwordMatch"></div>
-                        </div>
-
-                        <div class="security-actions">
-                            <button class="security-btn save-btn" onclick="changeAdminCredentials()">
-                                <span class="btn-icon">🔐</span>
-                                Bilgileri Güncelle
-                            </button>
-                            <button class="security-btn reset-btn" onclick="resetSecurityForm()">
-                                <span class="btn-icon">🔄</span>
-                                Formu Temizle
-                            </button>
+                        <div class="job-meta">
+                            <div class="job-posted">2 days ago</div>
+                            <div class="job-actions">
+                                <button class="action-btn">Save</button>
+                                <button class="action-btn primary">Apply</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="security-tips">
-                        <h4>💡 Güvenlik İpuçları</h4>
-                        <ul class="tips-list">
-                            <li>Şifreniz en az 8 karakter olmalı</li>
-                            <li>Büyük-küçük harf, rakam ve özel karakter kullanın</li>
-                            <li>Kolay tahmin edilebilir şifreler kullanmayın</li>
-                            <li>Şifrenizi düzenli olarak değiştirin</li>
-                        </ul>
+                    <!-- UX/UI Designer - Google -->
+                    <div class="job-card" onclick="selectJob(this)">
+                        <div class="job-header">
+                            <div class="company-logo">G</div>
+                            <div class="job-info">
+                                <div class="job-title">UX/UI Designer</div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Remote</span>
+                                    <span class="job-tag">JavaScript</span>
+                                </div>
+                                <div class="job-location">Google — Warszawa</div>
+                                <div class="job-salary">7.5 - 12.5k PLN</div>
+                            </div>
+                        </div>
+                        <div class="job-meta">
+                            <div class="job-posted">3 days ago</div>
+                            <div class="job-actions">
+                                <button class="action-btn">Save</button>
+                                <button class="action-btn primary">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Motion Designer -->
+                    <div class="job-card" onclick="selectJob(this)">
+                        <div class="job-header">
+                            <div class="company-logo">M</div>
+                            <div class="job-info">
+                                <div class="job-title">Motion Designer</div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Remote</span>
+                                    <span class="job-tag">Adobe</span>
+                                </div>
+                                <div class="job-location">Motion Studio — Krakow</div>
+                                <div class="job-salary">7.2 - 12.5k PLN</div>
+                            </div>
+                        </div>
+                        <div class="job-meta">
+                            <div class="job-posted">4 days ago</div>
+                            <div class="job-actions">
+                                <button class="action-btn">Save</button>
+                                <button class="action-btn primary">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frontend Developer - Netflix -->
+                    <div class="job-card" onclick="selectJob(this)">
+                        <div class="job-header">
+                            <div class="company-logo">N</div>
+                            <div class="job-info">
+                                <div class="job-title">Frontend Developer</div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Remote</span>
+                                    <span class="job-tag">React</span>
+                                </div>
+                                <div class="job-location">Netflix — Gdansk</div>
+                                <div class="job-salary">9.0 - 15.0k PLN</div>
+                            </div>
+                        </div>
+                        <div class="job-meta">
+                            <div class="job-posted">1 day ago</div>
+                            <div class="job-actions">
+                                <button class="action-btn">Save</button>
+                                <button class="action-btn primary">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backend Developer - Spotify -->
+                    <div class="job-card" onclick="selectJob(this)">
+                        <div class="job-header">
+                            <div class="company-logo">S</div>
+                            <div class="job-info">
+                                <div class="job-title">Backend Developer</div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Remote</span>
+                                    <span class="job-tag">Node.js</span>
+                                </div>
+                                <div class="job-location">Spotify — Poznan</div>
+                                <div class="job-salary">8.5 - 14.0k PLN</div>
+                            </div>
+                        </div>
+                        <div class="job-meta">
+                            <div class="job-posted">5 days ago</div>
+                            <div class="job-actions">
+                                <button class="action-btn">Save</button>
+                                <button class="action-btn primary">Apply</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Mobil Footer - Boş Alan -->
-        <div class="mobile-footer">
-            <div class="mobile-footer-content">
-                <!-- Boş alan - sadece scroll için -->
-            </div>
-        </div>
-    </div>
     </div>
 
-    <!-- Confirmation Modals -->
-    <div id="clearAllConfirmation" class="confirmation-overlay" style="display: none;">
-        <div class="confirmation-modal">
-            <div class="confirmation-header">
-                <h3>⚠️ Dikkat!</h3>
-                <p>Tüm randevuları silmek istediğinizden emin misiniz?</p>
-            </div>
-            <div class="confirmation-content">
-                <p>Bu işlem geri alınamaz ve tüm randevu verilerini kalıcı olarak silecektir.</p>
-            </div>
-            <div class="confirmation-actions">
-                <button class="confirmation-btn cancel-btn" onclick="hideClearAllConfirmation()">❌ İptal</button>
-                <button class="confirmation-btn confirm-btn" onclick="clearAllAppointments()">🗑️ Evet, Tümünü Sil</button>
-            </div>
-        </div>
-    </div>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
 
+        // Job selection functionality
+        function selectJob(card) {
+            // Remove selected class from all cards
+            document.querySelectorAll('.job-card').forEach(c => c.classList.remove('selected'));
+            // Add selected class to clicked card
+            card.classList.add('selected');
+        }
 
+        // Logout functionality
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Add logout logic here
+                console.log('Logout clicked');
+            }
+        }
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const jobCards = document.querySelectorAll('.job-card');
+            
+            jobCards.forEach(card => {
+                const jobTitle = card.querySelector('.job-title').textContent.toLowerCase();
+                const jobLocation = card.querySelector('.job-location').textContent.toLowerCase();
+                const jobTags = Array.from(card.querySelectorAll('.job-tag')).map(tag => tag.textContent.toLowerCase());
+                
+                const matches = jobTitle.includes(searchTerm) || 
+                              jobLocation.includes(searchTerm) || 
+                              jobTags.some(tag => tag.includes(searchTerm));
+                
+                card.style.display = matches ? 'block' : 'none';
+            });
+        });
+
+        // Filter tag removal
+        document.querySelectorAll('.remove-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.closest('.filter-tag').remove();
+            });
+        });
+
+        // Clear all filters
+        document.querySelector('.clear-all').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.filter-tag').forEach(tag => tag.remove());
+        });
+
+        // Apply button functionality
+        document.querySelectorAll('.action-btn.primary').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const jobTitle = this.closest('.job-card').querySelector('.job-title').textContent;
+                alert(`Applied to ${jobTitle}`);
+            });
+        });
+
+        // Save button functionality
+        document.querySelectorAll('.action-btn:not(.primary)').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const jobTitle = this.closest('.job-card').querySelector('.job-title').textContent;
+                this.textContent = this.textContent === 'Save' ? 'Saved' : 'Save';
+                this.style.background = this.textContent === 'Saved' ? '#10b981' : 'white';
+                this.style.color = this.textContent === 'Saved' ? 'white' : '#64748b';
+            });
+        });
+
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // Add mobile menu button if needed
+        if (window.innerWidth <= 768) {
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+            mobileMenuBtn.style.cssText = 'position: fixed; top: 16px; left: 16px; z-index: 1000; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px;';
+            mobileMenuBtn.onclick = toggleSidebar;
+            document.body.appendChild(mobileMenuBtn);
+            lucide.createIcons();
+        }
+    </script>
 </body>
 </html> 
