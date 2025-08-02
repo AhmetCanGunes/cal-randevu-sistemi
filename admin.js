@@ -114,13 +114,15 @@ function showAdminPanel() {
     console.log('📱 Setting up event listeners...');
     setupEventListeners();
     
-    // Initialize dashboard
-    console.log('🎨 Initializing dashboard...');
-    initializeDashboard();
-    
     // Initialize device-specific features
     console.log('🔧 Initializing device features...');
     initializeDeviceFeatures();
+    
+    // Initialize dashboard with delay to ensure DOM is ready
+    console.log('🎨 Initializing dashboard...');
+    setTimeout(() => {
+        initializeDashboard();
+    }, 100);
 }
 
 // Initialize device-specific features
@@ -2137,10 +2139,21 @@ function setupEventListeners() {
 
 // Dashboard Functions
 function initializeDashboard() {
+    console.log('🎯 initializeDashboard function called');
+    
     // Lucide ikonlarını her zaman yükle
     if (typeof lucide !== 'undefined') {
+        console.log('🎨 Creating Lucide icons...');
         lucide.createIcons();
+    } else {
+        console.log('⚠️ Lucide not loaded yet, retrying...');
+        setTimeout(() => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }, 500);
     }
+    
     // Dashboard verilerini yükle
     refreshDashboard();
 }
@@ -2151,7 +2164,11 @@ function refreshDashboard() {
     // Load all dashboard data
     loadDashboardStats();
     loadRecentAppointments();
-    initializeChart();
+    
+    // Initialize chart with delay to ensure Chart.js is loaded
+    setTimeout(() => {
+        initializeChart();
+    }, 200);
     
     // Show success notification
     showNotification('Dashboard yenilendi!', 'success');
@@ -2276,6 +2293,15 @@ function initializeChart() {
     const ctx = document.getElementById('appointmentChart');
     if (!ctx) {
         console.log('❌ Chart canvas not found');
+        return;
+    }
+    
+    // Check if Chart.js is loaded
+    if (typeof Chart === 'undefined') {
+        console.log('⚠️ Chart.js not loaded yet, retrying...');
+        setTimeout(() => {
+            initializeChart();
+        }, 500);
         return;
     }
     
