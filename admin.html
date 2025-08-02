@@ -497,7 +497,7 @@
                                         <i data-lucide="calendar" class="w-5 h-5"></i>
                                     </div>
                                     <div>
-                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;">24</div>
+                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;" data-stat="today">0</div>
                                         <div style="color: #64748b; font-size: 14px;">Bugünkü Randevular</div>
                                     </div>
                                 </div>
@@ -509,7 +509,7 @@
                                         <i data-lucide="check-circle" class="w-5 h-5"></i>
                                     </div>
                                     <div>
-                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;">156</div>
+                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;" data-stat="completed">0</div>
                                         <div style="color: #64748b; font-size: 14px;">Tamamlanan Randevular</div>
                                     </div>
                                 </div>
@@ -521,7 +521,7 @@
                                         <i data-lucide="clock" class="w-5 h-5"></i>
                                     </div>
                                     <div>
-                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;">8</div>
+                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;" data-stat="pending">0</div>
                                         <div style="color: #64748b; font-size: 14px;">Bekleyen Randevular</div>
                                     </div>
                                 </div>
@@ -533,11 +533,19 @@
                                         <i data-lucide="x-circle" class="w-5 h-5"></i>
                                     </div>
                                     <div>
-                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;">3</div>
+                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;" data-stat="cancelled">0</div>
                                         <div style="color: #64748b; font-size: 14px;">İptal Edilen</div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        
+                        <!-- Test Appointment Button -->
+                        <div style="margin-top: 24px;">
+                            <button onclick="createTestAppointment()" style="background: #8b5cf6; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600;">
+                                <i data-lucide="plus" class="w-4 h-4" style="margin-right: 8px;"></i>
+                                Test Randevusu Oluştur
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -776,6 +784,308 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
+        // Load real appointment data
+        let appointments = [];
+
+        // Load appointments from localStorage
+        async function loadAppointments() {
+            try {
+                const data = localStorage.getItem('appointments');
+                appointments = data ? JSON.parse(data) : [];
+                console.log('Loaded appointments:', appointments);
+                displayAppointments();
+                updateDashboardStats();
+            } catch (error) {
+                console.error('Error loading appointments:', error);
+            }
+        }
+
+        // Display appointments in the UI
+        function displayAppointments() {
+            const appointmentListings = document.querySelector('.appointment-listings');
+            if (!appointmentListings) return;
+
+            if (appointments.length === 0) {
+                appointmentListings.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #64748b;">
+                        <i data-lucide="calendar" class="w-16 h-16 mx-auto mb-4 text-gray-300"></i>
+                        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Henüz Randevu Yok</h3>
+                        <p>Henüz oluşturulmuş randevu bulunmuyor.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            // Sort appointments by date and time
+            const sortedAppointments = appointments.sort((a, b) => {
+                const dateA = new Date(a.date + ' ' + a.time);
+                const dateB = new Date(b.date + ' ' + b.time);
+                return dateA - dateB;
+            });
+
+            const appointmentCards = sortedAppointments.map(appointment => createAppointmentCard(appointment)).join('');
+            appointmentListings.innerHTML = appointmentCards;
+            lucide.createIcons();
+        }
+
+        // Create appointment card HTML
+        function createAppointmentCard(appointment) {
+            const fullName = `${appointment.name || ''} ${appointment.surname || ''}`.trim();
+            const initials = getInitials(fullName);
+            const status = appointment.status || 'pending';
+            const statusText = getStatusText(status);
+            const statusClass = getStatusClass(status);
+            const timeAgo = getTimeAgo(appointment.createdAt || new Date().toISOString());
+
+            return `
+                <div class="appointment-card" onclick="selectAppointment(this)" data-id="${appointment.id}">
+                    <div class="appointment-header-card">
+                        <div class="customer-avatar">${initials}</div>
+                        <div class="appointment-info">
+                            <div class="customer-name">${fullName || 'İsimsiz'}</div>
+                            <div class="appointment-tags">
+                                <span class="appointment-tag ${statusClass}">${statusText}</span>
+                                <span class="appointment-tag">${getTimeOfDay(appointment.time)}</span>
+                            </div>
+                            <div class="appointment-details">Telefon: ${appointment.phone || 'Belirtilmemiş'}</div>
+                            <div class="appointment-status">${formatDate(appointment.date)} ${appointment.time}</div>
+                        </div>
+                    </div>
+                    <div class="appointment-meta">
+                        <div class="appointment-date">${timeAgo}</div>
+                        <div class="appointment-actions">
+                            <button class="action-btn" onclick="editAppointment('${appointment.id}')">Düzenle</button>
+                            ${getActionButtons(appointment)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper functions
+        function getInitials(name) {
+            if (!name) return '?';
+            return name.split(' ').map(n => n.charAt(0)).join('').toUpperCase().substring(0, 2);
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'Bekliyor',
+                'confirmed': 'Onaylandı',
+                'completed': 'Tamamlandı',
+                'cancelled': 'İptal Edildi'
+            };
+            return statusMap[status] || 'Bilinmiyor';
+        }
+
+        function getStatusClass(status) {
+            const classMap = {
+                'pending': 'bg-yellow-100 text-yellow-800',
+                'confirmed': 'bg-blue-100 text-blue-800',
+                'completed': 'bg-green-100 text-green-800',
+                'cancelled': 'bg-red-100 text-red-800'
+            };
+            return classMap[status] || 'bg-gray-100 text-gray-800';
+        }
+
+        function getTimeOfDay(time) {
+            if (!time) return '';
+            const hour = parseInt(time.split(':')[0]);
+            if (hour < 12) return 'Sabah';
+            if (hour < 17) return 'Öğleden Sonra';
+            return 'Akşam';
+        }
+
+        function getTimeAgo(dateString) {
+            const now = new Date();
+            const date = new Date(dateString);
+            const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
+            
+            if (diffInHours < 1) return 'Az önce oluşturuldu';
+            if (diffInHours < 24) return `${diffInHours} saat önce oluşturuldu`;
+            const diffInDays = Math.floor(diffInHours / 24);
+            return `${diffInDays} gün önce oluşturuldu`;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('tr-TR', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function getActionButtons(appointment) {
+            const status = appointment.status || 'pending';
+            
+            switch(status) {
+                case 'pending':
+                    return `
+                        <button class="action-btn primary" onclick="updateAppointmentStatus('${appointment.id}', 'confirmed')">Onayla</button>
+                        <button class="action-btn danger" onclick="updateAppointmentStatus('${appointment.id}', 'cancelled')">İptal Et</button>
+                    `;
+                case 'confirmed':
+                    return `
+                        <button class="action-btn success" onclick="updateAppointmentStatus('${appointment.id}', 'completed')">Tamamla</button>
+                        <button class="action-btn danger" onclick="updateAppointmentStatus('${appointment.id}', 'cancelled')">İptal Et</button>
+                    `;
+                case 'completed':
+                    return `
+                        <button class="action-btn">Görüntüle</button>
+                        <button class="action-btn">Notlar</button>
+                    `;
+                case 'cancelled':
+                    return `
+                        <button class="action-btn">Görüntüle</button>
+                        <button class="action-btn">Sil</button>
+                    `;
+                default:
+                    return `
+                        <button class="action-btn">Düzenle</button>
+                        <button class="action-btn danger">İptal Et</button>
+                    `;
+            }
+        }
+
+        // Update appointment status
+        async function updateAppointmentStatus(appointmentId, newStatus) {
+            event.stopPropagation();
+            
+            const appointmentIndex = appointments.findIndex(app => app.id === appointmentId);
+            if (appointmentIndex === -1) return;
+
+            appointments[appointmentIndex].status = newStatus;
+            appointments[appointmentIndex].updatedAt = new Date().toISOString();
+
+            // Save to localStorage
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+
+            // Refresh display
+            displayAppointments();
+            updateDashboardStats();
+
+            showNotification(`Randevu durumu güncellendi: ${getStatusText(newStatus)}`, 'success');
+        }
+
+        // Update dashboard statistics
+        function updateDashboardStats() {
+            const today = new Date().toISOString().split('T')[0];
+            
+            const todayAppointments = appointments.filter(app => app.date === today).length;
+            const completedAppointments = appointments.filter(app => app.status === 'completed').length;
+            const pendingAppointments = appointments.filter(app => app.status === 'pending').length;
+            const cancelledAppointments = appointments.filter(app => app.status === 'cancelled').length;
+
+            // Update dashboard stats if elements exist
+            const todayElement = document.querySelector('[data-stat="today"]');
+            const completedElement = document.querySelector('[data-stat="completed"]');
+            const pendingElement = document.querySelector('[data-stat="pending"]');
+            const cancelledElement = document.querySelector('[data-stat="cancelled"]');
+
+            if (todayElement) todayElement.textContent = todayAppointments;
+            if (completedElement) completedElement.textContent = completedAppointments;
+            if (pendingElement) pendingElement.textContent = pendingAppointments;
+            if (cancelledElement) cancelledElement.textContent = cancelledAppointments;
+
+            // Update appointment count
+            const appointmentCountElement = document.querySelector('.appointment-count');
+            if (appointmentCountElement) {
+                appointmentCountElement.textContent = `Toplam ${appointments.length} randevu bulundu!`;
+            }
+        }
+
+        // Edit appointment
+        function editAppointment(appointmentId) {
+            event.stopPropagation();
+            const appointment = appointments.find(app => app.id === appointmentId);
+            if (appointment) {
+                alert(`Randevu düzenleme: ${appointment.name} ${appointment.surname}`);
+                // Burada randevu düzenleme modalı açılabilir
+            }
+        }
+
+        // Create test appointment
+        function createTestAppointment() {
+            const testAppointment = {
+                id: Date.now().toString(),
+                name: 'Test',
+                surname: 'Kullanıcı',
+                date: new Date().toISOString().split('T')[0],
+                time: '14:30',
+                phone: '0555 123 4567',
+                notes: 'Test randevu - debug amaçlı',
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            
+            // Get existing appointments
+            const existingAppointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            
+            // Add test appointment
+            existingAppointments.push(testAppointment);
+            
+            // Save back to localStorage
+            localStorage.setItem('appointments', JSON.stringify(existingAppointments));
+            
+            console.log('Test appointment created:', testAppointment);
+            console.log('Total appointments now:', existingAppointments.length);
+            
+            // Reload appointments
+            loadAppointments();
+            
+            showNotification('✅ Test randevu oluşturuldu!', 'success');
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300 translate-x-full`;
+            
+            let bgColor, textColor, icon;
+            switch(type) {
+                case 'success':
+                    bgColor = 'bg-green-500';
+                    textColor = 'text-white';
+                    icon = 'check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'bg-red-500';
+                    textColor = 'text-white';
+                    icon = 'alert-circle';
+                    break;
+                default:
+                    bgColor = 'bg-blue-500';
+                    textColor = 'text-white';
+                    icon = 'info';
+            }
+            
+            notification.className += ` ${bgColor} ${textColor}`;
+            notification.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i data-lucide="${icon}" class="w-5 h-5"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            lucide.createIcons();
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
         // Section navigation functionality
         function showSection(sectionId) {
             // Hide all sections
@@ -793,6 +1103,13 @@
             
             // Add active class to clicked nav item
             event.currentTarget.classList.add('active');
+
+            // Load data for specific sections
+            if (sectionId === 'appointments') {
+                loadAppointments();
+            } else if (sectionId === 'dashboard') {
+                updateDashboardStats();
+            }
         }
 
         // Appointment selection functionality
@@ -806,62 +1123,51 @@
         // Logout functionality
         function logout() {
             if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
-                // Add logout logic here
-                console.log('Logout clicked');
+                localStorage.removeItem('adminSession');
+                window.location.reload();
             }
         }
 
         // Search functionality
-        document.querySelector('.search-input').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const appointmentCards = document.querySelectorAll('.appointment-card');
-            
-            appointmentCards.forEach(card => {
-                const customerName = card.querySelector('.customer-name').textContent.toLowerCase();
-                const appointmentDetails = card.querySelector('.appointment-details').textContent.toLowerCase();
-                const appointmentTags = Array.from(card.querySelectorAll('.appointment-tag')).map(tag => tag.textContent.toLowerCase());
-                
-                const matches = customerName.includes(searchTerm) || 
-                              appointmentDetails.includes(searchTerm) || 
-                              appointmentTags.some(tag => tag.includes(searchTerm));
-                
-                card.style.display = matches ? 'block' : 'none';
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const appointmentCards = document.querySelectorAll('.appointment-card');
+                    
+                    appointmentCards.forEach(card => {
+                        const customerName = card.querySelector('.customer-name').textContent.toLowerCase();
+                        const appointmentDetails = card.querySelector('.appointment-details').textContent.toLowerCase();
+                        const appointmentTags = Array.from(card.querySelectorAll('.appointment-tag')).map(tag => tag.textContent.toLowerCase());
+                        
+                        const matches = customerName.includes(searchTerm) || 
+                                      appointmentDetails.includes(searchTerm) || 
+                                      appointmentTags.some(tag => tag.includes(searchTerm));
+                        
+                        card.style.display = matches ? 'block' : 'none';
+                    });
+                });
+            }
+
+            // Load initial data
+            loadAppointments();
         });
 
         // Filter tag removal
-        document.querySelectorAll('.remove-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-btn')) {
                 e.stopPropagation();
-                this.closest('.filter-tag').remove();
-            });
+                e.target.closest('.filter-tag').remove();
+            }
         });
 
         // Clear all filters
-        document.querySelector('.clear-all').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.filter-tag').forEach(tag => tag.remove());
-        });
-
-        // Action button functionality
-        document.querySelectorAll('.action-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const customerName = this.closest('.appointment-card').querySelector('.customer-name').textContent;
-                const action = this.textContent;
-                
-                if (action === 'Onayla') {
-                    this.textContent = 'Onaylandı';
-                    this.classList.remove('primary');
-                    this.classList.add('success');
-                } else if (action === 'Tamamla') {
-                    this.textContent = 'Tamamlandı';
-                    this.classList.remove('success');
-                    this.style.background = '#6b7280';
-                }
-                
-                console.log(`${action} clicked for ${customerName}`);
-            });
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('clear-all')) {
+                e.preventDefault();
+                document.querySelectorAll('.filter-tag').forEach(tag => tag.remove());
+            }
         });
 
         // Mobile sidebar toggle
