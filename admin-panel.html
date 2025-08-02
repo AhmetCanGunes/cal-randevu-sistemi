@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Randevu Yönetimi</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(var(--primary))",
+                            foreground: "hsl(var(--primary-foreground))",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(var(--secondary))",
+                            foreground: "hsl(var(--secondary-foreground))",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(var(--destructive))",
+                            foreground: "hsl(var(--destructive-foreground))",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(var(--muted))",
+                            foreground: "hsl(var(--muted-foreground))",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(var(--accent))",
+                            foreground: "hsl(var(--accent-foreground))",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(var(--popover))",
+                            foreground: "hsl(var(--popover-foreground))",
+                        },
+                        card: {
+                            DEFAULT: "hsl(var(--card))",
+                            foreground: "hsl(var(--card-foreground))",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 222.2 84% 4.9%;
+            --primary: 222.2 47.4% 11.2%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96%;
+            --secondary-foreground: 222.2 84% 4.9%;
+            --muted: 210 40% 96%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96%;
+            --accent-foreground: 222.2 84% 4.9%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 222.2 84% 4.9%;
+            --radius: 0.5rem;
+        }
+
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --popover: 222.2 84% 4.9%;
+            --popover-foreground: 210 40% 98%;
+            --primary: 210 40% 98%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 212.7 26.8% 83.9%;
+        }
+
+        * {
+            border-color: hsl(var(--border));
+        }
+
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+        }
+
+        .btn-primary:hover {
+            background-color: hsl(var(--primary) / 0.9);
+        }
+
+        .btn-secondary {
+            background-color: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+        }
+
+        .btn-secondary:hover {
+            background-color: hsl(var(--secondary) / 0.8);
+        }
+
+        .btn-destructive {
+            background-color: hsl(var(--destructive));
+            color: hsl(var(--destructive-foreground));
+        }
+
+        .btn-destructive:hover {
+            background-color: hsl(var(--destructive) / 0.9);
+        }
+
+        .btn-outline {
+            border-color: hsl(var(--input));
+            background-color: transparent;
+            color: hsl(var(--foreground));
+        }
+
+        .btn-outline:hover {
+            background-color: hsl(var(--accent));
+            color: hsl(var(--accent-foreground));
+        }
+
+        .btn-sm {
+            height: 2.25rem;
+            padding: 0 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-md {
+            height: 2.5rem;
+            padding: 0 1rem;
+        }
+
+        .btn-lg {
+            height: 2.75rem;
+            padding: 0 1.5rem;
+        }
+
+        .card {
+            background-color: hsl(var(--card));
+            color: hsl(var(--card-foreground));
+            border-radius: var(--radius);
+            border: 1px solid hsl(var(--border));
+        }
+
+        .input {
+            display: flex;
+            height: 2.5rem;
+            width: 100%;
+            border-radius: var(--radius);
+            border: 1px solid hsl(var(--input));
+            background-color: transparent;
+            padding: 0 0.75rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .input:focus {
+            outline: 2px solid hsl(var(--ring));
+            outline-offset: 2px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: var(--radius);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.125rem 0.5rem;
+        }
+
+        .badge-success {
+            background-color: hsl(142.1 76.2% 36.3%);
+            color: hsl(355.7 100% 97.3%);
+        }
+
+        .badge-warning {
+            background-color: hsl(48 96% 53%);
+            color: hsl(48 96% 10%);
+        }
+
+        .badge-destructive {
+            background-color: hsl(var(--destructive));
+            color: hsl(var(--destructive-foreground));
+        }
+
+        .badge-secondary {
+            background-color: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid hsl(var(--border));
+        }
+
+        .table th {
+            font-weight: 600;
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+        }
+
+        .table td {
+            font-size: 0.875rem;
+        }
+
+        .alert {
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            border: 1px solid transparent;
+        }
+
+        .alert-success {
+            background-color: hsl(142.1 76.2% 36.3% / 0.1);
+            border-color: hsl(142.1 76.2% 36.3% / 0.2);
+            color: hsl(142.1 76.2% 36.3%);
+        }
+
+        .alert-error {
+            background-color: hsl(var(--destructive) / 0.1);
+            border-color: hsl(var(--destructive) / 0.2);
+            color: hsl(var(--destructive));
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-muted-foreground {
+            color: hsl(var(--muted-foreground));
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .max-w-md {
+            max-width: 28rem;
+        }
+
+        .max-w-lg {
+            max-width: 32rem;
+        }
+
+        .max-w-2xl {
+            max-width: 42rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .p-6 {
+            padding: 1.5rem;
+        }
+
+        .p-8 {
+            padding: 2rem;
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .border {
+            border: 1px solid hsl(var(--border));
+        }
+
+        .min-h-screen {
+            min-height: 100vh;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .grid-cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .md\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .md\:grid-cols-4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-6 {
+            gap: 1.5rem;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-background">
+    <!-- Login Page -->
+    <div id="loginPage" class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md space-y-6">
+            <div class="text-center space-y-2">
+                <h1 class="text-2xl font-semibold">Admin Girişi</h1>
+                <p class="text-muted-foreground">Randevu yönetim paneline erişim</p>
+            </div>
+            
+            <div class="card p-6 space-y-4">
+                <form id="loginForm" class="space-y-4">
+                    <div class="space-y-2">
+                        <label for="username" class="text-sm font-medium">Kullanıcı Adı</label>
+                        <input type="text" id="username" class="input" placeholder="admin" required>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label for="password" class="text-sm font-medium">Şifre</label>
+                        <input type="password" id="password" class="input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-full">
+                        <i data-lucide="log-in" class="w-4 h-4 mr-2"></i>
+                        Giriş Yap
+                    </button>
+                </form>
+                
+                <div id="loginError" class="alert alert-error hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="dashboardPage" class="hidden min-h-screen bg-background">
+        <!-- Header -->
+        <header class="border-b bg-card">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <h1 class="text-xl font-semibold">Randevu Yönetim Paneli</h1>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium">
+                                A
+                            </div>
+                            <span class="text-sm font-medium">Admin</span>
+                        </div>
+                        
+                        <button onclick="logout()" class="btn btn-outline btn-sm">
+                            <i data-lucide="log-out" class="w-4 h-4 mr-2"></i>
+                            Çıkış
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="card p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                            <i data-lucide="calendar" class="w-6 h-6 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-muted-foreground">Toplam Randevu</p>
+                            <p class="text-2xl font-bold" id="totalAppointments">0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-muted-foreground">Onaylanan</p>
+                            <p class="text-2xl font-bold" id="confirmedAppointments">0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-lg bg-yellow-100 flex items-center justify-center">
+                            <i data-lucide="clock" class="w-6 h-6 text-yellow-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-muted-foreground">Bekleyen</p>
+                            <p class="text-2xl font-bold" id="pendingAppointments">0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center">
+                            <i data-lucide="x-circle" class="w-6 h-6 text-red-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-muted-foreground">İptal Edilen</p>
+                            <p class="text-2xl font-bold" id="cancelledAppointments">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointments Table -->
+            <div class="card p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-lg font-semibold">Randevular</h2>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <input type="text" id="searchInput" class="input w-64" placeholder="Ara...">
+                            <button onclick="searchAppointments()" class="btn btn-secondary btn-sm">
+                                <i data-lucide="search" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        
+                        <button onclick="createTestAppointment()" class="btn btn-primary btn-sm">
+                            <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
+                            Test Randevu
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
+                        <thead>
+                            <tr>
+                                <th>Müşteri</th>
+                                <th>Telefon</th>
+                                <th>Tarih</th>
+                                <th>Saat</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentsTableBody">
+                            <!-- Randevular buraya yüklenecek -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="noAppointments" class="text-center py-8 text-muted-foreground hidden">
+                    <i data-lucide="calendar" class="w-16 h-16 mx-auto mb-4 text-muted-foreground"></i>
+                    <h3 class="text-lg font-semibold mb-2">Henüz Randevu Yok</h3>
+                    <p>Henüz oluşturulmuş randevu bulunmuyor.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Global variables
+        let appointments = [];
+        let filteredAppointments = [];
+
+        // Check if user is logged in
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn');
+            if (isLoggedIn === 'true') {
+                showDashboard();
+            } else {
+                showLogin();
+            }
+        }
+
+        // Show login page
+        function showLogin() {
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('dashboardPage').classList.add('hidden');
+        }
+
+        // Show dashboard
+        function showDashboard() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('dashboardPage').classList.remove('hidden');
+            loadAppointments();
+        }
+
+        // Handle login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            // Simple authentication (in real app, this would be server-side)
+            if (username === 'admin' && password === '123456') {
+                localStorage.setItem('adminLoggedIn', 'true');
+                showDashboard();
+                errorDiv.classList.add('hidden');
+            } else {
+                errorDiv.textContent = 'Kullanıcı adı veya şifre hatalı!';
+                errorDiv.classList.remove('hidden');
+            }
+        });
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            showLogin();
+        }
+
+        // Load appointments from localStorage
+        function loadAppointments() {
+            try {
+                const data = localStorage.getItem('appointments');
+                appointments = data ? JSON.parse(data) : [];
+                filteredAppointments = [...appointments];
+                updateStats();
+                displayAppointments();
+            } catch (error) {
+                console.error('Error loading appointments:', error);
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            const total = appointments.length;
+            const confirmed = appointments.filter(app => app.status === 'confirmed').length;
+            const pending = appointments.filter(app => app.status === 'pending').length;
+            const cancelled = appointments.filter(app => app.status === 'cancelled').length;
+
+            document.getElementById('totalAppointments').textContent = total;
+            document.getElementById('confirmedAppointments').textContent = confirmed;
+            document.getElementById('pendingAppointments').textContent = pending;
+            document.getElementById('cancelledAppointments').textContent = cancelled;
+        }
+
+        // Display appointments in table
+        function displayAppointments() {
+            const tbody = document.getElementById('appointmentsTableBody');
+            const noAppointments = document.getElementById('noAppointments');
+
+            if (filteredAppointments.length === 0) {
+                tbody.innerHTML = '';
+                noAppointments.classList.remove('hidden');
+                return;
+            }
+
+            noAppointments.classList.add('hidden');
+            
+            // Sort appointments by date
+            const sortedAppointments = filteredAppointments.sort((a, b) => {
+                const dateA = new Date(a.date + ' ' + a.time);
+                const dateB = new Date(b.date + ' ' + b.time);
+                return dateA - dateB;
+            });
+
+            tbody.innerHTML = sortedAppointments.map(appointment => `
+                <tr>
+                    <td class="font-medium">${appointment.name} ${appointment.surname}</td>
+                    <td>${appointment.phone || 'Belirtilmemiş'}</td>
+                    <td>${formatDate(appointment.date)}</td>
+                    <td>${appointment.time}</td>
+                    <td>
+                        <span class="badge ${getStatusBadgeClass(appointment.status)}">
+                            ${getStatusText(appointment.status)}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="flex items-center space-x-2">
+                            ${getActionButtons(appointment)}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // Get status badge class
+        function getStatusBadgeClass(status) {
+            switch(status) {
+                case 'confirmed': return 'badge-success';
+                case 'pending': return 'badge-warning';
+                case 'cancelled': return 'badge-destructive';
+                default: return 'badge-secondary';
+            }
+        }
+
+        // Get status text
+        function getStatusText(status) {
+            switch(status) {
+                case 'confirmed': return 'Onaylandı';
+                case 'pending': return 'Bekliyor';
+                case 'cancelled': return 'İptal Edildi';
+                default: return 'Bilinmiyor';
+            }
+        }
+
+        // Get action buttons
+        function getActionButtons(appointment) {
+            const status = appointment.status || 'pending';
+            
+            switch(status) {
+                case 'pending':
+                    return `
+                        <button onclick="updateAppointmentStatus('${appointment.id}', 'confirmed')" class="btn btn-primary btn-sm">
+                            <i data-lucide="check" class="w-3 h-3 mr-1"></i>
+                            Onayla
+                        </button>
+                        <button onclick="updateAppointmentStatus('${appointment.id}', 'cancelled')" class="btn btn-destructive btn-sm">
+                            <i data-lucide="x" class="w-3 h-3 mr-1"></i>
+                            İptal Et
+                        </button>
+                    `;
+                case 'confirmed':
+                    return `
+                        <button onclick="updateAppointmentStatus('${appointment.id}', 'completed')" class="btn btn-success btn-sm">
+                            <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
+                            Tamamla
+                        </button>
+                        <button onclick="updateAppointmentStatus('${appointment.id}', 'cancelled')" class="btn btn-destructive btn-sm">
+                            <i data-lucide="x" class="w-3 h-3 mr-1"></i>
+                            İptal Et
+                        </button>
+                    `;
+                default:
+                    return `
+                        <button onclick="viewAppointment('${appointment.id}')" class="btn btn-outline btn-sm">
+                            <i data-lucide="eye" class="w-3 h-3 mr-1"></i>
+                            Görüntüle
+                        </button>
+                    `;
+            }
+        }
+
+        // Update appointment status
+        function updateAppointmentStatus(appointmentId, newStatus) {
+            const appointmentIndex = appointments.findIndex(app => app.id === appointmentId);
+            if (appointmentIndex === -1) return;
+
+            appointments[appointmentIndex].status = newStatus;
+            appointments[appointmentIndex].updatedAt = new Date().toISOString();
+
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            
+            loadAppointments();
+            showNotification(`Randevu durumu güncellendi: ${getStatusText(newStatus)}`, 'success');
+        }
+
+        // Search appointments
+        function searchAppointments() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            filteredAppointments = appointments.filter(appointment => {
+                const fullName = `${appointment.name} ${appointment.surname}`.toLowerCase();
+                const phone = (appointment.phone || '').toLowerCase();
+                const notes = (appointment.notes || '').toLowerCase();
+                
+                return fullName.includes(searchTerm) || 
+                       phone.includes(searchTerm) || 
+                       notes.includes(searchTerm);
+            });
+            
+            displayAppointments();
+        }
+
+        // Create test appointment
+        function createTestAppointment() {
+            const testAppointment = {
+                id: Date.now().toString(),
+                name: 'Test',
+                surname: 'Kullanıcı',
+                date: new Date().toISOString().split('T')[0],
+                time: '14:30',
+                phone: '0555 123 4567',
+                notes: 'Test randevu - debug amaçlı',
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            
+            const existingAppointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            existingAppointments.push(testAppointment);
+            localStorage.setItem('appointments', JSON.stringify(existingAppointments));
+            
+            loadAppointments();
+            showNotification('Test randevu oluşturuldu!', 'success');
+        }
+
+        // View appointment details
+        function viewAppointment(appointmentId) {
+            const appointment = appointments.find(app => app.id === appointmentId);
+            if (appointment) {
+                alert(`Randevu Detayları:\n\nMüşteri: ${appointment.name} ${appointment.surname}\nTelefon: ${appointment.phone}\nTarih: ${appointment.date}\nSaat: ${appointment.time}\nDurum: ${getStatusText(appointment.status)}\nNotlar: ${appointment.notes || 'Yok'}`);
+            }
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('tr-TR', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300 translate-x-full`;
+            
+            let bgColor, textColor, icon;
+            switch(type) {
+                case 'success':
+                    bgColor = 'bg-green-500';
+                    textColor = 'text-white';
+                    icon = 'check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'bg-red-500';
+                    textColor = 'text-white';
+                    icon = 'alert-circle';
+                    break;
+                default:
+                    bgColor = 'bg-blue-500';
+                    textColor = 'text-white';
+                    icon = 'info';
+            }
+            
+            notification.className += ` ${bgColor} ${textColor}`;
+            notification.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i data-lucide="${icon}" class="w-5 h-5"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+        });
+    </script>
+</body>
+</html> 
