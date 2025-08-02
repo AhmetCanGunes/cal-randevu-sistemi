@@ -197,6 +197,38 @@ function setupEventListeners() {
     
     // Shared functionality
     setupSharedFeatures();
+    
+    // Universal menu event listeners (works for both mobile and desktop)
+    setupUniversalMenuListeners();
+}
+
+// Universal menu event listeners for both mobile and desktop
+function setupUniversalMenuListeners() {
+    // Desktop sidebar menu items
+    document.querySelectorAll('.menu-item[data-section]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.getAttribute('data-section');
+            switchSection(section);
+            
+            // Update active state for desktop
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // Mobile bottom navigation items
+    document.querySelectorAll('.bottom-nav-item[data-section]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = this.getAttribute('data-section');
+            switchSection(section);
+            
+            // Update active state for mobile
+            document.querySelectorAll('.bottom-nav-item').forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
 }
 
 // Mobile-specific features
@@ -1411,13 +1443,22 @@ function switchSection(section) {
         showSectionPlaceholder(section);
     }
     
-    // Update bottom navigation active state
+    // Update both desktop and mobile navigation active states
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.classList.remove('active');
+    });
     document.querySelectorAll('.bottom-nav-item').forEach(item => {
         item.classList.remove('active');
     });
-    const activeBottomNav = document.querySelector(`.bottom-nav-item[data-section="${section}"]`);
-    if (activeBottomNav) {
-        activeBottomNav.classList.add('active');
+    
+    const activeDesktopMenu = document.querySelector(`.menu-item[data-section="${section}"]`);
+    const activeMobileNav = document.querySelector(`.bottom-nav-item[data-section="${section}"]`);
+    
+    if (activeDesktopMenu) {
+        activeDesktopMenu.classList.add('active');
+    }
+    if (activeMobileNav) {
+        activeMobileNav.classList.add('active');
     }
 }
 
