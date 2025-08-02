@@ -2086,6 +2086,220 @@ function setupEventListeners() {
     setupAdvancedFilters();
 }
 
+// Dashboard Functions
+function initializeDashboard() {
+    console.log('🎯 Initializing dashboard...');
+    
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    
+    // Load dashboard data
+    loadDashboardStats();
+    loadRecentAppointments();
+    initializeChart();
+    
+    console.log('✅ Dashboard initialized');
+}
+
+function loadDashboardStats() {
+    console.log('📊 Loading dashboard stats...');
+    
+    // Get appointments data
+    const appointments = getAppointments().then(appointments => {
+        const today = new Date().toISOString().split('T')[0];
+        
+        // Calculate stats
+        const totalAppointments = appointments.length;
+        const todayAppointments = appointments.filter(app => app.date === today).length;
+        const pendingAppointments = appointments.filter(app => app.status === 'pending').length;
+        const completedAppointments = appointments.filter(app => app.status === 'completed').length;
+        
+        // Update DOM
+        document.getElementById('totalAppointments').textContent = totalAppointments;
+        document.getElementById('todayAppointments').textContent = todayAppointments;
+        document.getElementById('pendingAppointments').textContent = pendingAppointments;
+        document.getElementById('completedAppointments').textContent = completedAppointments;
+        
+        console.log('✅ Dashboard stats updated');
+    });
+}
+
+function loadRecentAppointments() {
+    console.log('📋 Loading recent appointments...');
+    
+    getAppointments().then(appointments => {
+        // Sort by date (most recent first)
+        const sortedAppointments = appointments.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        // Get first 5 appointments
+        const recentAppointments = sortedAppointments.slice(0, 5);
+        
+        const container = document.getElementById('recentAppointmentsList');
+        container.innerHTML = '';
+        
+        if (recentAppointments.length === 0) {
+            container.innerHTML = '<p class="text-gray-500 text-center py-4">Henüz randevu bulunmuyor</p>';
+            return;
+        }
+        
+        recentAppointments.forEach(appointment => {
+            const appointmentItem = createRecentAppointmentItem(appointment);
+            container.appendChild(appointmentItem);
+        });
+        
+        console.log('✅ Recent appointments loaded');
+    });
+}
+
+function createRecentAppointmentItem(appointment) {
+    const item = document.createElement('div');
+    item.className = 'recent-appointment-item';
+    
+    // Get initials from name
+    const initials = appointment.name.split(' ').map(n => n[0]).join('').toUpperCase();
+    
+    // Get status class
+    const statusClass = getStatusClass(appointment.status);
+    const statusText = getStatusText(appointment.status);
+    
+    item.innerHTML = `
+        <div class="recent-appointment-info">
+            <div class="recent-appointment-avatar" style="background: ${getAvatarColor(appointment.name)}">
+                ${initials}
+            </div>
+            <div class="recent-appointment-details">
+                <h4>${appointment.name}</h4>
+                <p>${formatDate(appointment.date)} ${appointment.time}</p>
+            </div>
+        </div>
+        <span class="recent-appointment-status ${statusClass}">${statusText}</span>
+    `;
+    
+    return item;
+}
+
+function getStatusClass(status) {
+    switch(status) {
+        case 'confirmed': return 'status-confirmed';
+        case 'pending': return 'status-pending';
+        case 'completed': return 'status-completed';
+        default: return 'status-pending';
+    }
+}
+
+function getAvatarColor(name) {
+    const colors = [
+        '#dbeafe', '#dcfce7', '#fef3c7', '#fecaca', 
+        '#e0e7ff', '#f3e8ff', '#fef7cd', '#d1fae5'
+    ];
+    const index = name.charCodeAt(0) % colors.length;
+    return colors[index];
+}
+
+function initializeChart() {
+    console.log('📈 Initializing chart...');
+    
+    const ctx = document.getElementById('appointmentChart');
+    if (!ctx) {
+        console.log('❌ Chart canvas not found');
+        return;
+    }
+    
+    // Get appointments data for chart
+    getAppointments().then(appointments => {
+        const monthlyData = getMonthlyAppointmentData(appointments);
+        
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: monthlyData.labels,
+                datasets: [{
+                    label: 'Randevu Sayısı',
+                    data: monthlyData.data,
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        console.log('✅ Chart initialized');
+    });
+}
+
+function getMonthlyAppointmentData(appointments) {
+    const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 
+                   'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+    
+    const monthlyCounts = new Array(12).fill(0);
+    
+    appointments.forEach(appointment => {
+        const date = new Date(appointment.date);
+        const month = date.getMonth();
+        monthlyCounts[month]++;
+    });
+    
+    return {
+        labels: months,
+        data: monthlyCounts
+    };
+}
+
+// Navigation functions
+function showAppointmentsList() {
+    console.log('📋 Showing appointments list...');
+    
+    document.getElementById('dashboard-section').style.display = 'none';
+    document.getElementById('appointments-section').style.display = 'block';
+    
+    // Load appointments
+    loadAppointments();
+}
+
+function showDashboard() {
+    console.log('🏠 Showing dashboard...');
+    
+    document.getElementById('appointments-section').style.display = 'none';
+    document.getElementById('dashboard-section').style.display = 'block';
+    
+    // Refresh dashboard data
+    loadDashboardStats();
+    loadRecentAppointments();
+}
+
+function showSettings() {
+    console.log('⚙️ Showing settings...');
+    // TODO: Implement settings page
+    showNotification('Ayarlar sayfası yakında eklenecek', 'info');
+}
+
+// Update showAdminPanel to initialize dashboard
+const originalShowAdminPanel = showAdminPanel;
+function showAdminPanel() {
+    originalShowAdminPanel();
+    
+    // Initialize dashboard after panel is shown
+    setTimeout(() => {
+        initializeDashboard();
+    }, 100);
+}
+
 
 
  

@@ -7,9 +7,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#4f46e5">
-    <title>Randevular</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin.css?v=2.4">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="admin.js?v=2.4"></script>
     <script>
         console.log('JavaScript yüklendi!');
@@ -53,23 +55,131 @@
     <!-- Admin Panel -->
     <div id="admin-panel" class="admin-layout" style="display: none;">
         
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="dashboard-header-content">
+                <div class="dashboard-title">
+                    <div class="dashboard-icon">
+                        <i data-lucide="calendar" class="dashboard-icon-svg"></i>
+                    </div>
+                    <div>
+                        <h1 class="dashboard-title-text">Admin Dashboard</h1>
+                        <p class="dashboard-subtitle">Randevu Yönetim Sistemi</p>
+                    </div>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="dashboard-action-btn" onclick="loadAppointments()" title="Yenile">
+                        <i data-lucide="refresh-cw" class="dashboard-action-icon"></i>
+                    </button>
+                    <button class="dashboard-action-btn" onclick="showSettings()" title="Ayarlar">
+                        <i data-lucide="settings" class="dashboard-action-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Main Content -->
         <div class="main-content">
-            <div class="appointments-container" id="appointments-section">
-                <div class="appointments-header">
-                    <h2>📋 Randevular</h2>
-                    <div class="header-actions">
-                        <button id="testBtn" class="minimal-btn test-btn" title="Test randevusu ekle">
-                            <span class="btn-icon">🧪</span>
+            <!-- Dashboard Overview -->
+            <div class="dashboard-overview" id="dashboard-section">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-info">
+                                <p class="stat-label">Toplam Randevu</p>
+                                <p class="stat-value" id="totalAppointments">0</p>
+                                <p class="stat-change positive">+12% geçen aydan</p>
+                            </div>
+                            <div class="stat-icon calendar-icon">
+                                <i data-lucide="calendar" class="stat-icon-svg"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-info">
+                                <p class="stat-label">Bugünkü Randevular</p>
+                                <p class="stat-value" id="todayAppointments">0</p>
+                                <p class="stat-change info">3 saat içinde</p>
+                            </div>
+                            <div class="stat-icon clock-icon">
+                                <i data-lucide="clock" class="stat-icon-svg"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-info">
+                                <p class="stat-label">Bekleyen Onaylar</p>
+                                <p class="stat-value" id="pendingAppointments">0</p>
+                                <p class="stat-change warning">Acil işlem gerekli</p>
+                            </div>
+                            <div class="stat-icon alert-icon">
+                                <i data-lucide="alert-circle" class="stat-icon-svg"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-info">
+                                <p class="stat-label">Tamamlanan</p>
+                                <p class="stat-value" id="completedAppointments">0</p>
+                                <p class="stat-change positive">Bu ay</p>
+                            </div>
+                            <div class="stat-icon check-icon">
+                                <i data-lucide="check-circle" class="stat-icon-svg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts and Tables -->
+                <div class="dashboard-content-grid">
+                    <!-- Chart -->
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">Aylık Randevu Trendi</h3>
+                        <canvas id="appointmentChart" width="400" height="200"></canvas>
+                    </div>
+
+                    <!-- Recent Appointments -->
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">Son Randevular</h3>
+                        <div class="recent-appointments" id="recentAppointmentsList">
+                            <!-- Recent appointments will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-card">
+                    <h3 class="dashboard-card-title">Hızlı İşlemler</h3>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn" onclick="showAppointmentsList()">
+                            <i data-lucide="list" class="quick-action-icon"></i>
+                            <span class="quick-action-text">Randevu Listesi</span>
                         </button>
-                        <button id="refreshBtn" class="minimal-btn refresh-btn" title="Yenile">
-                            <span class="btn-icon">🔄</span>
+                        <button class="quick-action-btn" onclick="createTestAppointment()">
+                            <i data-lucide="plus" class="quick-action-icon"></i>
+                            <span class="quick-action-text">Yeni Randevu</span>
                         </button>
-                        <button id="clearBtn" class="minimal-btn danger clear-all-btn" onclick="showClearAllConfirmation()" title="Tümünü sil">
-                            <span class="btn-icon">🗑️</span>
+                        <button class="quick-action-btn" onclick="exportAppointments()">
+                            <i data-lucide="download" class="quick-action-icon"></i>
+                            <span class="quick-action-text">Dışa Aktar</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="showSettings()">
+                            <i data-lucide="settings" class="quick-action-icon"></i>
+                            <span class="quick-action-text">Ayarlar</span>
                         </button>
                     </div>
                 </div>
+            </div>
+
+            <!-- Appointments List (Hidden by default) -->
+            <div class="appointments-container" id="appointments-section" style="display: none;">
                 
                 <div class="filter-container">
                     <div class="filter-row">
