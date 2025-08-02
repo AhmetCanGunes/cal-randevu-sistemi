@@ -704,42 +704,20 @@ function clearCompletedFiltersFunc() {
 
 // Display appointments in the UI
 function displayAppointments(appointments) {
-    console.log('📋 displayAppointments() called with', appointments.length, 'appointments');
     const appointmentsList = document.getElementById('appointmentsList');
     
-    if (!appointmentsList) {
-        console.error('❌ appointmentsList element not found in displayAppointments!');
+    if (!appointments || appointments.length === 0) {
+        appointmentsList.innerHTML = `
+            <div class="no-appointments">
+                <h3>📋 Henüz randevu bulunmuyor</h3>
+                <p>Yeni randevular eklendiğinde burada görünecek.</p>
+            </div>
+        `;
         return;
     }
     
-    if (appointments.length === 0) {
-        console.log('📭 No appointments found, showing empty message');
-        appointmentsList.innerHTML = '<div class="no-appointments">📭 Henüz randevu bulunmuyor.<br><br>🧪 "Test Ekle" butonuna basarak test randevusu oluşturabilirsiniz.</div>';
-        return;
-    }
-    
-    console.log('📋 Sorting and creating cards for', appointments.length, 'appointments');
-    
-    // Sort appointments by date and time
-    appointments.sort((a, b) => {
-        const dateA = new Date(a.date + ' ' + a.time);
-        const dateB = new Date(b.date + ' ' + b.time);
-        return dateB - dateA; // Most recent first
-    });
-    
-    try {
-        const cardsHTML = appointments.map((appointment, index) => {
-            console.log(`Creating card ${index + 1} for:`, appointment.name, appointment.surname);
-            return createAppointmentCard(appointment);
-        }).join('');
-        
-        console.log('📋 Setting innerHTML with', cardsHTML.length, 'characters');
-        appointmentsList.innerHTML = cardsHTML;
-        console.log('✅ displayAppointments completed successfully');
-    } catch (error) {
-        console.error('❌ Error creating appointment cards:', error);
-        appointmentsList.innerHTML = '<div class="no-appointments">❌ Randevu kartları oluşturulurken hata: ' + error.message + '</div>';
-    }
+    const appointmentsHTML = appointments.map(appointment => createAppointmentCard(appointment)).join('');
+    appointmentsList.innerHTML = appointmentsHTML;
 }
 
 // Create appointment card HTML
@@ -2067,177 +2045,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Update statistics cards
-function updateStatistics(appointments) {
-    const total = appointments.length;
-    const pending = appointments.filter(app => app.status === 'pending').length;
-    const confirmed = appointments.filter(app => app.status === 'confirmed').length;
-    const cancelled = appointments.filter(app => app.status === 'cancelled').length;
-    
-    document.getElementById('totalReservations').textContent = total;
-    document.getElementById('pendingReservations').textContent = pending;
-    document.getElementById('approvedReservations').textContent = confirmed;
-    document.getElementById('rejectedReservations').textContent = cancelled;
-}
 
-// Display appointments in table format
-function displayAppointmentsTable(appointments) {
-    const tableBody = document.getElementById('reservationsTableBody');
-    
-    if (!appointments || appointments.length === 0) {
-        tableBody.innerHTML = `
-            <div class="no-data">
-                <p>Henüz rezervasyon bulunmuyor.</p>
-            </div>
-        `;
-        return;
-    }
-    
-    const tableHTML = appointments.map(appointment => {
-        const appointmentDate = new Date(appointment.date);
-        const formattedDate = appointmentDate.toLocaleDateString('tr-TR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-        
-        const createdAt = new Date(appointment.createdAt || Date.now());
-        const createdDate = createdAt.toLocaleDateString('tr-TR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-        
-        let displayName = '';
-        if (appointment.name && appointment.surname) {
-            displayName = appointment.name + ' ' + appointment.surname;
-        } else if (appointment.name) {
-            displayName = appointment.name;
-        } else if (appointment.surname) {
-            displayName = appointment.surname;
-        } else {
-            displayName = 'İsim belirtilmemiş';
-        }
-        
-        return `
-            <div class="table-row">
-                <div class="table-cell customer-info-cell">
-                    <div class="customer-name">${displayName}</div>
-                    <div class="customer-email">
-                        <span>📧</span>
-                        <span>${appointment.email || 'E-posta belirtilmemiş'}</span>
-                    </div>
-                    <div class="customer-phone">
-                        <span>📱</span>
-                        <span>${appointment.phone || 'Telefon belirtilmemiş'}</span>
-                    </div>
-                </div>
-                <div class="table-cell dates-cell">
-                    <div class="date-item">${formattedDate}</div>
-                    <div class="date-item">${createdDate}</div>
-                </div>
-                <div class="table-cell bungalow-cell">
-                    Lüks Bungalov
-                </div>
-                <div class="table-cell guest-cell">
-                    <span>👤</span>
-                    <span>1</span>
-                </div>
-                <div class="table-cell amount-cell">
-                    ₺11250
-                </div>
-                <div class="table-cell">
-                    <div class="status-badge status-${appointment.status}">
-                        ${getStatusText(appointment.status)}
-                    </div>
-                </div>
-                <div class="table-cell actions-cell">
-                    <button class="action-button view-btn" onclick="viewAppointmentDetails('${appointment.id}')" title="Detayları Görüntüle">
-                        👁️
-                    </button>
-                    ${appointment.status === 'pending' ? `
-                        <button class="action-button confirm-btn" onclick="updateAppointmentStatus('${appointment.id}', 'confirmed')" title="Onayla">
-                            ✅
-                        </button>
-                        <button class="action-button cancel-btn" onclick="updateAppointmentStatus('${appointment.id}', 'cancelled')" title="İptal Et">
-                            ❌
-                        </button>
-                    ` : ''}
-                    ${appointment.status === 'confirmed' ? `
-                        <button class="action-button confirm-btn" onclick="updateAppointmentStatus('${appointment.id}', 'completed')" title="Tamamlandı">
-                            ✅
-                        </button>
-                        <button class="action-button cancel-btn" onclick="updateAppointmentStatus('${appointment.id}', 'cancelled')" title="İptal Et">
-                            ❌
-                        </button>
-                    ` : ''}
-                    <button class="action-button delete-btn" onclick="deleteAppointment('${appointment.id}')" title="Sil">
-                        🗑️
-                    </button>
-                </div>
-            </div>
-        `;
-    }).join('');
-    
-    tableBody.innerHTML = tableHTML;
-}
-
-// View appointment details
-function viewAppointmentDetails(appointmentId) {
-    // This will show a modal with detailed information
-    showNotification('Detaylar yakında eklenecek!', 'info');
-}
-
-// Search functionality
-function setupSearchAndFilter() {
-    const searchInput = document.getElementById('searchInput');
-    const statusFilter = document.getElementById('statusFilter');
-    
-    searchInput.addEventListener('input', filterReservations);
-    statusFilter.addEventListener('change', filterReservations);
-}
-
-function filterReservations() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const statusFilter = document.getElementById('statusFilter').value;
-    
-    getAppointments().then(appointments => {
-        let filteredAppointments = appointments;
-        
-        // Filter by search term
-        if (searchTerm) {
-            filteredAppointments = filteredAppointments.filter(appointment => {
-                const name = (appointment.name + ' ' + (appointment.surname || '')).toLowerCase();
-                const email = (appointment.email || '').toLowerCase();
-                const phone = (appointment.phone || '').toLowerCase();
-                
-                return name.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm);
-            });
-        }
-        
-        // Filter by status
-        if (statusFilter) {
-            filteredAppointments = filteredAppointments.filter(appointment => 
-                appointment.status === statusFilter
-            );
-        }
-        
-        displayAppointmentsTable(filteredAppointments);
-        updateStatistics(filteredAppointments);
-    });
-}
-
-// Update loadAppointments function
-async function loadAppointments() {
-    try {
-        const appointments = await getAppointments();
-        displayAppointmentsTable(appointments);
-        updateStatistics(appointments);
-        setupSearchAndFilter();
-    } catch (error) {
-        console.error('Error loading appointments:', error);
-        showNotification('Randevular yüklenirken hata oluştu!', 'error');
-    }
-}
 
  

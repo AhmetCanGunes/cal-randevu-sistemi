@@ -118,75 +118,46 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="appointments-container" id="appointments-section">
-                <!-- Statistics Cards -->
-                <div class="stats-section">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">📅</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Toplam Rezervasyon</div>
-                                <div class="stat-value" id="totalReservations">0</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">⏰</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Bekleyen</div>
-                                <div class="stat-value" id="pendingReservations">0</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">✅</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Onaylanan</div>
-                                <div class="stat-value" id="approvedReservations">0</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">❌</div>
-                            <div class="stat-content">
-                                <div class="stat-label">Reddedilen</div>
-                                <div class="stat-value" id="rejectedReservations">0</div>
-                            </div>
-                        </div>
+                <div class="appointments-header">
+                    <h2>📋 Randevular</h2>
+                    <div class="header-actions">
+                        <button id="testBtn" class="simple-btn test-btn">🧪 Test Ekle</button>
+                        <button id="refreshBtn" class="simple-btn refresh-btn">🔄 Yenile</button>
+                        <button id="clearBtn" class="simple-btn danger clear-all-btn" onclick="showClearAllConfirmation()">🗑️ Tümünü Sil</button>
                     </div>
                 </div>
-
-                <!-- Search and Filter Section -->
-                <div class="search-filter-section">
-                    <div class="search-container">
-                        <div class="search-input-wrapper">
-                            <span class="search-icon">🔍</span>
-                            <input type="text" id="searchInput" placeholder="Ad, e-posta veya telefon ile ara..." class="search-input">
+                
+                <div class="filter-container">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="dateFilter">📅 Tarih Filtresi</label>
+                            <input type="date" id="dateFilter" placeholder="Tarihe göre filtrele">
                         </div>
-                        <div class="filter-container">
-                            <div class="filter-dropdown">
-                                <span class="filter-icon">🔽</span>
-                                <select id="statusFilter" class="status-select">
-                                    <option value="">Tüm Durumlar</option>
-                                    <option value="pending">Bekliyor</option>
-                                    <option value="confirmed">Onaylandı</option>
-                                    <option value="cancelled">İptal Edildi</option>
-                                    <option value="completed">Tamamlandı</option>
-                                </select>
-                            </div>
+                        <div class="filter-group">
+                            <label for="statusFilter">📊 Durum Filtresi</label>
+                            <select id="statusFilter">
+                                <option value="">Tüm Durumlar</option>
+                                <option value="pending">Bekleyen</option>
+                                <option value="confirmed">Onaylandı</option>
+                                <option value="completed">Tamamlandı</option>
+                                <option value="cancelled">İptal Edildi</option>
+                            </select>
                         </div>
+                    </div>
+                    <button id="clearFilters" class="simple-btn clear-filters-btn">🧹 Filtreleri Temizle</button>
+                </div>
+                
+                <div id="appointmentsList" class="appointments-list">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Randevular yükleniyor...</p>
                     </div>
                 </div>
-
-                <!-- Reservations Table -->
-                <div class="reservations-table-container">
-                    <div class="table-header">
-                        <div class="table-cell header-cell">Müşteri</div>
-                        <div class="table-cell header-cell">Tarihler</div>
-                        <div class="table-cell header-cell">Bungalov</div>
-                        <div class="table-cell header-cell">Misafir</div>
-                        <div class="table-cell header-cell">Tutar</div>
-                        <div class="table-cell header-cell">Durum</div>
-                        <div class="table-cell header-cell">İşlemler</div>
-                    </div>
-                    <div id="reservationsTableBody" class="table-body">
-                        <!-- Reservations will be loaded here -->
+                
+                <!-- Mobil Footer - Boş Alan -->
+                <div class="mobile-footer">
+                    <div class="mobile-footer-content">
+                        <!-- Boş alan - sadece scroll için -->
                     </div>
                 </div>
             </div>
