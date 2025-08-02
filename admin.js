@@ -110,10 +110,9 @@ function showAdminPanel() {
     console.log('📱 Setting up event listeners...');
     setupEventListeners();
     
-    // Load saved section or default to appointments
-    const savedSection = localStorage.getItem('adminCurrentSection') || 'appointments';
-    console.log('📂 Loading saved section:', savedSection);
-    switchSection(savedSection);
+    // Load appointments by default
+    console.log('📂 Loading appointments section');
+    loadAppointments();
     
     // Initialize device-specific features
     console.log('🔧 Initializing device features...');
@@ -183,74 +182,23 @@ function setupEventListeners() {
         // Device detection
         const isMobile = window.innerWidth <= 768;
         console.log('📱 Device detection - isMobile:', isMobile, 'Window width:', window.innerWidth);
-    
-    // Mobile-specific functionality
-    if (isMobile) {
-        console.log('📱 Setting up mobile features...');
-        setupMobileFeatures();
-    } else {
-        console.log('🖥️ Setting up desktop features...');
-        setupDesktopFeatures();
-    }
-    
-    // Shared functionality
-    console.log('🔄 Setting up shared features...');
-    setupSharedFeatures();
-    
-    // Universal menu event listeners (works for both mobile and desktop)
-    console.log('🌐 Setting up universal menu listeners...');
-    setupUniversalMenuListeners();
-    
+        
+        // Mobile-specific functionality
+        if (isMobile) {
+            console.log('📱 Setting up mobile features...');
+            setupMobileFeatures();
+        } else {
+            console.log('🖥️ Setting up desktop features...');
+            setupDesktopFeatures();
+        }
+        
+        // Shared functionality
+        console.log('🔄 Setting up shared features...');
+        setupSharedFeatures();
+        
         console.log('✅ setupEventListeners completed');
     } catch (error) {
         console.error('❌ Error in setupEventListeners:', error);
-    }
-}
-
-// Universal menu event listeners for both mobile and desktop
-function setupUniversalMenuListeners() {
-    try {
-        console.log('🔧 Setting up universal menu listeners...');
-        
-        // Desktop sidebar menu items
-        const desktopMenuItems = document.querySelectorAll('.menu-item[data-section]');
-        console.log('Desktop menu items found:', desktopMenuItems.length);
-    
-    desktopMenuItems.forEach(item => {
-        console.log('Adding listener to desktop menu item:', item.getAttribute('data-section'));
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const section = this.getAttribute('data-section');
-            console.log('Desktop menu clicked:', section);
-            switchSection(section);
-            
-            // Update active state for desktop
-            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-    
-    // Mobile bottom navigation items
-    const mobileNavItems = document.querySelectorAll('.bottom-nav-item[data-section]');
-    console.log('Mobile nav items found:', mobileNavItems.length);
-    
-    mobileNavItems.forEach(item => {
-        console.log('Adding listener to mobile nav item:', item.getAttribute('data-section'));
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const section = this.getAttribute('data-section');
-            console.log('Mobile nav clicked:', section);
-            switchSection(section);
-            
-            // Update active state for mobile
-            document.querySelectorAll('.bottom-nav-item').forEach(m => m.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-    
-        console.log('✅ Universal menu listeners setup completed');
-    } catch (error) {
-        console.error('❌ Error in setupUniversalMenuListeners:', error);
     }
 }
 
@@ -261,19 +209,6 @@ function setupMobileFeatures() {
     // Touch gesture support for mobile
     setupTouchGestures();
     
-    // Mobile-specific event listeners
-    document.querySelectorAll('.bottom-nav-item[data-section]').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const section = this.getAttribute('data-section');
-            switchSection(section);
-            
-            // Update active state
-            document.querySelectorAll('.bottom-nav-item').forEach(m => m.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-    
     // Mobile-specific optimizations
     optimizeForMobile();
 }
@@ -281,22 +216,6 @@ function setupMobileFeatures() {
 // Desktop-specific features
 function setupDesktopFeatures() {
     console.log('🖥️ Setting up desktop features');
-    
-    // Desktop sidebar functionality
-    setupDesktopSidebar();
-    
-    // Desktop-specific event listeners
-    document.querySelectorAll('.menu-item[data-section]').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const section = this.getAttribute('data-section');
-            switchSection(section);
-            
-            // Update active state
-            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
     
     // Desktop-specific optimizations
     optimizeForDesktop();
@@ -464,7 +383,7 @@ function navigateSection(direction) {
         newIndex = (currentIndex - 1 + sections.length) % sections.length;
     }
     
-    switchSection(sections[newIndex]);
+
 }
 
 // Get appointments for a specific date
@@ -1426,114 +1345,7 @@ function cancelAdminNoteEdit(appointmentId) {
     toggleAdminNoteEdit(appointmentId);
 }
 
-// Switch between sections
-function switchSection(section) {
-    console.log('🔄 Switching to section:', section);
-    
-    // Save current section to localStorage
-    localStorage.setItem('adminCurrentSection', section);
-    
-    // Hide placeholder first
-    const placeholder = document.getElementById('section-placeholder');
-    if (placeholder) {
-        placeholder.style.display = 'none';
-    }
-    
-    // Hide all sections first
-    const allSections = document.querySelectorAll('[id$="-section"]');
-    console.log('Found sections:', allSections.length);
-    allSections.forEach(s => {
-        console.log('Hiding section:', s.id);
-        s.style.display = 'none';
-    });
-    
-    // Show selected section
-    const targetSection = document.getElementById(section + '-section');
-    console.log('Target section:', section + '-section', 'Found:', !!targetSection);
-    
-    if (targetSection) {
-        console.log('Showing section:', targetSection.id);
-        targetSection.style.display = 'block';
-        
-        // Load section-specific data
-        switch(section) {
-            case 'appointments':
-                console.log('Loading appointments...');
-                loadAppointments();
-                break;
-            case 'completed':
-                console.log('Loading completed appointments...');
-                loadCompletedAppointments();
-                break;
-            case 'calendar':
-                console.log('Loading calendar...');
-                loadCalendar();
-                break;
-            case 'settings':
-                console.log('Loading settings...');
-                loadSettings();
-                break;
-        }
-    } else {
-        console.log('Section not found, showing placeholder');
-        // Fallback to placeholder
-        showSectionPlaceholder(section);
-    }
-    
-    // Update both desktop and mobile navigation active states
-    document.querySelectorAll('.menu-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    document.querySelectorAll('.bottom-nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    
-    const activeDesktopMenu = document.querySelector(`.menu-item[data-section="${section}"]`);
-    const activeMobileNav = document.querySelector(`.bottom-nav-item[data-section="${section}"]`);
-    
-    if (activeDesktopMenu) {
-        console.log('Setting active desktop menu:', section);
-        activeDesktopMenu.classList.add('active');
-    }
-    if (activeMobileNav) {
-        console.log('Setting active mobile nav:', section);
-        activeMobileNav.classList.add('active');
-    }
-    
-    console.log('✅ Section switch completed');
-}
 
-// Show placeholder for future sections
-function showSectionPlaceholder(section) {
-    const mainContent = document.querySelector('.main-content');
-    const sectionNames = {
-        'calendar': '📅 Takvim',
-        'settings': '⚙️ Ayarlar'
-    };
-    
-    // Hide appointments section
-    document.getElementById('appointments-section').style.display = 'none';
-    
-    // Create placeholder if not exists
-    let placeholder = document.getElementById('section-placeholder');
-    if (!placeholder) {
-        placeholder = document.createElement('div');
-        placeholder.id = 'section-placeholder';
-        placeholder.className = 'section-placeholder';
-        mainContent.appendChild(placeholder);
-    }
-    
-    placeholder.innerHTML = `
-        <div class="placeholder-content">
-            <div class="placeholder-icon">${sectionNames[section].split(' ')[0]}</div>
-            <h2>${sectionNames[section]}</h2>
-            <p>Bu bölüm yakında eklenecek!</p>
-            <p class="placeholder-note">Şu anda sadece <strong>Randevular</strong> bölümü aktif.</p>
-            <button onclick="switchSection('appointments')" class="simple-btn">📋 Randevulara Dön</button>
-        </div>
-    `;
-    placeholder.style.display = 'flex';
-}
 
 // Calendar Section Functions
 async function loadCalendar() {
@@ -1854,8 +1666,6 @@ window.addEventListener('resize', hideHoverPreview);
 // Edit appointment from calendar
 function editAppointmentFromCalendar(appointmentId) {
     closeAppointmentPopup();
-    // Switch to appointments section and highlight the appointment
-    switchSection('appointments');
     
     // Scroll to and highlight the appointment
     setTimeout(() => {
