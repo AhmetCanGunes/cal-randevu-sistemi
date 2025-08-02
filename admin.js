@@ -177,11 +177,12 @@ function initializeDeviceFeatures() {
 
 // Setup event listeners
 function setupEventListeners() {
-    console.log('🔧 setupEventListeners function called');
-    
-    // Device detection
-    const isMobile = window.innerWidth <= 768;
-    console.log('📱 Device detection - isMobile:', isMobile, 'Window width:', window.innerWidth);
+    try {
+        console.log('🔧 setupEventListeners function called');
+        
+        // Device detection
+        const isMobile = window.innerWidth <= 768;
+        console.log('📱 Device detection - isMobile:', isMobile, 'Window width:', window.innerWidth);
     
     // Mobile-specific functionality
     if (isMobile) {
@@ -200,16 +201,20 @@ function setupEventListeners() {
     console.log('🌐 Setting up universal menu listeners...');
     setupUniversalMenuListeners();
     
-    console.log('✅ setupEventListeners completed');
+        console.log('✅ setupEventListeners completed');
+    } catch (error) {
+        console.error('❌ Error in setupEventListeners:', error);
+    }
 }
 
 // Universal menu event listeners for both mobile and desktop
 function setupUniversalMenuListeners() {
-    console.log('🔧 Setting up universal menu listeners...');
-    
-    // Desktop sidebar menu items
-    const desktopMenuItems = document.querySelectorAll('.menu-item[data-section]');
-    console.log('Desktop menu items found:', desktopMenuItems.length);
+    try {
+        console.log('🔧 Setting up universal menu listeners...');
+        
+        // Desktop sidebar menu items
+        const desktopMenuItems = document.querySelectorAll('.menu-item[data-section]');
+        console.log('Desktop menu items found:', desktopMenuItems.length);
     
     desktopMenuItems.forEach(item => {
         console.log('Adding listener to desktop menu item:', item.getAttribute('data-section'));
@@ -243,7 +248,10 @@ function setupUniversalMenuListeners() {
         });
     });
     
-    console.log('✅ Universal menu listeners setup completed');
+        console.log('✅ Universal menu listeners setup completed');
+    } catch (error) {
+        console.error('❌ Error in setupUniversalMenuListeners:', error);
+    }
 }
 
 // Mobile-specific features
