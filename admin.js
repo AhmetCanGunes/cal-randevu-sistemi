@@ -777,38 +777,45 @@ function createAppointmentCard(appointment) {
             </div>
             
             <div class="appointment-content">
-                <div class="customer-info">
+                <div class="info-header">
                     <div class="info-row">
-                        <div class="info-item">
-                            <span class="info-label">📅 Tarih:</span>
-                            <span class="info-value">${formattedDate}</span>
+                        <div class="info-label">
+                            <span class="info-icon">📅</span>
+                            <span>Tarih:</span>
                         </div>
-                        <div class="info-item">
-                            <span class="info-label">🕒 Saat:</span>
-                            <span class="info-value">${appointment.time}</span>
+                        <div class="info-value">${formattedDate}</div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <div class="info-label">
+                            <span class="info-icon">🕒</span>
+                            <span>Saat:</span>
                         </div>
+                        <div class="info-value">${appointment.time}</div>
                     </div>
                     
                     ${appointment.phone ? `
                         <div class="info-row">
-                            <div class="info-item">
-                                <span class="info-label">📱 Telefon:</span>
-                                <span class="info-value">
-                                    <a href="tel:${appointment.phone}" class="phone-link">${appointment.phone}</a>
-                                </span>
+                            <div class="info-label">
+                                <span class="info-icon">📱</span>
+                                <span>Telefon:</span>
                             </div>
-                        </div>
-                    ` : ''}
-                    
-                    ${appointment.notes ? `
-                        <div class="info-row">
-                            <div class="info-item notes-item">
-                                <span class="info-label">💭 Notlar:</span>
-                                <span class="info-value">${appointment.notes}</span>
+                            <div class="info-value">
+                                <a href="tel:${appointment.phone}" class="phone-link">${appointment.phone}</a>
                             </div>
                         </div>
                     ` : ''}
                 </div>
+                
+                ${appointment.notes ? `
+                    <div class="notes-section">
+                        <div class="notes-header">
+                            <span class="notes-icon">💭</span>
+                            <span class="notes-title">Notlar:</span>
+                        </div>
+                        <div class="notes-content">${appointment.notes}</div>
+                    </div>
+                ` : ''}
                 
                 <div class="appointment-actions">
                     ${appointment.status === 'pending' ? `
