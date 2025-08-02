@@ -62,27 +62,7 @@ function handleLogin(event) {
     }, 3000);
 }
 
-function logout() {
-    // Clear session and redirect to login
-    localStorage.removeItem('adminSession');
-    showLoginForm();
-    showNotification('Başarıyla çıkış yapıldı!', 'success');
-}
 
-function showLogoutConfirmation() {
-    console.log('showLogoutConfirmation called');
-    const modal = document.getElementById('logoutConfirmation');
-    if (modal) {
-        modal.style.display = 'flex';
-        console.log('Modal shown');
-    } else {
-        console.error('logoutConfirmation modal not found');
-    }
-}
-
-function hideLogoutConfirmation() {
-    document.getElementById('logoutConfirmation').style.display = 'none';
-}
 
 function showClearAllConfirmation() {
     document.getElementById('clearAllConfirmation').style.display = 'flex';

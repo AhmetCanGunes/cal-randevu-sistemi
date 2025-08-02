@@ -908,17 +908,7 @@ body {
         line-height: 1.2;
     }
 
-    .logout-item {
-        color: #ef4444;
-    }
 
-    .logout-item:hover {
-        background: #fef2f2;
-    }
-
-    .logout-item.active {
-        color: #dc2626;
-    }
 
     /* Mobile Header Actions */
     .appointments-header {
@@ -1335,57 +1325,7 @@ body {
         z-index: 1001;
     }
 
-    /* Mobile Logout Modal */
-    .logout-confirmation-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 2000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
 
-    .logout-confirmation-modal {
-        background: white;
-        border-radius: 12px;
-        padding: 20px;
-        width: 100%;
-        max-width: 320px;
-        text-align: center;
-    }
-
-    .logout-confirmation-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 20px;
-    }
-
-    .logout-confirm-btn,
-    .logout-cancel-btn {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 0.95rem;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-weight: 500;
-    }
-
-    .logout-confirm-btn {
-        background: #dc2626;
-        color: white;
-    }
-
-    .logout-cancel-btn {
-        background: #f3f4f6;
-        color: #374151;
-    }
 }
 
 /* ============================================
