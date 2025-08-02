@@ -799,99 +799,37 @@ function createAppointmentCard(appointment) {
             </div>
             
             <div class="appointment-content">
-                <div class="appointment-tabs">
-                    <div class="tab-buttons">
-                        <button class="tab-btn active" data-tab="details">📋 Detaylar</button>
-                        <button class="tab-btn" data-tab="timeline">⏰ Zaman Çizelgesi</button>
-                        <button class="tab-btn" data-tab="actions">⚡ Hızlı İşlemler</button>
-                    </div>
-                    
-                    <div class="tab-content active" data-tab="details">
-                        <div class="detail-grid">
-                            <div class="detail-card">
-                                <div class="detail-icon">📅</div>
-                                <div class="detail-info">
-                                    <div class="detail-label">Randevu Tarihi</div>
-                                    <div class="detail-value">${formattedDate}</div>
-                                </div>
-                            </div>
-                            
-                            <div class="detail-card">
-                                <div class="detail-icon">🕒</div>
-                                <div class="detail-info">
-                                    <div class="detail-label">Saat</div>
-                                    <div class="detail-value">${appointment.time}</div>
-                                </div>
-                            </div>
-                            
-                            <div class="detail-card">
-                                <div class="detail-icon">📝</div>
-                                <div class="detail-info">
-                                    <div class="detail-label">Oluşturulma</div>
-                                    <div class="detail-value">${createdAt}</div>
-                                </div>
-                            </div>
-                            
-                            ${appointment.phone ? `
-                                <div class="detail-card phone-card">
-                                    <div class="detail-icon">📱</div>
-                                    <div class="detail-info">
-                                        <div class="detail-label">Telefon</div>
-                                        <div class="detail-value">
-                                            <a href="tel:${appointment.phone}" class="phone-link">${appointment.phone}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            ` : ''}
+                <div class="customer-info">
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="info-label">📅 Tarih:</span>
+                            <span class="info-value">${formattedDate}</span>
                         </div>
-                        
-                        ${appointment.notes ? `
-                            <div class="notes-section">
-                                <div class="notes-header">
-                                    <span class="notes-icon">💭</span>
-                                    <span class="notes-title">Müşteri Notları</span>
-                                </div>
-                                <div class="notes-content">${appointment.notes}</div>
-                            </div>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="tab-content" data-tab="timeline">
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-dot created"></div>
-                                <div class="timeline-content">
-                                    <div class="timeline-title">Randevu Oluşturuldu</div>
-                                    <div class="timeline-time">${createdAt}</div>
-                                </div>
-                            </div>
-                            ${appointment.status !== 'pending' ? `
-                                <div class="timeline-item">
-                                    <div class="timeline-dot ${appointment.status}"></div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">${getTimelineText(appointment.status)}</div>
-                                        <div class="timeline-time">Durum güncellendi</div>
-                                    </div>
-                                </div>
-                            ` : ''}
+                        <div class="info-item">
+                            <span class="info-label">🕒 Saat:</span>
+                            <span class="info-value">${appointment.time}</span>
                         </div>
                     </div>
                     
-                    <div class="tab-content" data-tab="actions">
-                        <div class="quick-actions-grid">
-                            ${appointment.phone ? `
-                                <button class="quick-action-btn whatsapp" onclick="openWhatsApp('${appointment.phone}', '${displayName}')">
-                                    <span class="qa-icon">💬</span>
-                                    <span class="qa-text">WhatsApp</span>
-                                </button>
-                            ` : ''}
-                            
-                                                         <button class="quick-action-btn mail" onclick="sendEmail('${appointment.phone}', '${displayName}')">
-                                 <span class="qa-icon">📧</span>
-                                 <span class="qa-text">Mail Gönder</span>
-                             </button>
+                    ${appointment.phone ? `
+                        <div class="info-row">
+                            <div class="info-item">
+                                <span class="info-label">📱 Telefon:</span>
+                                <span class="info-value">
+                                    <a href="tel:${appointment.phone}" class="phone-link">${appointment.phone}</a>
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    ` : ''}
+                    
+                    ${appointment.notes ? `
+                        <div class="info-row">
+                            <div class="info-item notes-item">
+                                <span class="info-label">💭 Notlar:</span>
+                                <span class="info-value">${appointment.notes}</span>
+                            </div>
+                        </div>
+                    ` : ''}
                 </div>
                 
                 <div class="appointment-actions">
@@ -1331,8 +1269,7 @@ function toggleAppointmentDetails(appointmentId) {
         expandIcon.textContent = '▲';
         expandIcon.style.transform = 'rotate(0deg)';
         
-        // Initialize tabs
-        initializeTabs(card);
+
     } else {
         // Collapse
         card.classList.add('collapsed');
@@ -1341,26 +1278,7 @@ function toggleAppointmentDetails(appointmentId) {
     }
 }
 
-// Initialize tab functionality
-function initializeTabs(card) {
-    const tabBtns = card.querySelectorAll('.tab-btn');
-    const tabContents = card.querySelectorAll('.tab-content');
-    
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const targetTab = this.getAttribute('data-tab');
-            
-            // Remove active class from all tabs
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-            
-            // Add active class to clicked tab and content
-            this.classList.add('active');
-            card.querySelector(`[data-tab="${targetTab}"].tab-content`).classList.add('active');
-        });
-    });
-}
+
 
 // Quick Actions Functions
 function openWhatsApp(phone, name) {
