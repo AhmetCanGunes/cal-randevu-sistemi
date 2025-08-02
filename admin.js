@@ -39,10 +39,14 @@ function handleLogin(event) {
     const password = document.getElementById('adminPassword').value;
     const errorDiv = document.getElementById('login-error');
     
+    console.log('🔐 Login attempt:', { adminId, password });
+    
     // Get stored credentials
     const storedCredentials = JSON.parse(localStorage.getItem('adminCredentials') || '{}');
     const validAdminId = storedCredentials.adminId || 'admin';
     const validPassword = storedCredentials.password || '123456';
+    
+    console.log('✅ Valid credentials:', { validAdminId, validPassword });
     
     if (adminId === validAdminId && password === validPassword) {
         // Set login session
@@ -53,19 +57,20 @@ function handleLogin(event) {
         };
         localStorage.setItem('adminSession', JSON.stringify(sessionData));
         
+        console.log('✅ Login successful, showing admin panel');
         showAdminPanel();
         showNotification('Giriş başarılı! Hoşgeldiniz!', 'success');
     } else {
+        console.log('❌ Login failed: Invalid credentials');
         errorDiv.textContent = 'Kullanıcı ID veya şifre hatalı!';
         errorDiv.style.display = 'block';
         
-            // Hide error after 3 seconds
-    setTimeout(() => {
-        errorDiv.style.display = 'none';
-    }, 3000);
+        // Hide error after 3 seconds
+        setTimeout(() => {
+            errorDiv.style.display = 'none';
+        }, 3000);
+    }
 }
-
-
 
 function showClearAllConfirmation() {
     document.getElementById('clearAllConfirmation').style.display = 'flex';
@@ -90,7 +95,6 @@ function clearAllAppointments() {
     // Show success notification
     showNotification('Tüm randevular başarıyla silindi!', 'success');
 }
-}
 
 function showLoginForm() {
     document.getElementById('login-container').style.display = 'flex';
@@ -110,9 +114,9 @@ function showAdminPanel() {
     console.log('📱 Setting up event listeners...');
     setupEventListeners();
     
-    // Load appointments by default
-    console.log('📂 Loading appointments section');
-    loadAppointments();
+    // Initialize dashboard
+    console.log('🎨 Initializing dashboard...');
+    initializeDashboard();
     
     // Initialize device-specific features
     console.log('🔧 Initializing device features...');
@@ -2289,17 +2293,3 @@ function showSettings() {
     showNotification('Ayarlar sayfası yakında eklenecek', 'info');
 }
 
-// Update showAdminPanel to initialize dashboard
-const originalShowAdminPanel = showAdminPanel;
-function showAdminPanel() {
-    originalShowAdminPanel();
-    
-    // Initialize dashboard after panel is shown
-    setTimeout(() => {
-        initializeDashboard();
-    }, 100);
-}
-
-
-
- 
