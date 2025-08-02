@@ -542,9 +542,13 @@
                         
                         <!-- Test Appointment Button -->
                         <div style="margin-top: 24px;">
-                            <button onclick="createTestAppointment()" style="background: #8b5cf6; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600;">
+                            <button onclick="createTestAppointment()" style="background: #8b5cf6; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; margin-right: 12px;">
                                 <i data-lucide="plus" class="w-4 h-4" style="margin-right: 8px;"></i>
                                 Test Randevusu Oluştur
+                            </button>
+                            <button onclick="debugAppointments()" style="background: #f59e0b; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600;">
+                                <i data-lucide="bug" class="w-4 h-4" style="margin-right: 8px;"></i>
+                                Debug
                             </button>
                         </div>
                     </div>
@@ -602,124 +606,7 @@
 
                     <!-- Appointment Listings -->
                     <div class="appointment-listings">
-                        <!-- Appointment 1 -->
-                        <div class="appointment-card" onclick="selectAppointment(this)">
-                            <div class="appointment-header-card">
-                                <div class="customer-avatar">AY</div>
-                                <div class="appointment-info">
-                                    <div class="customer-name">Ahmet Yılmaz</div>
-                                    <div class="appointment-tags">
-                                        <span class="appointment-tag">Onaylandı</span>
-                                        <span class="appointment-tag">Sabah</span>
-                                    </div>
-                                    <div class="appointment-details">Telefon: +90 555 123 4567</div>
-                                    <div class="appointment-status">Bugün 14:30</div>
-                                </div>
-                            </div>
-                            <div class="appointment-meta">
-                                <div class="appointment-date">2 saat önce oluşturuldu</div>
-                                <div class="appointment-actions">
-                                    <button class="action-btn">Düzenle</button>
-                                    <button class="action-btn success">Tamamla</button>
-                                    <button class="action-btn danger">İptal Et</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Appointment 2 -->
-                        <div class="appointment-card selected" onclick="selectAppointment(this)">
-                            <div class="appointment-header-card">
-                                <div class="customer-avatar">MY</div>
-                                <div class="appointment-info">
-                                    <div class="customer-name">Mehmet Yıldız</div>
-                                    <div class="appointment-tags">
-                                        <span class="appointment-tag">Bekliyor</span>
-                                        <span class="appointment-tag">Öğleden Sonra</span>
-                                    </div>
-                                    <div class="appointment-details">Telefon: +90 555 987 6543</div>
-                                    <div class="appointment-status">Yarın 10:00</div>
-                                </div>
-                            </div>
-                            <div class="appointment-meta">
-                                <div class="appointment-date">1 gün önce oluşturuldu</div>
-                                <div class="appointment-actions">
-                                    <button class="action-btn">Düzenle</button>
-                                    <button class="action-btn primary">Onayla</button>
-                                    <button class="action-btn danger">İptal Et</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Appointment 3 -->
-                        <div class="appointment-card" onclick="selectAppointment(this)">
-                            <div class="appointment-header-card">
-                                <div class="customer-avatar">FY</div>
-                                <div class="appointment-info">
-                                    <div class="customer-name">Fatma Yılmaz</div>
-                                    <div class="appointment-tags">
-                                        <span class="appointment-tag">Onaylandı</span>
-                                        <span class="appointment-tag">Akşam</span>
-                                    </div>
-                                    <div class="appointment-details">Telefon: +90 555 456 7890</div>
-                                    <div class="appointment-status">Bugün 16:00</div>
-                                </div>
-                            </div>
-                            <div class="appointment-meta">
-                                <div class="appointment-date">3 saat önce oluşturuldu</div>
-                                <div class="appointment-actions">
-                                    <button class="action-btn">Düzenle</button>
-                                    <button class="action-btn success">Tamamla</button>
-                                    <button class="action-btn danger">İptal Et</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Appointment 4 -->
-                        <div class="appointment-card" onclick="selectAppointment(this)">
-                            <div class="appointment-header-card">
-                                <div class="customer-avatar">AK</div>
-                                <div class="appointment-info">
-                                    <div class="customer-name">Ayşe Kaya</div>
-                                    <div class="appointment-tags">
-                                        <span class="appointment-tag">Tamamlandı</span>
-                                        <span class="appointment-tag">Sabah</span>
-                                    </div>
-                                    <div class="appointment-details">Telefon: +90 555 321 6540</div>
-                                    <div class="appointment-status">Dün 09:00</div>
-                                </div>
-                            </div>
-                            <div class="appointment-meta">
-                                <div class="appointment-date">2 gün önce oluşturuldu</div>
-                                <div class="appointment-actions">
-                                    <button class="action-btn">Görüntüle</button>
-                                    <button class="action-btn">Notlar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Appointment 5 -->
-                        <div class="appointment-card" onclick="selectAppointment(this)">
-                            <div class="appointment-header-card">
-                                <div class="customer-avatar">MK</div>
-                                <div class="appointment-info">
-                                    <div class="customer-name">Mustafa Koç</div>
-                                    <div class="appointment-tags">
-                                        <span class="appointment-tag">Bekliyor</span>
-                                        <span class="appointment-tag">Akşam</span>
-                                    </div>
-                                    <div class="appointment-details">Telefon: +90 555 789 1234</div>
-                                    <div class="appointment-status">Yarın 18:30</div>
-                                </div>
-                            </div>
-                            <div class="appointment-meta">
-                                <div class="appointment-date">4 saat önce oluşturuldu</div>
-                                <div class="appointment-actions">
-                                    <button class="action-btn">Düzenle</button>
-                                    <button class="action-btn primary">Onayla</button>
-                                    <button class="action-btn danger">İptal Et</button>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Randevular buraya dinamik olarak yüklenecek -->
                     </div>
                 </div>
             </div>
@@ -789,34 +676,55 @@
 
         // Load appointments from localStorage
         async function loadAppointments() {
+            console.log('🔄 loadAppointments() called');
             try {
                 const data = localStorage.getItem('appointments');
+                console.log('Raw localStorage data:', data);
+                
                 appointments = data ? JSON.parse(data) : [];
-                console.log('Loaded appointments:', appointments);
+                console.log('Parsed appointments:', appointments);
+                console.log('Number of appointments:', appointments.length);
+                
                 displayAppointments();
                 updateDashboardStats();
+                
+                console.log('✅ loadAppointments completed successfully');
             } catch (error) {
-                console.error('Error loading appointments:', error);
+                console.error('❌ Error loading appointments:', error);
             }
         }
 
         // Display appointments in the UI
         function displayAppointments() {
+            console.log('📋 displayAppointments() called');
             const appointmentListings = document.querySelector('.appointment-listings');
-            if (!appointmentListings) return;
+            
+            if (!appointmentListings) {
+                console.error('❌ appointment-listings element not found!');
+                return;
+            }
+            
+            console.log('Found appointment-listings element, appointments count:', appointments.length);
 
             if (appointments.length === 0) {
+                console.log('📭 No appointments found, showing empty message');
                 appointmentListings.innerHTML = `
                     <div style="text-align: center; padding: 40px; color: #64748b;">
                         <i data-lucide="calendar" class="w-16 h-16 mx-auto mb-4 text-gray-300"></i>
                         <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Henüz Randevu Yok</h3>
                         <p>Henüz oluşturulmuş randevu bulunmuyor.</p>
+                        <button onclick="createTestAppointment()" style="background: #8b5cf6; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; margin-top: 16px;">
+                            <i data-lucide="plus" class="w-4 h-4" style="margin-right: 8px;"></i>
+                            Test Randevusu Oluştur
+                        </button>
                     </div>
                 `;
                 lucide.createIcons();
                 return;
             }
 
+            console.log('📋 Creating appointment cards for', appointments.length, 'appointments');
+            
             // Sort appointments by date and time
             const sortedAppointments = appointments.sort((a, b) => {
                 const dateA = new Date(a.date + ' ' + a.time);
@@ -827,6 +735,8 @@
             const appointmentCards = sortedAppointments.map(appointment => createAppointmentCard(appointment)).join('');
             appointmentListings.innerHTML = appointmentCards;
             lucide.createIcons();
+            
+            console.log('✅ Appointment cards created and displayed');
         }
 
         // Create appointment card HTML
@@ -1038,6 +948,20 @@
             showNotification('✅ Test randevu oluşturuldu!', 'success');
         }
 
+        // Debug function
+        function debugAppointments() {
+            console.log('🐛 DEBUG: Checking appointments...');
+            console.log('Current appointments array:', appointments);
+            console.log('localStorage appointments:', localStorage.getItem('appointments'));
+            console.log('appointment-listings element:', document.querySelector('.appointment-listings'));
+            console.log('Current section:', document.querySelector('.section-content.active'));
+            
+            // Force reload
+            loadAppointments();
+            
+            showNotification('🐛 Debug bilgileri console\'da görüntülendi', 'info');
+        }
+
         // Show notification
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
@@ -1128,8 +1052,17 @@
             }
         }
 
-        // Search functionality
+        // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing...');
+            
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Load initial data
+            loadAppointments();
+            
+            // Setup search functionality
             const searchInput = document.querySelector('.search-input');
             if (searchInput) {
                 searchInput.addEventListener('input', function(e) {
@@ -1149,9 +1082,8 @@
                     });
                 });
             }
-
-            // Load initial data
-            loadAppointments();
+            
+            console.log('Initialization complete');
         });
 
         // Filter tag removal
