@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#8b5cf6">
-    <title>Job Board Dashboard</title>
+    <title>Randevu Yönetim Paneli</title>
     <link rel="stylesheet" href="admin.css?v=3.0">
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -81,6 +81,7 @@
             text-decoration: none;
             transition: all 0.2s;
             font-weight: 500;
+            cursor: pointer;
         }
         .nav-item:hover {
             background: #f1f5f9;
@@ -216,13 +217,13 @@
             color: white;
             font-weight: 600;
         }
-        .job-board-content {
+        .appointment-content {
             padding: 24px;
         }
-        .job-board-header {
+        .appointment-header {
             margin-bottom: 24px;
         }
-        .job-board-title {
+        .appointment-title {
             font-size: 28px;
             font-weight: 700;
             color: #1e293b;
@@ -264,7 +265,7 @@
             cursor: pointer;
             text-decoration: none;
         }
-        .job-count {
+        .appointment-count {
             color: #64748b;
             font-size: 14px;
             margin-bottom: 16px;
@@ -276,12 +277,12 @@
             color: #64748b;
             font-size: 14px;
         }
-        .job-listings {
+        .appointment-listings {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
-        .job-card {
+        .appointment-card {
             background: white;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
@@ -289,21 +290,21 @@
             transition: all 0.2s;
             cursor: pointer;
         }
-        .job-card:hover {
+        .appointment-card:hover {
             border-color: #8b5cf6;
             box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
         }
-        .job-card.selected {
+        .appointment-card.selected {
             border-color: #8b5cf6;
             background: #faf5ff;
         }
-        .job-header {
+        .appointment-header-card {
             display: flex;
             align-items: flex-start;
             gap: 16px;
             margin-bottom: 12px;
         }
-        .company-logo {
+        .customer-avatar {
             width: 48px;
             height: 48px;
             background: #8b5cf6;
@@ -315,21 +316,21 @@
             font-weight: 700;
             font-size: 18px;
         }
-        .job-info {
+        .appointment-info {
             flex: 1;
         }
-        .job-title {
+        .customer-name {
             font-size: 18px;
             font-weight: 600;
             color: #1e293b;
             margin-bottom: 4px;
         }
-        .job-tags {
+        .appointment-tags {
             display: flex;
             gap: 8px;
             margin-bottom: 8px;
         }
-        .job-tag {
+        .appointment-tag {
             background: #f1f5f9;
             color: #475569;
             padding: 4px 8px;
@@ -337,17 +338,17 @@
             font-size: 12px;
             font-weight: 500;
         }
-        .job-location {
+        .appointment-details {
             color: #64748b;
             font-size: 14px;
             margin-bottom: 4px;
         }
-        .job-salary {
+        .appointment-status {
             color: #059669;
             font-weight: 600;
             font-size: 14px;
         }
-        .job-meta {
+        .appointment-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -355,11 +356,11 @@
             padding-top: 12px;
             border-top: 1px solid #f1f5f9;
         }
-        .job-posted {
+        .appointment-date {
             color: #64748b;
             font-size: 12px;
         }
-        .job-actions {
+        .appointment-actions {
             display: flex;
             gap: 8px;
         }
@@ -385,6 +386,22 @@
         .action-btn.primary:hover {
             background: #7c3aed;
         }
+        .action-btn.success {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        .action-btn.danger {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+        .section-content {
+            display: none;
+        }
+        .section-content.active {
+            display: block;
+        }
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -396,7 +413,7 @@
             .main-content {
                 margin-left: 0;
             }
-            .job-board-content {
+            .appointment-content {
                 padding: 16px;
             }
         }
@@ -408,41 +425,45 @@
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="logo">
-                <div class="logo-icon">W</div>
-                <span>wwwork</span>
+                <div class="logo-icon">R</div>
+                <span>RandevuSistemi</span>
             </div>
             
             <nav class="nav-menu">
-                <a href="#" class="nav-item">
+                <div class="nav-item active" onclick="showSection('dashboard')">
                     <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
                     <span>Dashboard</span>
-                </a>
-                <a href="#" class="nav-item active">
-                    <i data-lucide="briefcase" class="w-5 h-5"></i>
-                    <span>Job Board</span>
-                </a>
-                <a href="#" class="nav-item">
+                </div>
+                <div class="nav-item" onclick="showSection('appointments')">
                     <i data-lucide="calendar" class="w-5 h-5"></i>
-                    <span>Schedule</span>
-                </a>
-                <a href="#" class="nav-item">
+                    <span>Randevular</span>
+                </div>
+                <div class="nav-item" onclick="showSection('calendar')">
+                    <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                    <span>Takvim</span>
+                </div>
+                <div class="nav-item" onclick="showSection('messages')">
                     <i data-lucide="message-circle" class="w-5 h-5"></i>
-                    <span>Messenger</span>
-                </a>
+                    <span>Mesajlar</span>
+                </div>
+                <div class="nav-item" onclick="showSection('settings')">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    <span>Ayarlar</span>
+                </div>
             </nav>
             
             <div class="upgrade-section">
                 <div class="upgrade-icon">
-                    <i data-lucide="user" class="w-6 h-6"></i>
+                    <i data-lucide="star" class="w-6 h-6"></i>
                 </div>
-                <div class="upgrade-title">Get Upgrade</div>
-                <div class="upgrade-description">Step to the next level, with more features</div>
-                <button class="upgrade-btn">Learn more</button>
+                <div class="upgrade-title">Premium Özellikler</div>
+                <div class="upgrade-description">Daha fazla özellik için premium'a geçin</div>
+                <button class="upgrade-btn">Detayları Gör</button>
             </div>
             
             <button class="logout-btn" onclick="logout()">
                 <i data-lucide="log-out" class="w-5 h-5"></i>
-                <span>Logout</span>
+                <span>Çıkış Yap</span>
             </button>
         </div>
 
@@ -452,203 +473,297 @@
             <div class="top-header">
                 <div class="search-container">
                     <i data-lucide="search" class="w-5 h-5 text-gray-400"></i>
-                    <input type="text" class="search-input" placeholder="Quick Search (ctrl+D)">
+                    <input type="text" class="search-input" placeholder="Hızlı Arama (ctrl+D)">
                 </div>
                 
                 <div class="user-profile">
                     <div class="user-avatar">AD</div>
-                    <span>Anne Douglas</span>
+                    <span>Admin Kullanıcı</span>
                     <i data-lucide="chevron-down" class="w-4 h-4"></i>
                 </div>
             </div>
 
-            <!-- Job Board Content -->
-            <div class="job-board-content">
-                <div class="job-board-header">
-                    <h1 class="job-board-title">Job Board</h1>
-                    
-                    <!-- Search and Filter Bar -->
-                    <div style="display: flex; gap: 12px; margin-bottom: 16px; align-items: center;">
-                        <div style="flex: 1; position: relative;">
-                            <i data-lucide="search" class="w-5 h-5 text-gray-400" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%);"></i>
-                            <input type="text" placeholder="Search by job title, company, keywords" style="width: 100%; padding: 12px 12px 12px 40px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
-                        </div>
-                        <button class="filter-btn">
-                            <i data-lucide="map-pin" class="w-4 h-4"></i>
-                            <span>Anywhere</span>
-                        </button>
-                        <button class="filter-btn">
-                            <i data-lucide="filter" class="w-4 h-4"></i>
-                            <span>Filters</span>
-                            <div class="filter-badge">4</div>
-                        </button>
-                    </div>
-
-                    <!-- Applied Filters -->
-                    <div class="applied-filters">
-                        <div class="filter-tag">
-                            Design
-                            <button class="remove-btn">×</button>
-                        </div>
-                        <div class="filter-tag">
-                            Regular
-                            <button class="remove-btn">×</button>
-                        </div>
-                        <div class="filter-tag">
-                            Full time
-                            <button class="remove-btn">×</button>
-                        </div>
-                        <div class="filter-tag">
-                            B2B
-                            <button class="remove-btn">×</button>
-                        </div>
-                        <a href="#" class="clear-all">Clear All</a>
-                    </div>
-
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                        <div class="job-count">We've found 523 jobs!</div>
-                        <div class="sort-container">
-                            Sort by: Date
-                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section-content active">
+                <div class="appointment-content">
+                    <div class="appointment-header">
+                        <h1 class="appointment-title">Dashboard</h1>
+                        
+                        <!-- Stats Cards -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 40px; height: 40px; background: #8b5cf6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;">24</div>
+                                        <div style="color: #64748b; font-size: 14px;">Bugünkü Randevular</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 40px; height: 40px; background: #10b981; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i data-lucide="check-circle" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;">156</div>
+                                        <div style="color: #64748b; font-size: 14px;">Tamamlanan Randevular</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 40px; height: 40px; background: #f59e0b; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i data-lucide="clock" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;">8</div>
+                                        <div style="color: #64748b; font-size: 14px;">Bekleyen Randevular</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div style="width: 40px; height: 40px; background: #ef4444; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i data-lucide="x-circle" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 24px; font-weight: 700; color: #1e293b;">3</div>
+                                        <div style="color: #64748b; font-size: 14px;">İptal Edilen</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Job Listings -->
-                <div class="job-listings">
-                    <!-- UX Designer - Dropbox -->
-                    <div class="job-card" onclick="selectJob(this)">
-                        <div class="job-header">
-                            <div class="company-logo">D</div>
-                            <div class="job-info">
-                                <div class="job-title">UX Designer</div>
-                                <div class="job-tags">
-                                    <span class="job-tag">Remote</span>
-                                    <span class="job-tag">Sketch</span>
-                                </div>
-                                <div class="job-location">Dropbox — Warszawa</div>
-                                <div class="job-salary">8.8 - 13.7k PLN</div>
+            <!-- Appointments Section -->
+            <div id="appointments" class="section-content">
+                <div class="appointment-content">
+                    <div class="appointment-header">
+                        <h1 class="appointment-title">Randevular</h1>
+                        
+                        <!-- Search and Filter Bar -->
+                        <div style="display: flex; gap: 12px; margin-bottom: 16px; align-items: center;">
+                            <div style="flex: 1; position: relative;">
+                                <i data-lucide="search" class="w-5 h-5 text-gray-400" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%);"></i>
+                                <input type="text" placeholder="İsim, telefon veya not ara..." style="width: 100%; padding: 12px 12px 12px 40px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
                             </div>
+                            <button class="filter-btn">
+                                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                <span>Tüm Konumlar</span>
+                            </button>
+                            <button class="filter-btn">
+                                <i data-lucide="filter" class="w-4 h-4"></i>
+                                <span>Filtreler</span>
+                                <div class="filter-badge">3</div>
+                            </button>
                         </div>
-                        <div class="job-meta">
-                            <div class="job-posted">2 days ago</div>
-                            <div class="job-actions">
-                                <button class="action-btn">Save</button>
-                                <button class="action-btn primary">Apply</button>
+
+                        <!-- Applied Filters -->
+                        <div class="applied-filters">
+                            <div class="filter-tag">
+                                Bugün
+                                <button class="remove-btn">×</button>
+                            </div>
+                            <div class="filter-tag">
+                                Onaylandı
+                                <button class="remove-btn">×</button>
+                            </div>
+                            <div class="filter-tag">
+                                Sabah
+                                <button class="remove-btn">×</button>
+                            </div>
+                            <a href="#" class="clear-all">Tümünü Temizle</a>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <div class="appointment-count">Toplam 24 randevu bulundu!</div>
+                            <div class="sort-container">
+                                Sırala: Tarih
+                                <i data-lucide="chevron-down" class="w-4 h-4"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Product Designer - Twitch -->
-                    <div class="job-card selected" onclick="selectJob(this)">
-                        <div class="job-header">
-                            <div class="company-logo">T</div>
-                            <div class="job-info">
-                                <div class="job-title">Product Designer</div>
-                                <div class="job-tags">
-                                    <span class="job-tag">Remote</span>
+                    <!-- Appointment Listings -->
+                    <div class="appointment-listings">
+                        <!-- Appointment 1 -->
+                        <div class="appointment-card" onclick="selectAppointment(this)">
+                            <div class="appointment-header-card">
+                                <div class="customer-avatar">AY</div>
+                                <div class="appointment-info">
+                                    <div class="customer-name">Ahmet Yılmaz</div>
+                                    <div class="appointment-tags">
+                                        <span class="appointment-tag">Onaylandı</span>
+                                        <span class="appointment-tag">Sabah</span>
+                                    </div>
+                                    <div class="appointment-details">Telefon: +90 555 123 4567</div>
+                                    <div class="appointment-status">Bugün 14:30</div>
                                 </div>
-                                <div class="job-location">Twitch — Wroclaw</div>
-                                <div class="job-salary">8.2 - 13.5k PLN</div>
+                            </div>
+                            <div class="appointment-meta">
+                                <div class="appointment-date">2 saat önce oluşturuldu</div>
+                                <div class="appointment-actions">
+                                    <button class="action-btn">Düzenle</button>
+                                    <button class="action-btn success">Tamamla</button>
+                                    <button class="action-btn danger">İptal Et</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="job-meta">
-                            <div class="job-posted">2 days ago</div>
-                            <div class="job-actions">
-                                <button class="action-btn">Save</button>
-                                <button class="action-btn primary">Apply</button>
+
+                        <!-- Appointment 2 -->
+                        <div class="appointment-card selected" onclick="selectAppointment(this)">
+                            <div class="appointment-header-card">
+                                <div class="customer-avatar">MY</div>
+                                <div class="appointment-info">
+                                    <div class="customer-name">Mehmet Yıldız</div>
+                                    <div class="appointment-tags">
+                                        <span class="appointment-tag">Bekliyor</span>
+                                        <span class="appointment-tag">Öğleden Sonra</span>
+                                    </div>
+                                    <div class="appointment-details">Telefon: +90 555 987 6543</div>
+                                    <div class="appointment-status">Yarın 10:00</div>
+                                </div>
+                            </div>
+                            <div class="appointment-meta">
+                                <div class="appointment-date">1 gün önce oluşturuldu</div>
+                                <div class="appointment-actions">
+                                    <button class="action-btn">Düzenle</button>
+                                    <button class="action-btn primary">Onayla</button>
+                                    <button class="action-btn danger">İptal Et</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Appointment 3 -->
+                        <div class="appointment-card" onclick="selectAppointment(this)">
+                            <div class="appointment-header-card">
+                                <div class="customer-avatar">FY</div>
+                                <div class="appointment-info">
+                                    <div class="customer-name">Fatma Yılmaz</div>
+                                    <div class="appointment-tags">
+                                        <span class="appointment-tag">Onaylandı</span>
+                                        <span class="appointment-tag">Akşam</span>
+                                    </div>
+                                    <div class="appointment-details">Telefon: +90 555 456 7890</div>
+                                    <div class="appointment-status">Bugün 16:00</div>
+                                </div>
+                            </div>
+                            <div class="appointment-meta">
+                                <div class="appointment-date">3 saat önce oluşturuldu</div>
+                                <div class="appointment-actions">
+                                    <button class="action-btn">Düzenle</button>
+                                    <button class="action-btn success">Tamamla</button>
+                                    <button class="action-btn danger">İptal Et</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Appointment 4 -->
+                        <div class="appointment-card" onclick="selectAppointment(this)">
+                            <div class="appointment-header-card">
+                                <div class="customer-avatar">AK</div>
+                                <div class="appointment-info">
+                                    <div class="customer-name">Ayşe Kaya</div>
+                                    <div class="appointment-tags">
+                                        <span class="appointment-tag">Tamamlandı</span>
+                                        <span class="appointment-tag">Sabah</span>
+                                    </div>
+                                    <div class="appointment-details">Telefon: +90 555 321 6540</div>
+                                    <div class="appointment-status">Dün 09:00</div>
+                                </div>
+                            </div>
+                            <div class="appointment-meta">
+                                <div class="appointment-date">2 gün önce oluşturuldu</div>
+                                <div class="appointment-actions">
+                                    <button class="action-btn">Görüntüle</button>
+                                    <button class="action-btn">Notlar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Appointment 5 -->
+                        <div class="appointment-card" onclick="selectAppointment(this)">
+                            <div class="appointment-header-card">
+                                <div class="customer-avatar">MK</div>
+                                <div class="appointment-info">
+                                    <div class="customer-name">Mustafa Koç</div>
+                                    <div class="appointment-tags">
+                                        <span class="appointment-tag">Bekliyor</span>
+                                        <span class="appointment-tag">Akşam</span>
+                                    </div>
+                                    <div class="appointment-details">Telefon: +90 555 789 1234</div>
+                                    <div class="appointment-status">Yarın 18:30</div>
+                                </div>
+                            </div>
+                            <div class="appointment-meta">
+                                <div class="appointment-date">4 saat önce oluşturuldu</div>
+                                <div class="appointment-actions">
+                                    <button class="action-btn">Düzenle</button>
+                                    <button class="action-btn primary">Onayla</button>
+                                    <button class="action-btn danger">İptal Et</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- UX/UI Designer - Google -->
-                    <div class="job-card" onclick="selectJob(this)">
-                        <div class="job-header">
-                            <div class="company-logo">G</div>
-                            <div class="job-info">
-                                <div class="job-title">UX/UI Designer</div>
-                                <div class="job-tags">
-                                    <span class="job-tag">Remote</span>
-                                    <span class="job-tag">JavaScript</span>
-                                </div>
-                                <div class="job-location">Google — Warszawa</div>
-                                <div class="job-salary">7.5 - 12.5k PLN</div>
-                            </div>
-                        </div>
-                        <div class="job-meta">
-                            <div class="job-posted">3 days ago</div>
-                            <div class="job-actions">
-                                <button class="action-btn">Save</button>
-                                <button class="action-btn primary">Apply</button>
+            <!-- Calendar Section -->
+            <div id="calendar" class="section-content">
+                <div class="appointment-content">
+                    <div class="appointment-header">
+                        <h1 class="appointment-title">Takvim Görünümü</h1>
+                        <p style="color: #64748b; margin-bottom: 24px;">Randevularınızı takvim formatında görüntüleyin</p>
+                        
+                        <div style="background: white; padding: 24px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="text-align: center; color: #64748b;">
+                                <i data-lucide="calendar" class="w-16 h-16 mx-auto mb-4 text-gray-300"></i>
+                                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Takvim Görünümü</h3>
+                                <p>Bu özellik yakında eklenecek...</p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Motion Designer -->
-                    <div class="job-card" onclick="selectJob(this)">
-                        <div class="job-header">
-                            <div class="company-logo">M</div>
-                            <div class="job-info">
-                                <div class="job-title">Motion Designer</div>
-                                <div class="job-tags">
-                                    <span class="job-tag">Remote</span>
-                                    <span class="job-tag">Adobe</span>
-                                </div>
-                                <div class="job-location">Motion Studio — Krakow</div>
-                                <div class="job-salary">7.2 - 12.5k PLN</div>
-                            </div>
-                        </div>
-                        <div class="job-meta">
-                            <div class="job-posted">4 days ago</div>
-                            <div class="job-actions">
-                                <button class="action-btn">Save</button>
-                                <button class="action-btn primary">Apply</button>
+            <!-- Messages Section -->
+            <div id="messages" class="section-content">
+                <div class="appointment-content">
+                    <div class="appointment-header">
+                        <h1 class="appointment-title">Mesajlar</h1>
+                        <p style="color: #64748b; margin-bottom: 24px;">Müşterilerinizle olan iletişiminizi yönetin</p>
+                        
+                        <div style="background: white; padding: 24px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="text-align: center; color: #64748b;">
+                                <i data-lucide="message-circle" class="w-16 h-16 mx-auto mb-4 text-gray-300"></i>
+                                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Mesaj Sistemi</h3>
+                                <p>Bu özellik yakında eklenecek...</p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Frontend Developer - Netflix -->
-                    <div class="job-card" onclick="selectJob(this)">
-                        <div class="job-header">
-                            <div class="company-logo">N</div>
-                            <div class="job-info">
-                                <div class="job-title">Frontend Developer</div>
-                                <div class="job-tags">
-                                    <span class="job-tag">Remote</span>
-                                    <span class="job-tag">React</span>
-                                </div>
-                                <div class="job-location">Netflix — Gdansk</div>
-                                <div class="job-salary">9.0 - 15.0k PLN</div>
-                            </div>
-                        </div>
-                        <div class="job-meta">
-                            <div class="job-posted">1 day ago</div>
-                            <div class="job-actions">
-                                <button class="action-btn">Save</button>
-                                <button class="action-btn primary">Apply</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Backend Developer - Spotify -->
-                    <div class="job-card" onclick="selectJob(this)">
-                        <div class="job-header">
-                            <div class="company-logo">S</div>
-                            <div class="job-info">
-                                <div class="job-title">Backend Developer</div>
-                                <div class="job-tags">
-                                    <span class="job-tag">Remote</span>
-                                    <span class="job-tag">Node.js</span>
-                                </div>
-                                <div class="job-location">Spotify — Poznan</div>
-                                <div class="job-salary">8.5 - 14.0k PLN</div>
-                            </div>
-                        </div>
-                        <div class="job-meta">
-                            <div class="job-posted">5 days ago</div>
-                            <div class="job-actions">
-                                <button class="action-btn">Save</button>
-                                <button class="action-btn primary">Apply</button>
+            <!-- Settings Section -->
+            <div id="settings" class="section-content">
+                <div class="appointment-content">
+                    <div class="appointment-header">
+                        <h1 class="appointment-title">Ayarlar</h1>
+                        <p style="color: #64748b; margin-bottom: 24px;">Sistem ayarlarınızı yönetin</p>
+                        
+                        <div style="background: white; padding: 24px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="text-align: center; color: #64748b;">
+                                <i data-lucide="settings" class="w-16 h-16 mx-auto mb-4 text-gray-300"></i>
+                                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Sistem Ayarları</h3>
+                                <p>Bu özellik yakında eklenecek...</p>
                             </div>
                         </div>
                     </div>
@@ -661,17 +776,36 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // Job selection functionality
-        function selectJob(card) {
+        // Section navigation functionality
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.currentTarget.classList.add('active');
+        }
+
+        // Appointment selection functionality
+        function selectAppointment(card) {
             // Remove selected class from all cards
-            document.querySelectorAll('.job-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.appointment-card').forEach(c => c.classList.remove('selected'));
             // Add selected class to clicked card
             card.classList.add('selected');
         }
 
         // Logout functionality
         function logout() {
-            if (confirm('Are you sure you want to logout?')) {
+            if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
                 // Add logout logic here
                 console.log('Logout clicked');
             }
@@ -680,16 +814,16 @@
         // Search functionality
         document.querySelector('.search-input').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
-            const jobCards = document.querySelectorAll('.job-card');
+            const appointmentCards = document.querySelectorAll('.appointment-card');
             
-            jobCards.forEach(card => {
-                const jobTitle = card.querySelector('.job-title').textContent.toLowerCase();
-                const jobLocation = card.querySelector('.job-location').textContent.toLowerCase();
-                const jobTags = Array.from(card.querySelectorAll('.job-tag')).map(tag => tag.textContent.toLowerCase());
+            appointmentCards.forEach(card => {
+                const customerName = card.querySelector('.customer-name').textContent.toLowerCase();
+                const appointmentDetails = card.querySelector('.appointment-details').textContent.toLowerCase();
+                const appointmentTags = Array.from(card.querySelectorAll('.appointment-tag')).map(tag => tag.textContent.toLowerCase());
                 
-                const matches = jobTitle.includes(searchTerm) || 
-                              jobLocation.includes(searchTerm) || 
-                              jobTags.some(tag => tag.includes(searchTerm));
+                const matches = customerName.includes(searchTerm) || 
+                              appointmentDetails.includes(searchTerm) || 
+                              appointmentTags.some(tag => tag.includes(searchTerm));
                 
                 card.style.display = matches ? 'block' : 'none';
             });
@@ -709,23 +843,24 @@
             document.querySelectorAll('.filter-tag').forEach(tag => tag.remove());
         });
 
-        // Apply button functionality
-        document.querySelectorAll('.action-btn.primary').forEach(btn => {
+        // Action button functionality
+        document.querySelectorAll('.action-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                const jobTitle = this.closest('.job-card').querySelector('.job-title').textContent;
-                alert(`Applied to ${jobTitle}`);
-            });
-        });
-
-        // Save button functionality
-        document.querySelectorAll('.action-btn:not(.primary)').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const jobTitle = this.closest('.job-card').querySelector('.job-title').textContent;
-                this.textContent = this.textContent === 'Save' ? 'Saved' : 'Save';
-                this.style.background = this.textContent === 'Saved' ? '#10b981' : 'white';
-                this.style.color = this.textContent === 'Saved' ? 'white' : '#64748b';
+                const customerName = this.closest('.appointment-card').querySelector('.customer-name').textContent;
+                const action = this.textContent;
+                
+                if (action === 'Onayla') {
+                    this.textContent = 'Onaylandı';
+                    this.classList.remove('primary');
+                    this.classList.add('success');
+                } else if (action === 'Tamamla') {
+                    this.textContent = 'Tamamlandı';
+                    this.classList.remove('success');
+                    this.style.background = '#6b7280';
+                }
+                
+                console.log(`${action} clicked for ${customerName}`);
             });
         });
 
