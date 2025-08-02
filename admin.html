@@ -88,11 +88,45 @@
                     <div id="recentAppointmentsList"></div>
                 </div>
             </div>
+            
+            <!-- Hızlı İşlemler -->
+            <div class="bg-white rounded-xl shadow p-6">
+                <h2 class="font-semibold mb-4 flex items-center gap-2">
+                    <i data-lucide="zap" class="w-5 h-5 text-yellow-500"></i>
+                    Hızlı İşlemler
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <button onclick="showAppointmentsList()" class="flex flex-col items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-all group">
+                        <i data-lucide="list" class="w-8 h-8 text-blue-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium text-blue-900">Randevu Listesi</span>
+                    </button>
+                    <button onclick="createTestAppointment()" class="flex flex-col items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-all group">
+                        <i data-lucide="plus" class="w-8 h-8 text-green-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium text-green-900">Yeni Randevu</span>
+                    </button>
+                    <button onclick="exportAppointments()" class="flex flex-col items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-all group">
+                        <i data-lucide="download" class="w-8 h-8 text-purple-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium text-purple-900">Dışa Aktar</span>
+                    </button>
+                    <button onclick="showSettings()" class="flex flex-col items-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-all group">
+                        <i data-lucide="settings" class="w-8 h-8 text-orange-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium text-orange-900">Ayarlar</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Appointments List (Hidden by default) -->
     <div class="appointments-container" id="appointments-section" style="display: none;">
+        
+        <!-- Back to Dashboard Button -->
+        <div class="max-w-6xl mx-auto py-4 px-4">
+            <button onclick="showDashboard()" class="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors mb-4">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                <span>Dashboard'a Dön</span>
+            </button>
+        </div>
         
         <div class="filter-container">
             <div class="filter-row">

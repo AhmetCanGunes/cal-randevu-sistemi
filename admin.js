@@ -1201,23 +1201,68 @@ function createTestAppointment() {
 
 // Show notification
 function showNotification(message, type = 'info') {
-    // Create notification element
     const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
+    notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300 translate-x-full`;
+    
+    // Set colors based on type
+    let bgColor, textColor, icon;
+    switch(type) {
+        case 'success':
+            bgColor = 'bg-green-500';
+            textColor = 'text-white';
+            icon = 'check-circle';
+            break;
+        case 'error':
+            bgColor = 'bg-red-500';
+            textColor = 'text-white';
+            icon = 'alert-circle';
+            break;
+        case 'warning':
+            bgColor = 'bg-yellow-500';
+            textColor = 'text-white';
+            icon = 'alert-triangle';
+            break;
+        default:
+            bgColor = 'bg-blue-500';
+            textColor = 'text-white';
+            icon = 'info';
+    }
+    
+    notification.className += ` ${bgColor} ${textColor}`;
+    
     notification.innerHTML = `
-        <span>${message}</span>
-        <button onclick="this.parentElement.remove()">×</button>
+        <div class="flex items-center gap-3">
+            <i data-lucide="${icon}" class="w-5 h-5"></i>
+            <span class="flex-1">${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="text-white hover:text-gray-200 transition-colors">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
     `;
     
-    // Add to page
     document.body.appendChild(notification);
     
-    // Auto remove after 3 seconds
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    
+    // Animate in
+    setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+    }, 100);
+    
+    // Auto remove after 5 seconds
     setTimeout(() => {
         if (notification.parentElement) {
-            notification.remove();
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 300);
         }
-    }, 3000);
+    }, 5000);
 }
 
 // Toggle appointment details
@@ -2248,20 +2293,60 @@ function initializeChart() {
                     borderColor: 'rgb(59, 130, 246)',
                     backgroundColor: 'rgba(59, 130, 246, 0.1)',
                     tension: 0.4,
-                    fill: true
+                    fill: true,
+                    pointBackgroundColor: 'rgb(59, 130, 246)',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        borderColor: 'rgb(59, 130, 246)',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: false
                     }
                 },
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#6b7280',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#6b7280',
+                            font: {
+                                size: 12
+                            }
+                        }
                     }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
                 }
             }
         });
@@ -2291,12 +2376,32 @@ function getMonthlyAppointmentData(appointments) {
 // Navigation functions
 function showAppointmentsList() {
     console.log('📋 Showing appointments list...');
-    showNotification('Randevu listesi yakında eklenecek', 'info');
+    
+    // Hide dashboard
+    document.getElementById('admin-panel').style.display = 'none';
+    
+    // Show appointments section
+    document.getElementById('appointments-section').style.display = 'block';
+    
+    // Load appointments
+    loadAppointments();
+    
+    showNotification('Randevu listesi yüklendi', 'success');
 }
 
 function showDashboard() {
     console.log('🏠 Showing dashboard...');
+    
+    // Hide appointments section
+    document.getElementById('appointments-section').style.display = 'none';
+    
+    // Show dashboard
+    document.getElementById('admin-panel').style.display = 'block';
+    
+    // Refresh dashboard data
     refreshDashboard();
+    
+    showNotification('Dashboard yüklendi', 'success');
 }
 
 function showSettings() {

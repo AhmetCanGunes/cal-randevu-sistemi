@@ -2517,3 +2517,34 @@ body {
     width: 100% !important;
     height: 300px !important;
 }
+
+/* Responsive optimizations */
+@media (max-width: 768px) {
+    .max-w-6xl {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .grid-cols-1.md\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-cols-1.md\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .grid-cols-2.md\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-cols-1.md\:grid-cols-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    .grid-cols-2.md\:grid-cols-4 {
+        grid-template-columns: 1fr;
+    }
+}
