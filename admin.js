@@ -2092,33 +2092,48 @@ function setupEventListeners() {
 
 // Dashboard Functions
 function initializeDashboard() {
-    console.log('🎯 Initializing dashboard...');
-    
-    // Initialize Lucide icons
+    // Lucide ikonlarını her zaman yükle
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     }
+    // Dashboard verilerini yükle
+    refreshDashboard();
+}
+
+function refreshDashboard() {
+    console.log('🔄 Refreshing dashboard...');
     
-    // Load dashboard data
+    // Load all dashboard data
     loadDashboardStats();
     loadRecentAppointments();
     initializeChart();
     
-    console.log('✅ Dashboard initialized');
+    // Show success notification
+    showNotification('Dashboard yenilendi!', 'success');
 }
 
-function loadDashboardStats() {
+async function loadDashboardStats() {
     console.log('📊 Loading dashboard stats...');
     
-    // Get appointments data
-    const appointments = getAppointments().then(appointments => {
+    try {
+        // Get appointments data
+        const appointments = await getAppointments();
         const today = new Date().toISOString().split('T')[0];
+        
+        console.log('📋 Appointments data:', appointments);
         
         // Calculate stats
         const totalAppointments = appointments.length;
         const todayAppointments = appointments.filter(app => app.date === today).length;
         const pendingAppointments = appointments.filter(app => app.status === 'pending').length;
         const completedAppointments = appointments.filter(app => app.status === 'completed').length;
+        
+        console.log('📊 Calculated stats:', {
+            total: totalAppointments,
+            today: todayAppointments,
+            pending: pendingAppointments,
+            completed: completedAppointments
+        });
         
         // Update DOM
         document.getElementById('totalAppointments').textContent = totalAppointments;
@@ -2127,18 +2142,24 @@ function loadDashboardStats() {
         document.getElementById('completedAppointments').textContent = completedAppointments;
         
         console.log('✅ Dashboard stats updated');
-    });
+    } catch (error) {
+        console.error('❌ Error loading dashboard stats:', error);
+    }
 }
 
-function loadRecentAppointments() {
+async function loadRecentAppointments() {
     console.log('📋 Loading recent appointments...');
     
-    getAppointments().then(appointments => {
+    try {
+        const appointments = await getAppointments();
+        
         // Sort by date (most recent first)
         const sortedAppointments = appointments.sort((a, b) => new Date(b.date) - new Date(a.date));
         
         // Get first 5 appointments
         const recentAppointments = sortedAppointments.slice(0, 5);
+        
+        console.log('📋 Recent appointments:', recentAppointments);
         
         const container = document.getElementById('recentAppointmentsList');
         container.innerHTML = '';
@@ -2154,31 +2175,33 @@ function loadRecentAppointments() {
         });
         
         console.log('✅ Recent appointments loaded');
-    });
+    } catch (error) {
+        console.error('❌ Error loading recent appointments:', error);
+    }
 }
 
 function createRecentAppointmentItem(appointment) {
     const item = document.createElement('div');
-    item.className = 'recent-appointment-item';
+    item.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors';
     
     // Get initials from name
     const initials = appointment.name.split(' ').map(n => n[0]).join('').toUpperCase();
     
-    // Get status class
+    // Get status class and text
     const statusClass = getStatusClass(appointment.status);
     const statusText = getStatusText(appointment.status);
     
     item.innerHTML = `
-        <div class="recent-appointment-info">
-            <div class="recent-appointment-avatar" style="background: ${getAvatarColor(appointment.name)}">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium" style="background: ${getAvatarColor(appointment.name)}">
                 ${initials}
             </div>
-            <div class="recent-appointment-details">
-                <h4>${appointment.name}</h4>
-                <p>${formatDate(appointment.date)} ${appointment.time}</p>
+            <div>
+                <h4 class="font-semibold text-gray-900">${appointment.name}</h4>
+                <p class="text-sm text-gray-600">${formatDate(appointment.date)} ${appointment.time}</p>
             </div>
         </div>
-        <span class="recent-appointment-status ${statusClass}">${statusText}</span>
+        <span class="px-3 py-1 rounded-full text-xs font-medium ${statusClass}">${statusText}</span>
     `;
     
     return item;
@@ -2186,10 +2209,10 @@ function createRecentAppointmentItem(appointment) {
 
 function getStatusClass(status) {
     switch(status) {
-        case 'confirmed': return 'status-confirmed';
-        case 'pending': return 'status-pending';
-        case 'completed': return 'status-completed';
-        default: return 'status-pending';
+        case 'confirmed': return 'bg-green-100 text-green-800';
+        case 'pending': return 'bg-yellow-100 text-yellow-800';
+        case 'completed': return 'bg-blue-100 text-blue-800';
+        default: return 'bg-gray-100 text-gray-800';
     }
 }
 
@@ -2268,28 +2291,16 @@ function getMonthlyAppointmentData(appointments) {
 // Navigation functions
 function showAppointmentsList() {
     console.log('📋 Showing appointments list...');
-    
-    document.getElementById('dashboard-section').style.display = 'none';
-    document.getElementById('appointments-section').style.display = 'block';
-    
-    // Load appointments
-    loadAppointments();
+    showNotification('Randevu listesi yakında eklenecek', 'info');
 }
 
 function showDashboard() {
     console.log('🏠 Showing dashboard...');
-    
-    document.getElementById('appointments-section').style.display = 'none';
-    document.getElementById('dashboard-section').style.display = 'block';
-    
-    // Refresh dashboard data
-    loadDashboardStats();
-    loadRecentAppointments();
+    refreshDashboard();
 }
 
 function showSettings() {
     console.log('⚙️ Showing settings...');
-    // TODO: Implement settings page
     showNotification('Ayarlar sayfası yakında eklenecek', 'info');
 }
 

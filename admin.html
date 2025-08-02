@@ -9,9 +9,15 @@
     <meta name="theme-color" content="#4f46e5">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin.css?v=2.4">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
     <script src="admin.js?v=2.4"></script>
     <script>
         console.log('JavaScript yüklendi!');
@@ -26,394 +32,300 @@
                 <h2>🔐 Admin Girişi</h2>
                 <p>Yönetici paneline erişim için giriş yapın</p>
             </div>
-            
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="input-group">
                     <label for="adminId">Kullanıcı ID</label>
                     <input type="text" id="adminId" name="adminId" required placeholder="Kullanıcı ID'nizi girin">
                 </div>
-                
                 <div class="input-group">
                     <label for="adminPassword">Şifre</label>
                     <input type="password" id="adminPassword" name="adminPassword" required placeholder="Şifrenizi girin">
                 </div>
-                
                 <button type="submit" class="login-btn">
                     <span class="btn-icon">🔑</span>
                     Giriş Yap
                 </button>
-                
                 <div id="login-error" class="login-error" style="display: none;"></div>
             </form>
-            
             <div class="login-footer">
                 <small>Güvenli admin paneli - Sadece yetkili personel</small>
             </div>
         </div>
     </div>
 
-    <!-- Admin Panel -->
-    <div id="admin-panel" class="admin-layout" style="display: none;">
+    <!-- Modern Dashboard -->
+    <div id="admin-panel" style="display: none;">
+        <div class="max-w-6xl mx-auto py-8 px-4">
+            <h1 class="text-3xl font-bold mb-6 flex items-center gap-2">
+                <i data-lucide="layout-dashboard" class="w-8 h-8 text-blue-500"></i>
+                Admin Dashboard
+            </h1>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
+                    <span class="text-gray-500">Toplam Randevu</span>
+                    <span class="text-2xl font-bold" id="totalAppointments">0</span>
+                </div>
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
+                    <span class="text-gray-500">Bugünkü Randevular</span>
+                    <span class="text-2xl font-bold" id="todayAppointments">0</span>
+                </div>
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
+                    <span class="text-gray-500">Bekleyen Onaylar</span>
+                    <span class="text-2xl font-bold" id="pendingAppointments">0</span>
+                </div>
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col gap-2">
+                    <span class="text-gray-500">Tamamlanan</span>
+                    <span class="text-2xl font-bold" id="completedAppointments">0</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h2 class="font-semibold mb-4">Aylık Randevu Trendi</h2>
+                    <canvas id="appointmentChart"></canvas>
+                </div>
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h2 class="font-semibold mb-4">Son Randevular</h2>
+                    <div id="recentAppointmentsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointments List (Hidden by default) -->
+    <div class="appointments-container" id="appointments-section" style="display: none;">
         
-        <!-- Dashboard Header -->
-        <div class="dashboard-header">
-            <div class="dashboard-header-content">
-                <div class="dashboard-title">
-                    <div class="dashboard-icon">
-                        <i data-lucide="calendar" class="dashboard-icon-svg"></i>
-                    </div>
-                    <div>
-                        <h1 class="dashboard-title-text">Admin Dashboard</h1>
-                        <p class="dashboard-subtitle">Randevu Yönetim Sistemi</p>
-                    </div>
+        <div class="filter-container">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="dateFilter">📅 Tarih Filtresi</label>
+                    <input type="date" id="dateFilter" placeholder="Tarihe göre filtrele">
                 </div>
-                <div class="dashboard-actions">
-                    <button class="dashboard-action-btn" onclick="loadAppointments()" title="Yenile">
-                        <i data-lucide="refresh-cw" class="dashboard-action-icon"></i>
-                    </button>
-                    <button class="dashboard-action-btn" onclick="showSettings()" title="Ayarlar">
-                        <i data-lucide="settings" class="dashboard-action-icon"></i>
-                    </button>
+                <div class="filter-group">
+                    <label for="statusFilter">📊 Durum Filtresi</label>
+                    <select id="statusFilter">
+                        <option value="">Tüm Durumlar</option>
+                        <option value="pending">Bekleyen</option>
+                        <option value="confirmed">Onaylandı</option>
+                        <option value="completed">Tamamlandı</option>
+                        <option value="cancelled">İptal Edildi</option>
+                    </select>
                 </div>
+                <div class="filter-group">
+                    <label for="searchInput">🔍 Arama</label>
+                    <input type="text" id="searchInput" placeholder="İsim, telefon veya not ara...">
+                </div>
+                <div class="filter-group">
+                    <label for="timeFilter">🕒 Saat Filtresi</label>
+                    <select id="timeFilter">
+                        <option value="">Tüm Saatler</option>
+                        <option value="morning">Sabah (08:00-12:00)</option>
+                        <option value="afternoon">Öğleden Sonra (12:00-17:00)</option>
+                        <option value="evening">Akşam (17:00-22:00)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button id="clearFilters" class="filter-btn clear-filters-btn">
+                    <span class="btn-icon">🧹</span>
+                    <span>Filtreleri Temizle</span>
+                </button>
+                <button id="exportBtn" class="filter-btn export-btn">
+                    <span class="btn-icon">📊</span>
+                    <span>Dışa Aktar</span>
+                </button>
             </div>
         </div>
+        
+        <div id="appointmentsList" class="appointments-list">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Randevular yükleniyor...</p>
+            </div>
+        </div>
+        
+        <!-- Mobil Footer - Boş Alan -->
+        <div class="mobile-footer">
+            <div class="mobile-footer-content">
+                <!-- Boş alan - sadece scroll için -->
+            </div>
+        </div>
+    </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Dashboard Overview -->
-            <div class="dashboard-overview" id="dashboard-section">
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-content">
-                            <div class="stat-info">
-                                <p class="stat-label">Toplam Randevu</p>
-                                <p class="stat-value" id="totalAppointments">0</p>
-                                <p class="stat-change positive">+12% geçen aydan</p>
-                            </div>
-                            <div class="stat-icon calendar-icon">
-                                <i data-lucide="calendar" class="stat-icon-svg"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-content">
-                            <div class="stat-info">
-                                <p class="stat-label">Bugünkü Randevular</p>
-                                <p class="stat-value" id="todayAppointments">0</p>
-                                <p class="stat-change info">3 saat içinde</p>
-                            </div>
-                            <div class="stat-icon clock-icon">
-                                <i data-lucide="clock" class="stat-icon-svg"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-content">
-                            <div class="stat-info">
-                                <p class="stat-label">Bekleyen Onaylar</p>
-                                <p class="stat-value" id="pendingAppointments">0</p>
-                                <p class="stat-change warning">Acil işlem gerekli</p>
-                            </div>
-                            <div class="stat-icon alert-icon">
-                                <i data-lucide="alert-circle" class="stat-icon-svg"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-content">
-                            <div class="stat-info">
-                                <p class="stat-label">Tamamlanan</p>
-                                <p class="stat-value" id="completedAppointments">0</p>
-                                <p class="stat-change positive">Bu ay</p>
-                            </div>
-                            <div class="stat-icon check-icon">
-                                <i data-lucide="check-circle" class="stat-icon-svg"></i>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Completed Appointments Section -->
+    <div id="completed-section" style="display: none;">
+        <div class="section-header">
+            <h2>✅ Tamamlanan Randevular</h2>
+            <p>Başarıyla tamamlanan randevuların listesi</p>
+        </div>
+        
+        <div class="filter-container">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="completedDateFilter">📅 Tarih Filtresi</label>
+                    <input type="date" id="completedDateFilter" placeholder="Tarihe göre filtrele">
                 </div>
-
-                <!-- Charts and Tables -->
-                <div class="dashboard-content-grid">
-                    <!-- Chart -->
-                    <div class="dashboard-card">
-                        <h3 class="dashboard-card-title">Aylık Randevu Trendi</h3>
-                        <canvas id="appointmentChart" width="400" height="200"></canvas>
-                    </div>
-
-                    <!-- Recent Appointments -->
-                    <div class="dashboard-card">
-                        <h3 class="dashboard-card-title">Son Randevular</h3>
-                        <div class="recent-appointments" id="recentAppointmentsList">
-                            <!-- Recent appointments will be loaded here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="dashboard-card">
-                    <h3 class="dashboard-card-title">Hızlı İşlemler</h3>
-                    <div class="quick-actions-grid">
-                        <button class="quick-action-btn" onclick="showAppointmentsList()">
-                            <i data-lucide="list" class="quick-action-icon"></i>
-                            <span class="quick-action-text">Randevu Listesi</span>
-                        </button>
-                        <button class="quick-action-btn" onclick="createTestAppointment()">
-                            <i data-lucide="plus" class="quick-action-icon"></i>
-                            <span class="quick-action-text">Yeni Randevu</span>
-                        </button>
-                        <button class="quick-action-btn" onclick="exportAppointments()">
-                            <i data-lucide="download" class="quick-action-icon"></i>
-                            <span class="quick-action-text">Dışa Aktar</span>
-                        </button>
-                        <button class="quick-action-btn" onclick="showSettings()">
-                            <i data-lucide="settings" class="quick-action-icon"></i>
-                            <span class="quick-action-text">Ayarlar</span>
-                        </button>
-                    </div>
+                <div class="filter-group">
+                    <label for="completedSearchFilter">🔍 Arama</label>
+                    <input type="text" id="completedSearchFilter" placeholder="İsim veya telefon ara...">
                 </div>
             </div>
+            <button id="clearCompletedFilters" class="simple-btn clear-filters-btn">🧹 Filtreleri Temizle</button>
+        </div>
+        
+        <div id="completedAppointmentsList" class="appointments-list">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Tamamlanan randevular yükleniyor...</p>
+            </div>
+        </div>
+        
+        <!-- Mobil Footer - Boş Alan -->
+        <div class="mobile-footer">
+            <div class="mobile-footer-content">
+                <!-- Boş alan - sadece scroll için -->
+            </div>
+        </div>
+    </div>
 
-            <!-- Appointments List (Hidden by default) -->
-            <div class="appointments-container" id="appointments-section" style="display: none;">
+    <!-- Calendar Section -->
+    <div id="calendar-section" style="display: none;">
+        <div class="section-header">
+            <h2>📅 Takvim Görünümü</h2>
+            <p>Randevularınızı takvim formatında görüntüleyin</p>
+        </div>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonth" class="simple-btn calendar-nav-btn">‹ Önceki</button>
+                <h3 id="currentMonth"></h3>
+                <button id="nextMonth" class="simple-btn calendar-nav-btn">Sonraki ›</button>
+            </div>
+            <div id="calendar" class="calendar-grid"></div>
+        </div>
+        
+        <!-- Mobil Footer - Boş Alan -->
+        <div class="mobile-footer">
+            <div class="mobile-footer-content">
+                <!-- Boş alan - sadece scroll için -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div id="settings-section" style="display: none;">
+        <div class="section-header">
+            <h2>⚙️ Ayarlar</h2>
+            <p>Sistem ayarları ve konfigürasyon</p>
+        </div>
+        <div class="settings-container">
+            <div class="settings-group">
+                <h3>🕒 Çalışma Saatleri</h3>
+                <div class="form-row">
+                    <label>Başlangıç Saati:</label>
+                    <input type="time" id="startTime" value="09:00">
+                </div>
+                <div class="form-row">
+                    <label>Bitiş Saati:</label>
+                    <input type="time" id="endTime" value="18:00">
+                </div>
+            </div>
+            <div class="settings-group">
+                <h3>📧 Bildirimler</h3>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" checked> Email bildirimleri</label>
+                    <label><input type="checkbox" checked> Yeni randevu bildirimi</label>
+                    <label><input type="checkbox"> Günlük özet</label>
+                </div>
+            </div>
+            <div class="settings-group">
+                <h3>🎨 Görünüm</h3>
+                <div class="form-row">
+                    <label>Tema:</label>
+                    <select id="theme">
+                        <option value="light">Açık</option>
+                        <option value="dark">Koyu</option>
+                    </select>
+                </div>
+            </div>
+            <button class="simple-btn save-settings-btn" onclick="saveSettings()">💾 Ayarları Kaydet</button>
+
+            <!-- Admin Security Settings -->
+            <div class="settings-group security-settings">
+                <h3>�� Admin Güvenlik</h3>
+                <p class="security-description">Admin giriş bilgilerinizi güvenli bir şekilde değiştirin</p>
                 
-                <div class="filter-container">
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="dateFilter">📅 Tarih Filtresi</label>
-                            <input type="date" id="dateFilter" placeholder="Tarihe göre filtrele">
-                        </div>
-                        <div class="filter-group">
-                            <label for="statusFilter">📊 Durum Filtresi</label>
-                            <select id="statusFilter">
-                                <option value="">Tüm Durumlar</option>
-                                <option value="pending">Bekleyen</option>
-                                <option value="confirmed">Onaylandı</option>
-                                <option value="completed">Tamamlandı</option>
-                                <option value="cancelled">İptal Edildi</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="searchInput">🔍 Arama</label>
-                            <input type="text" id="searchInput" placeholder="İsim, telefon veya not ara...">
-                        </div>
-                        <div class="filter-group">
-                            <label for="timeFilter">🕒 Saat Filtresi</label>
-                            <select id="timeFilter">
-                                <option value="">Tüm Saatler</option>
-                                <option value="morning">Sabah (08:00-12:00)</option>
-                                <option value="afternoon">Öğleden Sonra (12:00-17:00)</option>
-                                <option value="evening">Akşam (17:00-22:00)</option>
-                            </select>
+                <div class="security-form">
+                    <div class="current-admin-info">
+                        <h4>�� Mevcut Bilgiler</h4>
+                        <div class="current-info-display">
+                            <div class="info-item">
+                                <span class="info-label">Kullanıcı ID:</span>
+                                <span class="info-value" id="currentAdminId">admin</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Son Değişiklik:</span>
+                                <span class="info-value" id="lastPasswordChange">Hiç değiştirilmemiş</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="filter-actions">
-                        <button id="clearFilters" class="filter-btn clear-filters-btn">
-                            <span class="btn-icon">🧹</span>
-                            <span>Filtreleri Temizle</span>
-                        </button>
-                        <button id="exportBtn" class="filter-btn export-btn">
-                            <span class="btn-icon">📊</span>
-                            <span>Dışa Aktar</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <div id="appointmentsList" class="appointments-list">
-                    <div class="loading">
-                        <div class="loading-spinner"></div>
-                        <p>Randevular yükleniyor...</p>
-                    </div>
-                </div>
-                
-                <!-- Mobil Footer - Boş Alan -->
-                <div class="mobile-footer">
-                    <div class="mobile-footer-content">
-                        <!-- Boş alan - sadece scroll için -->
-                    </div>
-                </div>
-            </div>
 
-        <!-- Completed Appointments Section -->
-        <div id="completed-section" style="display: none;">
-            <div class="section-header">
-                <h2>✅ Tamamlanan Randevular</h2>
-                <p>Başarıyla tamamlanan randevuların listesi</p>
-            </div>
-            
-            <div class="filter-container">
-                <div class="filter-row">
-                    <div class="filter-group">
-                        <label for="completedDateFilter">📅 Tarih Filtresi</label>
-                        <input type="date" id="completedDateFilter" placeholder="Tarihe göre filtrele">
+                    <div class="security-form-section">
+                        <h4>🔄 Bilgileri Değiştir</h4>
+                        
+                        <div class="form-group">
+                            <label for="currentPassword">🔒 Mevcut Şifre</label>
+                            <input type="password" id="currentPassword" placeholder="Mevcut şifrenizi girin" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newAdminId">👤 Yeni Kullanıcı ID</label>
+                            <input type="text" id="newAdminId" placeholder="Yeni kullanıcı ID (boş bırakılabilir)" maxlength="20">
+                            <small class="field-note">Boş bırakırsanız mevcut ID korunur</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">🔑 Yeni Şifre</label>
+                            <input type="password" id="newPassword" placeholder="Yeni şifrenizi girin" required>
+                            <div class="password-strength" id="passwordStrength"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">✅ Şifre Tekrar</label>
+                            <input type="password" id="confirmPassword" placeholder="Yeni şifrenizi tekrar girin" required>
+                            <div class="password-match" id="passwordMatch"></div>
+                        </div>
+
+                        <div class="security-actions">
+                            <button class="security-btn save-btn" onclick="changeAdminCredentials()">
+                                <span class="btn-icon">🔐</span>
+                                Bilgileri Güncelle
+                            </button>
+                            <button class="security-btn reset-btn" onclick="resetSecurityForm()">
+                                <span class="btn-icon">🔄</span>
+                                Formu Temizle
+                            </button>
+                        </div>
                     </div>
-                    <div class="filter-group">
-                        <label for="completedSearchFilter">🔍 Arama</label>
-                        <input type="text" id="completedSearchFilter" placeholder="İsim veya telefon ara...">
+
+                    <div class="security-tips">
+                        <h4>💡 Güvenlik İpuçları</h4>
+                        <ul class="tips-list">
+                            <li>Şifreniz en az 8 karakter olmalı</li>
+                            <li>Büyük-küçük harf, rakam ve özel karakter kullanın</li>
+                            <li>Kolay tahmin edilebilir şifreler kullanmayın</li>
+                            <li>Şifrenizi düzenli olarak değiştirin</li>
+                        </ul>
                     </div>
-                </div>
-                <button id="clearCompletedFilters" class="simple-btn clear-filters-btn">🧹 Filtreleri Temizle</button>
-            </div>
-            
-            <div id="completedAppointmentsList" class="appointments-list">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>Tamamlanan randevular yükleniyor...</p>
-                </div>
-            </div>
-            
-            <!-- Mobil Footer - Boş Alan -->
-            <div class="mobile-footer">
-                <div class="mobile-footer-content">
-                    <!-- Boş alan - sadece scroll için -->
                 </div>
             </div>
         </div>
-
-        <!-- Calendar Section -->
-        <div id="calendar-section" style="display: none;">
-            <div class="section-header">
-                <h2>📅 Takvim Görünümü</h2>
-                <p>Randevularınızı takvim formatında görüntüleyin</p>
-            </div>
-            <div class="calendar-container">
-                <div class="calendar-header">
-                    <button id="prevMonth" class="simple-btn calendar-nav-btn">‹ Önceki</button>
-                    <h3 id="currentMonth"></h3>
-                    <button id="nextMonth" class="simple-btn calendar-nav-btn">Sonraki ›</button>
-                </div>
-                <div id="calendar" class="calendar-grid"></div>
-            </div>
-            
-            <!-- Mobil Footer - Boş Alan -->
-            <div class="mobile-footer">
-                <div class="mobile-footer-content">
-                    <!-- Boş alan - sadece scroll için -->
-                </div>
+        
+        <!-- Mobil Footer - Boş Alan -->
+        <div class="mobile-footer">
+            <div class="mobile-footer-content">
+                <!-- Boş alan - sadece scroll için -->
             </div>
         </div>
-
-        <!-- Settings Section -->
-        <div id="settings-section" style="display: none;">
-            <div class="section-header">
-                <h2>⚙️ Ayarlar</h2>
-                <p>Sistem ayarları ve konfigürasyon</p>
-            </div>
-            <div class="settings-container">
-                <div class="settings-group">
-                    <h3>🕒 Çalışma Saatleri</h3>
-                    <div class="form-row">
-                        <label>Başlangıç Saati:</label>
-                        <input type="time" id="startTime" value="09:00">
-                    </div>
-                    <div class="form-row">
-                        <label>Bitiş Saati:</label>
-                        <input type="time" id="endTime" value="18:00">
-                    </div>
-                </div>
-                <div class="settings-group">
-                    <h3>📧 Bildirimler</h3>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" checked> Email bildirimleri</label>
-                        <label><input type="checkbox" checked> Yeni randevu bildirimi</label>
-                        <label><input type="checkbox"> Günlük özet</label>
-                    </div>
-                </div>
-                <div class="settings-group">
-                    <h3>🎨 Görünüm</h3>
-                    <div class="form-row">
-                        <label>Tema:</label>
-                        <select id="theme">
-                            <option value="light">Açık</option>
-                            <option value="dark">Koyu</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="simple-btn save-settings-btn" onclick="saveSettings()">💾 Ayarları Kaydet</button>
-
-                <!-- Admin Security Settings -->
-                <div class="settings-group security-settings">
-                    <h3>🔐 Admin Güvenlik</h3>
-                    <p class="security-description">Admin giriş bilgilerinizi güvenli bir şekilde değiştirin</p>
-                    
-                    <div class="security-form">
-                        <div class="current-admin-info">
-                            <h4>📝 Mevcut Bilgiler</h4>
-                            <div class="current-info-display">
-                                <div class="info-item">
-                                    <span class="info-label">Kullanıcı ID:</span>
-                                    <span class="info-value" id="currentAdminId">admin</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-label">Son Değişiklik:</span>
-                                    <span class="info-value" id="lastPasswordChange">Hiç değiştirilmemiş</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="security-form-section">
-                            <h4>🔄 Bilgileri Değiştir</h4>
-                            
-                            <div class="form-group">
-                                <label for="currentPassword">🔒 Mevcut Şifre</label>
-                                <input type="password" id="currentPassword" placeholder="Mevcut şifrenizi girin" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="newAdminId">👤 Yeni Kullanıcı ID</label>
-                                <input type="text" id="newAdminId" placeholder="Yeni kullanıcı ID (boş bırakılabilir)" maxlength="20">
-                                <small class="field-note">Boş bırakırsanız mevcut ID korunur</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="newPassword">🔑 Yeni Şifre</label>
-                                <input type="password" id="newPassword" placeholder="Yeni şifrenizi girin" required>
-                                <div class="password-strength" id="passwordStrength"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="confirmPassword">✅ Şifre Tekrar</label>
-                                <input type="password" id="confirmPassword" placeholder="Yeni şifrenizi tekrar girin" required>
-                                <div class="password-match" id="passwordMatch"></div>
-                            </div>
-
-                            <div class="security-actions">
-                                <button class="security-btn save-btn" onclick="changeAdminCredentials()">
-                                    <span class="btn-icon">🔐</span>
-                                    Bilgileri Güncelle
-                                </button>
-                                <button class="security-btn reset-btn" onclick="resetSecurityForm()">
-                                    <span class="btn-icon">🔄</span>
-                                    Formu Temizle
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="security-tips">
-                            <h4>💡 Güvenlik İpuçları</h4>
-                            <ul class="tips-list">
-                                <li>Şifreniz en az 8 karakter olmalı</li>
-                                <li>Büyük-küçük harf, rakam ve özel karakter kullanın</li>
-                                <li>Kolay tahmin edilebilir şifreler kullanmayın</li>
-                                <li>Şifrenizi düzenli olarak değiştirin</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Mobil Footer - Boş Alan -->
-            <div class="mobile-footer">
-                <div class="mobile-footer-content">
-                    <!-- Boş alan - sadece scroll için -->
-                </div>
-            </div>
-        </div>
-        </div>
+    </div>
     </div>
 
     <!-- Confirmation Modals -->
