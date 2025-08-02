@@ -204,11 +204,18 @@ function setupEventListeners() {
 
 // Universal menu event listeners for both mobile and desktop
 function setupUniversalMenuListeners() {
+    console.log('🔧 Setting up universal menu listeners...');
+    
     // Desktop sidebar menu items
-    document.querySelectorAll('.menu-item[data-section]').forEach(item => {
+    const desktopMenuItems = document.querySelectorAll('.menu-item[data-section]');
+    console.log('Desktop menu items found:', desktopMenuItems.length);
+    
+    desktopMenuItems.forEach(item => {
+        console.log('Adding listener to desktop menu item:', item.getAttribute('data-section'));
         item.addEventListener('click', function(e) {
             e.preventDefault();
             const section = this.getAttribute('data-section');
+            console.log('Desktop menu clicked:', section);
             switchSection(section);
             
             // Update active state for desktop
@@ -218,10 +225,15 @@ function setupUniversalMenuListeners() {
     });
     
     // Mobile bottom navigation items
-    document.querySelectorAll('.bottom-nav-item[data-section]').forEach(item => {
+    const mobileNavItems = document.querySelectorAll('.bottom-nav-item[data-section]');
+    console.log('Mobile nav items found:', mobileNavItems.length);
+    
+    mobileNavItems.forEach(item => {
+        console.log('Adding listener to mobile nav item:', item.getAttribute('data-section'));
         item.addEventListener('click', function(e) {
             e.preventDefault();
             const section = this.getAttribute('data-section');
+            console.log('Mobile nav clicked:', section);
             switchSection(section);
             
             // Update active state for mobile
@@ -229,6 +241,8 @@ function setupUniversalMenuListeners() {
             this.classList.add('active');
         });
     });
+    
+    console.log('✅ Universal menu listeners setup completed');
 }
 
 // Mobile-specific features
@@ -1405,6 +1419,8 @@ function cancelAdminNoteEdit(appointmentId) {
 
 // Switch between sections
 function switchSection(section) {
+    console.log('🔄 Switching to section:', section);
+    
     // Save current section to localStorage
     localStorage.setItem('adminCurrentSection', section);
     
