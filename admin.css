@@ -2391,39 +2391,47 @@ body {
 }
 
 .action-btn.confirm-btn {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
 }
 
 .action-btn.confirm-btn:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    background: #dcfce7;
+    color: #15803d;
 }
 
 .action-btn.cancel-btn {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fed7aa;
 }
 
 .action-btn.cancel-btn:hover {
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    background: #fef3c7;
+    color: #a16207;
 }
 
 .action-btn.delete-btn {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
 }
 
 .action-btn.delete-btn:hover {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    background: #fee2e2;
+    color: #b91c1c;
 }
 
 .action-btn.complete-btn {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    color: white;
+    background: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
 }
 
 .action-btn.complete-btn:hover {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    background: #dbeafe;
+    color: #1d4ed8;
 }
 
 /* Responsive Tasarım */
@@ -2521,18 +2529,36 @@ body {
 }
 
 .minimal-btn.test-btn {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    color: white;
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.minimal-btn.test-btn:hover {
+    background: #e5e7eb;
+    color: #1f2937;
 }
 
 .minimal-btn.refresh-btn {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.minimal-btn.refresh-btn:hover {
+    background: #dcfce7;
+    color: #15803d;
 }
 
 .minimal-btn.danger {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.minimal-btn.danger:hover {
+    background: #fee2e2;
+    color: #b91c1c;
 }
 
 .btn-icon {
@@ -2625,21 +2651,25 @@ body {
 }
 
 .clear-filters-btn {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fed7aa;
 }
 
 .clear-filters-btn:hover {
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    background: #fef3c7;
+    color: #a16207;
 }
 
 .export-btn {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    color: white;
+    background: #f5f3ff;
+    color: #6b21a8;
+    border: 1px solid #ddd6fe;
 }
 
 .export-btn:hover {
-    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    background: #ede9fe;
+    color: #7c3aed;
 }
 
 /* Responsive Tasarım */
