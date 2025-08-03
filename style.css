@@ -31,10 +31,12 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: transparent;
+    background: rgba(248, 250, 252, 0.95);
+    backdrop-filter: blur(10px);
     z-index: 1000;
     transition: all 0.3s ease;
     padding: 15px 0;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.3);
 }
 
 .nav-container {
@@ -147,9 +149,9 @@ body {
 }
 
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid #e1e5e9;
+    background: rgba(248, 250, 252, 0.98);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
 }
 
 .navbar.scrolled .nav-logo h2 {
@@ -170,7 +172,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: white;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -252,10 +254,11 @@ body {
     align-items: center;
     gap: 15px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    border: 1px solid rgba(226, 232, 240, 0.3);
 }
 
 .feature-highlight:hover {
@@ -297,10 +300,7 @@ body {
 }
 
 .hero-title .highlight {
-    background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #667eea;
 }
 
 .hero-description {
