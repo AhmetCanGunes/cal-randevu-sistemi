@@ -679,6 +679,7 @@
                                 <th>Tarih</th>
                                 <th>Saat</th>
                                 <th>Durum</th>
+                                <th>Notlar</th>
                                 <th>İşlemler</th>
                             </tr>
                         </thead>
@@ -859,6 +860,19 @@
                         <span class="badge ${getStatusBadgeClass(appointment.status)}">
                             ${getStatusText(appointment.status)}
                         </span>
+                    </td>
+                    <td>
+                        <div class="max-w-xs">
+                            ${appointment.notes ? 
+                                `<div class="text-sm text-muted-foreground" title="${appointment.notes}">
+                                    ${appointment.notes.length > 50 ? 
+                                        appointment.notes.substring(0, 50) + '...' : 
+                                        appointment.notes
+                                    }
+                                </div>` : 
+                                '<span class="text-sm text-muted-foreground">Not yok</span>'
+                            }
+                        </div>
                     </td>
                     <td>
                         <div class="flex items-center space-x-2">
@@ -1059,7 +1073,8 @@
         function viewAppointment(appointmentId) {
             const appointment = appointments.find(app => app.id === appointmentId);
             if (appointment) {
-                alert(`Randevu Detayları:\n\nMüşteri: ${appointment.name} ${appointment.surname}\nTelefon: ${appointment.phone}\nTarih: ${appointment.date}\nSaat: ${appointment.time}\nDurum: ${getStatusText(appointment.status)}\nNotlar: ${appointment.notes || 'Yok'}`);
+                const notes = appointment.notes ? appointment.notes : 'Not yok';
+                alert(`Randevu Detayları:\n\nMüşteri: ${appointment.name} ${appointment.surname}\nTelefon: ${appointment.phone || 'Belirtilmemiş'}\nTarih: ${appointment.date}\nSaat: ${appointment.time}\nDurum: ${getStatusText(appointment.status)}\nNotlar: ${notes}`);
             }
         }
 
