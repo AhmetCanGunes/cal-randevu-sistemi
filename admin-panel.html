@@ -854,17 +854,17 @@
             const isMobile = window.innerWidth < 768;
             
             if (isMobile) {
-                // Mobile card view
+                // Mobile card view - only show customer name initially
                 tbody.innerHTML = sortedAppointments.map(appointment => `
                     <tr>
                         <td colspan="7" class="p-0">
-                            <div class="appointment-card bg-white rounded-lg shadow-sm border p-4 mb-3" onclick="toggleAppointmentDetails('${appointment.id}')">
+                            <div class="appointment-card bg-white rounded-lg shadow-sm border p-3 mb-2" onclick="toggleAppointmentDetails('${appointment.id}')">
                                 <div class="appointment-summary">
                                     <div class="appointment-header">
-                                        <div class="appointment-name font-medium text-lg mb-2">
+                                        <div class="appointment-name font-medium text-base mb-1 cursor-pointer">
                                             ${appointment.name} ${appointment.surname}
                                         </div>
-                                        <div class="appointment-datetime flex flex-col gap-2 mb-3">
+                                        <div class="appointment-datetime flex flex-col gap-1 mb-2 hidden" id="datetime-${appointment.id}">
                                             <span class="date-badge bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
                                                 ${formatDate(appointment.date)}
                                             </span>
@@ -872,21 +872,21 @@
                                                 ${appointment.time}
                                             </span>
                                         </div>
-                                        <div class="summary-status">
+                                        <div class="summary-status hidden" id="status-${appointment.id}">
                                             <span class="badge ${getStatusBadgeClass(appointment.status)}">
                                                 ${getStatusText(appointment.status)}
                                             </span>
                                         </div>
                                     </div>
                                     
-                                    <div class="quick-actions flex gap-2 mt-3">
+                                    <div class="quick-actions flex gap-2 mt-2 hidden" id="actions-${appointment.id}">
                                         ${getActionButtons(appointment)}
                                     </div>
                                 </div>
                                 
                                 <div class="appointment-details hidden" id="details-${appointment.id}">
-                                    <div class="border-t pt-3 mt-3">
-                                        <div class="detail-grid grid grid-cols-1 gap-3">
+                                    <div class="border-t pt-2 mt-2">
+                                        <div class="detail-grid grid grid-cols-1 gap-2">
                                             <div class="appointment-detail">
                                                 <strong>Telefon:</strong> ${appointment.phone || 'Belirtilmemiş'}
                                             </div>
@@ -947,8 +947,26 @@
         // Toggle appointment details on mobile
         function toggleAppointmentDetails(appointmentId) {
             const detailsElement = document.getElementById(`details-${appointmentId}`);
-            if (detailsElement) {
-                detailsElement.classList.toggle('hidden');
+            const datetimeElement = document.getElementById(`datetime-${appointmentId}`);
+            const statusElement = document.getElementById(`status-${appointmentId}`);
+            const actionsElement = document.getElementById(`actions-${appointmentId}`);
+            
+            if (detailsElement && datetimeElement && statusElement && actionsElement) {
+                const isHidden = detailsElement.classList.contains('hidden');
+                
+                if (isHidden) {
+                    // Show all details
+                    detailsElement.classList.remove('hidden');
+                    datetimeElement.classList.remove('hidden');
+                    statusElement.classList.remove('hidden');
+                    actionsElement.classList.remove('hidden');
+                } else {
+                    // Hide all details except name
+                    detailsElement.classList.add('hidden');
+                    datetimeElement.classList.add('hidden');
+                    statusElement.classList.add('hidden');
+                    actionsElement.classList.add('hidden');
+                }
             }
         }
 
