@@ -895,9 +895,11 @@
         function getActionButtons(appointment) {
             const status = appointment.status || 'pending';
             
+            let buttons = '';
+            
             switch(status) {
                 case 'pending':
-                    return `
+                    buttons = `
                         <button onclick="updateAppointmentStatus('${appointment.id}', 'confirmed')" class="btn btn-primary btn-sm">
                             <i data-lucide="check" class="w-3 h-3 mr-1"></i>
                             Onayla
@@ -907,8 +909,9 @@
                             İptal Et
                         </button>
                     `;
+                    break;
                 case 'confirmed':
-                    return `
+                    buttons = `
                         <button onclick="updateAppointmentStatus('${appointment.id}', 'completed')" class="btn btn-success btn-sm">
                             <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
                             Tamamla
@@ -918,14 +921,25 @@
                             İptal Et
                         </button>
                     `;
+                    break;
                 default:
-                    return `
+                    buttons = `
                         <button onclick="viewAppointment('${appointment.id}')" class="btn btn-outline btn-sm">
                             <i data-lucide="eye" class="w-3 h-3 mr-1"></i>
                             Görüntüle
                         </button>
                     `;
             }
+            
+            // Add delete button for all statuses
+            buttons += `
+                <button onclick="deleteAppointment('${appointment.id}')" class="btn btn-destructive btn-sm">
+                    <i data-lucide="trash-2" class="w-3 h-3 mr-1"></i>
+                    Sil
+                </button>
+            `;
+            
+            return buttons;
         }
 
         // Update appointment status
@@ -944,6 +958,34 @@
             // Create notification for status change
             createStatusChangeNotification(appointment, newStatus);
             showNotification(`Randevu durumu güncellendi: ${getStatusText(newStatus)}`, 'success');
+        }
+
+        // Delete appointment
+        function deleteAppointment(appointmentId) {
+            const appointment = appointments.find(app => app.id === appointmentId);
+            if (!appointment) return;
+
+            // Show confirmation dialog
+            if (confirm(`${appointment.name} ${appointment.surname} için oluşturulan randevuyu silmek istediğinizden emin misiniz?`)) {
+                // Remove from appointments array
+                appointments = appointments.filter(app => app.id !== appointmentId);
+                filteredAppointments = filteredAppointments.filter(app => app.id !== appointmentId);
+                
+                // Update localStorage
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                
+                // Reload appointments
+                loadAppointments();
+                
+                // Create notification
+                addNotification(
+                    'Randevu Silindi',
+                    `${appointment.name} ${appointment.surname} için oluşturulan randevu silindi.`,
+                    'warning'
+                );
+                
+                showNotification('Randevu başarıyla silindi!', 'success');
+            }
         }
 
         // Search appointments
