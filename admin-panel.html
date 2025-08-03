@@ -11,8 +11,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -581,26 +580,7 @@
                 </div>
             </div>
 
-            <!-- Analytics Charts -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <!-- Monthly Trend Chart -->
-                <div class="card p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold">Aylık Randevu Trendi</h3>
-                        <select id="chartPeriod" class="input w-32" onchange="updateChart()">
-                            <option value="6">Son 6 Ay</option>
-                            <option value="12">Son 12 Ay</option>
-                        </select>
-                    </div>
-                    <canvas id="monthlyChart" height="300"></canvas>
-                </div>
-                
-                <!-- Status Distribution Chart -->
-                <div class="card p-6">
-                    <h3 class="text-lg font-semibold mb-4">Randevu Durumu Dağılımı</h3>
-                    <canvas id="statusChart" height="300"></canvas>
-                </div>
-            </div>
+
 
             <!-- Performance Metrics -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -824,11 +804,8 @@
                 updateStats();
                 displayAppointments();
                 
-                // Initialize and update charts
-                if (!monthlyChart || !statusChart) {
-                    initializeCharts();
-                }
-                updateCharts();
+                // Update performance metrics
+                updatePerformanceMetrics();
                 
                 // Update calendar if in calendar view
                 if (currentView === 'calendar') {
@@ -1100,132 +1077,6 @@
             }, 3000);
         }
 
-        // Chart instances
-        let monthlyChart = null;
-        let statusChart = null;
-
-        // Initialize charts
-        function initializeCharts() {
-            // Monthly trend chart
-            const monthlyCtx = document.getElementById('monthlyChart');
-            if (monthlyCtx) {
-                monthlyChart = new Chart(monthlyCtx, {
-                    type: 'line',
-                    data: {
-                        labels: [],
-                        datasets: [{
-                            label: 'Randevu Sayısı',
-                            data: [],
-                            borderColor: 'rgb(59, 130, 246)',
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            tension: 0.4,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 1
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            // Status distribution chart
-            const statusCtx = document.getElementById('statusChart');
-            if (statusCtx) {
-                statusChart = new Chart(statusCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Onaylandı', 'Bekliyor', 'İptal Edildi'],
-                        datasets: [{
-                            data: [0, 0, 0],
-                            backgroundColor: [
-                                'rgb(34, 197, 94)',
-                                'rgb(251, 191, 36)',
-                                'rgb(239, 68, 68)'
-                            ],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        // Update charts with data
-        function updateCharts() {
-            if (!appointments.length) return;
-
-            // Update monthly trend chart
-            if (monthlyChart) {
-                const monthlyData = getMonthlyData();
-                monthlyChart.data.labels = monthlyData.labels;
-                monthlyChart.data.datasets[0].data = monthlyData.data;
-                monthlyChart.update();
-            }
-
-            // Update status distribution chart
-            if (statusChart) {
-                const statusData = getStatusData();
-                statusChart.data.datasets[0].data = statusData;
-                statusChart.update();
-            }
-
-            // Update performance metrics
-            updatePerformanceMetrics();
-        }
-
-        // Get monthly data for chart
-        function getMonthlyData() {
-            const months = [];
-            const data = [];
-            const period = parseInt(document.getElementById('chartPeriod').value) || 6;
-            
-            for (let i = period - 1; i >= 0; i--) {
-                const date = new Date();
-                date.setMonth(date.getMonth() - i);
-                const monthName = date.toLocaleDateString('tr-TR', { month: 'short' });
-                months.push(monthName);
-                
-                const monthYear = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0');
-                const monthAppointments = appointments.filter(app => 
-                    app.date && app.date.startsWith(monthYear)
-                ).length;
-                data.push(monthAppointments);
-            }
-            
-            return { labels: months, data: data };
-        }
-
-        // Get status data for chart
-        function getStatusData() {
-            const confirmed = appointments.filter(app => app.status === 'confirmed').length;
-            const pending = appointments.filter(app => app.status === 'pending').length;
-            const cancelled = appointments.filter(app => app.status === 'cancelled').length;
-            
-            return [confirmed, pending, cancelled];
-        }
-
         // Update performance metrics
         function updatePerformanceMetrics() {
             if (!appointments.length) return;
@@ -1255,11 +1106,6 @@
             ).length;
             const successRate = total > 0 ? Math.round((successful / total) * 100) : 0;
             document.getElementById('successRate').textContent = successRate + '%';
-        }
-
-        // Update chart when period changes
-        function updateChart() {
-            updateCharts();
         }
 
         // Notification system
