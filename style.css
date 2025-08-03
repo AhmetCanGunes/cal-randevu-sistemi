@@ -3238,7 +3238,7 @@ body.admin-page .admin-layout {
         font-size: 0.75rem;
         padding: 6px 10px;
     }
-}
+
 
 /* PWA Styles */
 .pwa-install {
@@ -3694,5 +3694,32 @@ body.admin-page .admin-layout {
     .appointments-container {
         background: #ffffff;
         color: #333;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+    .admin-layout,
+    .main-content,
+    .simple-admin-container,
+    .appointments-container,
+    .sidebar,
+    .appointments-list {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box;
+    }
+    .main-content,
+    .simple-admin-container,
+    .appointments-container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .appointments-list {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 } 
