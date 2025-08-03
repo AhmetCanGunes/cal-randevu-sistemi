@@ -4070,3 +4070,211 @@ body.admin-page .admin-layout {
         max-width: 100% !important;
     }
 } 
+
+/* Mobilde randevular kısmının düzensiz görünmesi sorununu çözmek için ek kurallar */
+@media (max-width: 768px) {
+    /* Appointment cards için daha düzenli layout */
+    .appointment-card {
+        margin-bottom: 15px !important;
+        border-radius: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+        padding: 12px !important;
+        background: white !important;
+        border: 1px solid #e5e7eb !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .appointment-summary {
+        padding: 0 !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+    
+    .appointment-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .appointment-name {
+        font-size: 0.95rem !important;
+        width: 100% !important;
+        word-break: break-word !important;
+        font-weight: 600 !important;
+        color: #374151 !important;
+        margin-bottom: 4px !important;
+    }
+    
+    .appointment-datetime {
+        flex-direction: column !important;
+        gap: 6px !important;
+        width: 100% !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .date-badge, .time-badge {
+        font-size: 0.75rem !important;
+        padding: 3px 6px !important;
+        width: fit-content !important;
+        border-radius: 4px !important;
+        font-weight: 500 !important;
+    }
+    
+    .quick-actions {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        width: 100% !important;
+        justify-content: flex-start !important;
+        margin-top: 8px !important;
+    }
+    
+    .quick-btn {
+        padding: 6px 10px !important;
+        font-size: 0.75rem !important;
+        min-width: auto !important;
+        border-radius: 6px !important;
+        font-weight: 500 !important;
+    }
+    
+    .appointment-details {
+        padding: 12px 0 0 0 !important;
+        display: none !important;
+        border-top: 1px solid #e5e7eb !important;
+        margin-top: 8px !important;
+    }
+    
+    .appointment-details.expanded {
+        display: block !important;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+    
+    .appointment-actions {
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+    
+    .action-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        border-radius: 6px !important;
+        font-weight: 500 !important;
+    }
+    
+    .summary-status {
+        align-self: flex-start !important;
+        margin-top: 4px !important;
+    }
+    
+    .appointment-status {
+        font-size: 0.75rem !important;
+        padding: 4px 8px !important;
+        border-radius: 4px !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Hidden elements için daha iyi kontrol */
+    .appointment-datetime.hidden,
+    .summary-status.hidden,
+    .quick-actions.hidden {
+        display: none !important;
+    }
+    
+    /* Badge stilleri */
+    .badge {
+        font-size: 0.7rem !important;
+        padding: 3px 6px !important;
+        border-radius: 4px !important;
+        font-weight: 500 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    .badge-success {
+        background-color: #dcfce7 !important;
+        color: #166534 !important;
+    }
+    
+    .badge-warning {
+        background-color: #fef3c7 !important;
+        color: #92400e !important;
+    }
+    
+    .badge-destructive {
+        background-color: #fee2e2 !important;
+        color: #991b1b !important;
+    }
+    
+    .badge-secondary {
+        background-color: #f3f4f6 !important;
+        color: #374151 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Daha küçük ekranlar için ek optimizasyonlar */
+    .appointment-card {
+        margin-bottom: 12px !important;
+        padding: 10px !important;
+        border-radius: 8px !important;
+    }
+    
+    .appointment-name {
+        font-size: 0.9rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .quick-actions {
+        gap: 4px !important;
+    }
+    
+    .quick-btn {
+        padding: 5px 8px !important;
+        font-size: 0.7rem !important;
+    }
+    
+    .date-badge, .time-badge {
+        font-size: 0.7rem !important;
+        padding: 2px 5px !important;
+    }
+    
+    .appointment-status {
+        font-size: 0.7rem !important;
+        padding: 3px 6px !important;
+    }
+    
+    .action-btn {
+        padding: 6px 10px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .appointment-details {
+        padding: 10px 0 0 0 !important;
+    }
+    
+    .detail-grid {
+        gap: 6px !important;
+    }
+    
+    .appointment-detail {
+        font-size: 0.75rem !important;
+        padding: 6px 8px !important;
+    }
+    
+    .appointment-detail strong {
+        font-size: 0.7rem !important;
+    }
+}
