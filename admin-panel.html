@@ -830,7 +830,7 @@
             document.getElementById('cancelledAppointments').textContent = cancelled;
         }
 
-        // Display appointments in table
+        // Display appointments in table or cards based on screen size
         function displayAppointments() {
             const tbody = document.getElementById('appointmentsTableBody');
             const noAppointments = document.getElementById('noAppointments');
@@ -850,39 +850,106 @@
                 return dateA - dateB;
             });
 
-            tbody.innerHTML = sortedAppointments.map(appointment => `
-                <tr>
-                    <td class="font-medium">${appointment.name} ${appointment.surname}</td>
-                    <td>${appointment.phone || 'Belirtilmemiş'}</td>
-                    <td>${formatDate(appointment.date)}</td>
-                    <td>${appointment.time}</td>
-                    <td>
-                        <span class="badge ${getStatusBadgeClass(appointment.status)}">
-                            ${getStatusText(appointment.status)}
-                        </span>
-                    </td>
-                    <td>
-                        <div class="max-w-xs">
-                            ${appointment.notes ? 
-                                `<div class="text-sm text-muted-foreground" title="${appointment.notes}">
-                                    ${appointment.notes.length > 50 ? 
-                                        appointment.notes.substring(0, 50) + '...' : 
-                                        appointment.notes
-                                    }
-                                </div>` : 
-                                '<span class="text-sm text-muted-foreground">Not yok</span>'
-                            }
-                        </div>
-                    </td>
-                    <td>
-                        <div class="flex items-center space-x-2">
-                            ${getActionButtons(appointment)}
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
+            // Check if mobile (screen width < 768px)
+            const isMobile = window.innerWidth < 768;
+            
+            if (isMobile) {
+                // Mobile card view
+                tbody.innerHTML = sortedAppointments.map(appointment => `
+                    <tr>
+                        <td colspan="7" class="p-0">
+                            <div class="appointment-card bg-white rounded-lg shadow-sm border p-4 mb-3" onclick="toggleAppointmentDetails('${appointment.id}')">
+                                <div class="appointment-summary">
+                                    <div class="appointment-header">
+                                        <div class="appointment-name font-medium text-lg mb-2">
+                                            ${appointment.name} ${appointment.surname}
+                                        </div>
+                                        <div class="appointment-datetime flex flex-col gap-2 mb-3">
+                                            <span class="date-badge bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                                                ${formatDate(appointment.date)}
+                                            </span>
+                                            <span class="time-badge bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
+                                                ${appointment.time}
+                                            </span>
+                                        </div>
+                                        <div class="summary-status">
+                                            <span class="badge ${getStatusBadgeClass(appointment.status)}">
+                                                ${getStatusText(appointment.status)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quick-actions flex gap-2 mt-3">
+                                        ${getActionButtons(appointment)}
+                                    </div>
+                                </div>
+                                
+                                <div class="appointment-details hidden" id="details-${appointment.id}">
+                                    <div class="border-t pt-3 mt-3">
+                                        <div class="detail-grid grid grid-cols-1 gap-3">
+                                            <div class="appointment-detail">
+                                                <strong>Telefon:</strong> ${appointment.phone || 'Belirtilmemiş'}
+                                            </div>
+                                            <div class="appointment-detail">
+                                                <strong>Notlar:</strong> 
+                                                ${appointment.notes ? 
+                                                    `<div class="text-sm text-muted-foreground mt-1">
+                                                        ${appointment.notes}
+                                                    </div>` : 
+                                                    '<span class="text-sm text-muted-foreground">Not yok</span>'
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            } else {
+                // Desktop table view
+                tbody.innerHTML = sortedAppointments.map(appointment => `
+                    <tr>
+                        <td class="font-medium">${appointment.name} ${appointment.surname}</td>
+                        <td>${appointment.phone || 'Belirtilmemiş'}</td>
+                        <td>${formatDate(appointment.date)}</td>
+                        <td>${appointment.time}</td>
+                        <td>
+                            <span class="badge ${getStatusBadgeClass(appointment.status)}">
+                                ${getStatusText(appointment.status)}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="max-w-xs">
+                                ${appointment.notes ? 
+                                    `<div class="text-sm text-muted-foreground" title="${appointment.notes}">
+                                        ${appointment.notes.length > 50 ? 
+                                            appointment.notes.substring(0, 50) + '...' : 
+                                            appointment.notes
+                                        }
+                                    </div>` : 
+                                    '<span class="text-sm text-muted-foreground">Not yok</span>'
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex items-center space-x-2">
+                                ${getActionButtons(appointment)}
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
 
             lucide.createIcons();
+        }
+
+        // Toggle appointment details on mobile
+        function toggleAppointmentDetails(appointmentId) {
+            const detailsElement = document.getElementById(`details-${appointmentId}`);
+            if (detailsElement) {
+                detailsElement.classList.toggle('hidden');
+            }
         }
 
         // Get status badge class
@@ -1441,6 +1508,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeTheme();
             checkAuth();
+            
+            // Handle window resize for responsive display
+            window.addEventListener('resize', function() {
+                if (document.getElementById('appointmentsTableBody')) {
+                    displayAppointments();
+                }
+            });
         });
     </script>
 </body>
