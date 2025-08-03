@@ -46,6 +46,18 @@ body {
     align-items: center;
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-logo .logo-icon {
+    width: 24px;
+    height: 24px;
+    color: #667eea;
+}
+
 .nav-logo h2 {
     color: #2d3436;
     font-size: 1.8rem;
@@ -360,69 +372,138 @@ body {
     line-height: 1.6;
 }
 
-/* How It Works Section */
-.how-it-works {
-    padding: 100px 0;
-    background: linear-gradient(135deg, #f1f2f6 0%, #e8eaf6 100%);
+/* Services Section */
+.services {
+    padding: 80px 0;
+    background: #f8f9fa;
 }
 
-.steps-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1000px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    gap: 40px;
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
 }
 
-.step {
-    text-align: center;
-    flex: 1;
-    min-width: 250px;
+.service-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-.step-number {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0 auto 20px;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-.step-content h3 {
+.service-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-rating {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.service-content {
+    padding: 25px;
+}
+
+.service-content h3 {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #333;
+    color: #2d3436;
     margin-bottom: 10px;
 }
 
-.step-content p {
-    color: #666;
-    line-height: 1.5;
-}
-
-.step-arrow {
-    font-size: 2rem;
+.service-price {
+    font-size: 1.2rem;
+    font-weight: 700;
     color: #667eea;
-    margin: 0 20px;
+    margin-bottom: 20px;
+}
+
+.service-features {
+    margin-bottom: 25px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: #636e72;
+}
+
+.feature-item i {
+    color: #22c55e;
+}
+
+.btn-sm {
+    padding: 10px 20px;
+    font-size: 0.9rem;
 }
 
 
+
+/* CTA Section */
+.cta {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
+    color: white;
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.btn-white {
+    background: white;
+    color: #2d3436;
+    border: 2px solid white;
+}
+
+.btn-white:hover {
+    background: transparent;
+    color: white;
+}
 
 /* Footer */
 .footer {
-    background: #f8f9fa;
-    color: #333;
+    background: #2d3436;
+    color: white;
     padding: 60px 0 20px;
-    border-top: 1px solid #e1e5e9;
 }
 
 .footer-content {
@@ -432,11 +513,30 @@ body {
     margin-bottom: 40px;
 }
 
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-logo .logo-icon {
+    width: 24px;
+    height: 24px;
+    color: #667eea;
+}
+
+.footer-logo h3 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
 .footer-section h3 {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 15px;
-    color: #667eea;
+    color: white;
 }
 
 .social-links {
@@ -484,7 +584,7 @@ body {
 }
 
 .footer-section ul li a {
-    color: rgba(51, 51, 51, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -496,11 +596,11 @@ body {
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
-    border-top: 1px solid rgba(51, 51, 51, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-bottom p {
-    color: rgba(51, 51, 51, 0.6);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 /* Booking Page Styles */
