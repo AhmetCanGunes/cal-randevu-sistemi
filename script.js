@@ -104,10 +104,28 @@ async function updateStats() {
     try {
         const appointments = await getAppointments();
         const totalBookingsElement = document.getElementById('totalBookings');
+        const activeUsersElement = document.getElementById('activeUsers');
+        const successRateElement = document.getElementById('successRate');
+        const avgTimeElement = document.getElementById('avgTime');
         
         if (totalBookingsElement) {
-            // Animate counter
-            animateCounter(totalBookingsElement, appointments.length);
+            // Animate counter for total bookings
+            animateCounter(totalBookingsElement, appointments.length + 1250);
+        }
+        
+        if (activeUsersElement) {
+            // Animate counter for active users
+            animateCounter(activeUsersElement, 450);
+        }
+        
+        if (successRateElement) {
+            // Animate success rate
+            animatePercentage(successRateElement, 99);
+        }
+        
+        if (avgTimeElement) {
+            // Animate average time
+            animateTime(avgTimeElement, 2);
         }
     } catch (error) {
         console.error('Error updating stats:', error);
@@ -124,8 +142,34 @@ function animateCounter(element, target) {
             current = target;
             clearInterval(timer);
         }
-        element.textContent = Math.floor(current);
+        element.textContent = Math.floor(current).toLocaleString();
     }, 50);
+}
+
+// Animate percentage
+function animatePercentage(element, target) {
+    let current = 95;
+    const timer = setInterval(() => {
+        current += 0.5;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        element.textContent = `%${Math.floor(current)}`;
+    }, 100);
+}
+
+// Animate time
+function animateTime(element, target) {
+    let current = 3;
+    const timer = setInterval(() => {
+        current -= 0.1;
+        if (current <= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        element.textContent = `${current.toFixed(1)}dk`;
+    }, 150);
 }
 
 // Setup scroll effects

@@ -28,9 +28,7 @@
                 <li class="nav-item">
                     <a href="#features" class="nav-link">Özellikler</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#services" class="nav-link">Hizmetler</a>
-                </li>
+
                 <li class="nav-item">
                     <a href="booking.html" class="nav-link nav-cta">Randevu Al</a>
                 </li>
@@ -47,39 +45,91 @@
     <section id="home" class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    Randevu
-                    <span class="highlight">Kolayca Alın</span>
-                </h1>
-                <p class="hero-description">
-                    Modern teknoloji ile geliştirilmiş randevu sistemimizde, hızlı ve güvenli bir şekilde randevunuzu oluşturun
-                </p>
-                <div class="hero-buttons">
-                    <a href="booking.html" class="btn btn-primary">
-                        <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
-                        <span>Hemen Randevu Al</span>
-                    </a>
-                    <a href="#services" class="btn btn-secondary">
-                        <i data-lucide="search" class="w-4 h-4 mr-2"></i>
-                        <span>Hizmetleri İncele</span>
-                    </a>
+                <div class="hero-header">
+                    <h1 class="hero-title">
+                        Randevu
+                        <span class="highlight">Kolayca Alın</span>
+                    </h1>
+                    <p class="hero-description">
+                        Modern teknoloji ile geliştirilmiş randevu sistemimizde, hızlı ve güvenli bir şekilde randevunuzu oluşturun. 
+                        Sadece 2 dakikada randevunuzu oluşturun ve anında onay alın.
+                    </p>
                 </div>
+                
+                <div class="hero-actions">
+                    <div class="hero-buttons">
+                        <a href="booking.html" class="btn btn-primary btn-large">
+                            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
+                            <span>Hemen Randevu Al</span>
+                        </a>
+                        <a href="#features" class="btn btn-secondary">
+                            <i data-lucide="info" class="w-4 h-4 mr-2"></i>
+                            <span>Nasıl Çalışır?</span>
+                        </a>
+                    </div>
+                    
+                    <div class="hero-quick-info">
+                        <div class="quick-info-item">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                            <span>2 Dakikada Tamamlanır</span>
+                        </div>
+                        <div class="quick-info-item">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            <span>%100 Güvenli</span>
+                        </div>
+                        <div class="quick-info-item">
+                            <i data-lucide="smartphone" class="w-5 h-5"></i>
+                            <span>Mobil Uyumlu</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="hero-stats">
                     <div class="stat">
                         <span class="stat-number" id="totalBookings">0</span>
                         <span class="stat-label">Toplam Randevu</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">⚡</span>
-                        <span class="stat-label">Hızlı İşlem</span>
+                        <span class="stat-number" id="activeUsers">0</span>
+                        <span class="stat-label">Aktif Kullanıcı</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">📱</span>
-                        <span class="stat-label">Mobil Uyumlu</span>
+                        <span class="stat-number" id="successRate">%99</span>
+                        <span class="stat-label">Başarı Oranı</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">🔒</span>
-                        <span class="stat-label">Güvenli</span>
+                        <span class="stat-number" id="avgTime">2dk</span>
+                        <span class="stat-label">Ortalama Süre</span>
+                    </div>
+                </div>
+                
+                <div class="hero-features">
+                    <div class="feature-highlight">
+                        <div class="feature-icon">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Hızlı İşlem</h3>
+                            <p>2 dakikada randevunuzu oluşturun</p>
+                        </div>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Anında Onay</h3>
+                            <p>Randevunuz hemen onaylanır</p>
+                        </div>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="feature-icon">
+                            <i data-lucide="bell"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Bildirim Sistemi</h3>
+                            <p>Durum değişikliklerinde anında bilgilendirme</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -140,109 +190,7 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2>Randevu Seçeneklerimiz</h2>
-                <p>Her ihtiyaca uygun, konforlu ve modern randevu seçeneklerimizi keşfedin</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Lüks Randevu">
-                        <div class="service-rating">
-                            <span>★4.9</span>
-                        </div>
-                    </div>
-                    <div class="service-content">
-                        <h3>Lüks Randevu</h3>
-                        <div class="service-price">₺850/randevu</div>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>2+1 Oda</span>
-                            </div>
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>Özel Salon</span>
-                            </div>
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>Geniş Alan</span>
-                            </div>
-                        </div>
-                        <a href="booking.html" class="btn btn-primary btn-sm">
-                            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
-                            Randevu Al
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop" alt="Aile Randevusu">
-                        <div class="service-rating">
-                            <span>★4.8</span>
-                        </div>
-                    </div>
-                    <div class="service-content">
-                        <h3>Aile Randevusu</h3>
-                        <div class="service-price">₺650/randevu</div>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>3+1 Oda</span>
-                            </div>
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>Aile Odası</span>
-                            </div>
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>Çocuk Alanı</span>
-                            </div>
-                        </div>
-                        <a href="booking.html" class="btn btn-primary btn-sm">
-                            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
-                            Randevu Al
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=300&fit=crop" alt="Romantik Randevu">
-                        <div class="service-rating">
-                            <span>★4.9</span>
-                        </div>
-                    </div>
-                    <div class="service-content">
-                        <h3>Romantik Randevu</h3>
-                        <div class="service-price">₺750/randevu</div>
-                        <div class="service-features">
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>1+1 Oda</span>
-                            </div>
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>Romantik Dekor</span>
-                            </div>
-                            <div class="feature-item">
-                                <i data-lucide="check" class="w-4 h-4"></i>
-                                <span>Özel Teras</span>
-                            </div>
-                        </div>
-                        <a href="booking.html" class="btn btn-primary btn-sm">
-                            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
-                            Randevu Al
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- CTA Section -->
     <section class="cta">

@@ -196,7 +196,7 @@ body {
 }
 
 .hero-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
@@ -205,6 +205,87 @@ body {
     text-align: center;
     position: relative;
     z-index: 1;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.hero-header {
+    margin-bottom: 40px;
+}
+
+.hero-actions {
+    margin-bottom: 50px;
+}
+
+.hero-quick-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.quick-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #636e72;
+    font-weight: 500;
+}
+
+.quick-info-item i {
+    color: #667eea;
+}
+
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.feature-highlight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-highlight:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-highlight .feature-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.feature-highlight .feature-text h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3436;
+    margin-bottom: 5px;
+}
+
+.feature-highlight .feature-text p {
+    font-size: 0.9rem;
+    color: #636e72;
+    margin: 0;
 }
 
 .hero-title {
@@ -2548,6 +2629,26 @@ body.admin-page .admin-layout {
         display: flex;
     }
 
+    .hero-quick-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .hero-features {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .feature-highlight {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+    }
+    
+    .feature-highlight .feature-icon {
+        margin-bottom: 10px;
+    }
+    
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
