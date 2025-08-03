@@ -10,6 +10,8 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#667eea">
     <link rel="apple-touch-icon" href="icon-192.png">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -21,6 +23,12 @@
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#home" class="nav-link">Ana Sayfa</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#features" class="nav-link">Özellikler</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#how-it-works" class="nav-link">Nasıl Çalışır</a>
                 </li>
                 <li class="nav-item">
                     <a href="booking.html" class="nav-link nav-cta">Randevu Al</a>
@@ -50,6 +58,9 @@
                     <a href="booking.html" class="btn btn-primary">
                         <span>🚀 Hemen Randevu Al</span>
                     </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <span>📋 Özellikleri Keşfet</span>
+                    </a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
@@ -64,13 +75,120 @@
                         <span class="stat-number">📱</span>
                         <span class="stat-label">Mobil Uyumlu</span>
                     </div>
+                    <div class="stat">
+                        <span class="stat-number">🔒</span>
+                        <span class="stat-label">Güvenli</span>
+                    </div>
                 </div>
             </div>
-
         </div>
     </section>
 
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Neden Cal?</h2>
+                <p>Modern randevu sistemi ile tanışın</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <h3>Hızlı ve Kolay</h3>
+                    <p>2 dakikada randevu oluşturun. Karmaşık formlar yok, sadece gerekli bilgiler.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="smartphone"></i>
+                    </div>
+                    <h3>Mobil Uyumlu</h3>
+                    <p>Telefon, tablet veya bilgisayar - her cihazda mükemmel çalışır.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3>Güvenli</h3>
+                    <p>Verileriniz güvende. SSL şifreleme ile korunan sistem.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="bell"></i>
+                    </div>
+                    <h3>Anlık Bildirim</h3>
+                    <p>Randevu durumunuz hakkında anında bilgilendirme alın.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="calendar-check"></i>
+                    </div>
+                    <h3>Müsait Saat Kontrolü</h3>
+                    <p>Dolu saatleri görün, boş saatleri seçin. Çakışma yok!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="message-circle"></i>
+                    </div>
+                    <h3>Notlar</h3>
+                    <p>Özel isteklerinizi notlar kısmında belirtin. Her detay önemli.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nasıl Çalışır?</h2>
+                <p>3 basit adımda randevunuzu oluşturun</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Bilgilerinizi Girin</h3>
+                        <p>İsim, soyisim, tarih ve saat bilgilerinizi doğru bir şekilde girin</p>
+                    </div>
+                </div>
+                <div class="step-arrow">
+                    <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Randevu Oluşturun</h3>
+                        <p>Formunuzu gönderin ve randevu talebinizi oluşturun</p>
+                    </div>
+                </div>
+                <div class="step-arrow">
+                    <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Onay Bekleyin</h3>
+                        <p>Randevunuz onaylanacak ve sizinle iletişime geçilecek</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Hemen Başlayın</h2>
+                <p>Randevu almak hiç bu kadar kolay olmamıştı. Şimdi deneyin!</p>
+                <a href="booking.html" class="btn btn-primary btn-large">
+                    <span>🎯 Randevu Al</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -79,16 +197,30 @@
                 <div class="footer-section">
                     <h3>Cal</h3>
                     <p>Modern randevu alma sistemi</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i data-lucide="instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i data-lucide="twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i data-lucide="facebook"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Hızlı Linkler</h4>
                     <ul>
                         <li><a href="booking.html">Randevu Al</a></li>
+                        <li><a href="#features">Özellikler</a></li>
+                        <li><a href="#how-it-works">Nasıl Çalışır</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>İletişim</h4>
                     <p>Instagram: @cal</p>
+                    <p>Email: info@cal.com</p>
                     <p>Modern web teknolojileri ile geliştirilmiştir</p>
                 </div>
             </div>
