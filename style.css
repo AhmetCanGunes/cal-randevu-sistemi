@@ -3038,32 +3038,98 @@ body.admin-page .admin-layout {
     .card .flex.items-center.justify-between {
         flex-direction: column;
         align-items: stretch;
-        gap: 10px;
+        gap: 8px;
     }
     
     .card .flex.items-center.space-x-4 {
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
         width: 100%;
     }
     
     .card .flex.items-center.space-x-2 {
-        flex-direction: column;
-        gap: 6px;
+        flex-direction: row;
+        gap: 4px;
         width: 100%;
+        flex-wrap: wrap;
     }
     
     .card input,
     .card select,
     .card button {
         width: 100%;
-        font-size: 0.9rem;
-        padding: 8px 12px;
+        font-size: 0.85rem;
+        padding: 6px 10px;
     }
     
     .card .btn-sm {
-        padding: 8px 12px;
-        font-size: 0.8rem;
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        min-width: auto;
+    }
+    
+    /* Mobile compact header */
+    .card .flex.items-center.justify-between h2 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    /* Mobile filter groups */
+    .card .flex.items-center.space-x-4 > div {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+    
+    .card .flex.items-center.space-x-4 > div > * {
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    /* Mobile button groups */
+    .card .flex.items-center.space-x-2 > button {
+        flex: 1;
+        min-width: 80px;
+    }
+    
+    /* Mobile ultra compact mode */
+    @media (max-width: 480px) {
+        .card .flex.items-center.justify-between {
+            gap: 6px;
+        }
+        
+        .card .flex.items-center.space-x-4 {
+            gap: 4px;
+        }
+        
+        .card .flex.items-center.space-x-2 {
+            gap: 2px;
+        }
+        
+        .card input,
+        .card select,
+        .card button {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+        }
+        
+        .card .btn-sm {
+            padding: 4px 8px;
+            font-size: 0.7rem;
+        }
+        
+        .card .flex.items-center.space-x-4 > div > * {
+            min-width: 100px;
+        }
+        
+        .card .flex.items-center.space-x-2 > button {
+            min-width: 60px;
+        }
+        
+        .card .flex.items-center.justify-between h2 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
     }
 
     .appointment-card.compact {
