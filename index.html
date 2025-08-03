@@ -62,7 +62,7 @@
                             <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
                             <span>Hemen Randevu Al</span>
                         </a>
-                        <a href="#features" class="btn btn-secondary">
+                        <a href="#" class="btn btn-secondary" id="howItWorksBtn">
                             <i data-lucide="info" class="w-4 h-4 mr-2"></i>
                             <span>Nasıl Çalışır?</span>
                         </a>
@@ -250,6 +250,67 @@
             </div>
         </div>
     </footer>
+
+    <!-- How It Works Popup -->
+    <div id="howItWorksPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>Randevu Sistemi Nasıl Çalışır?</h2>
+                <button class="popup-close" id="closePopup">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="how-it-works-steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Randevu Formunu Doldurun</h3>
+                            <p>İsim, soyisim, telefon, tarih ve saat bilgilerinizi girin. Özel isteklerinizi notlar kısmında belirtebilirsiniz.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Formu Gönderin</h3>
+                            <p>Bilgilerinizi kontrol edin ve "Randevu Oluştur" butonuna tıklayın. Sistem otomatik olarak randevunuzu kaydeder.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Onay Bekleyin</h3>
+                            <p>Randevunuz admin panelinde görüntülenir ve hızlıca onaylanır. Durum değişikliklerinde bilgilendirilirsiniz.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="system-features">
+                    <h3>Sistem Özellikleri</h3>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <i data-lucide="clock"></i>
+                            <span>Hızlı İşlem</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="shield-check"></i>
+                            <span>Güvenli Veri</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="smartphone"></i>
+                            <span>Mobil Uyumlu</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="bell"></i>
+                            <span>Anlık Bildirim</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
