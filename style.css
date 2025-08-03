@@ -3079,11 +3079,34 @@ body.admin-page .admin-layout {
         display: flex;
         gap: 4px;
         flex-wrap: wrap;
+        width: 100%;
     }
     
     .card .flex.items-center.space-x-4 > div > * {
         flex: 1;
-        min-width: 120px;
+        min-width: 100px;
+        max-width: 100%;
+    }
+    
+    /* Force mobile layout */
+    @media (max-width: 768px) {
+        .card .flex.items-center.space-x-4 {
+            display: grid !important;
+            grid-template-columns: 1fr;
+            gap: 6px !important;
+        }
+        
+        .card .flex.items-center.space-x-4 > div {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 4px !important;
+        }
+        
+        .card .flex.items-center.space-x-2 {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 4px !important;
+        }
     }
     
     /* Mobile button groups */
@@ -3095,40 +3118,59 @@ body.admin-page .admin-layout {
     /* Mobile ultra compact mode */
     @media (max-width: 480px) {
         .card .flex.items-center.justify-between {
-            gap: 6px;
-        }
-        
-        .card .flex.items-center.space-x-4 {
             gap: 4px;
         }
         
-        .card .flex.items-center.space-x-2 {
+        .card .flex.items-center.space-x-4 {
             gap: 2px;
+        }
+        
+        .card .flex.items-center.space-x-2 {
+            gap: 1px;
         }
         
         .card input,
         .card select,
         .card button {
-            font-size: 0.8rem;
-            padding: 4px 8px;
+            font-size: 0.75rem;
+            padding: 3px 6px;
         }
         
         .card .btn-sm {
-            padding: 4px 8px;
-            font-size: 0.7rem;
+            padding: 3px 6px;
+            font-size: 0.65rem;
         }
         
         .card .flex.items-center.space-x-4 > div > * {
-            min-width: 100px;
+            min-width: 80px;
         }
         
         .card .flex.items-center.space-x-2 > button {
-            min-width: 60px;
+            min-width: 50px;
         }
         
         .card .flex.items-center.justify-between h2 {
-            font-size: 1rem;
-            margin-bottom: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        
+        /* Force single column layout for very small screens */
+        .card .flex.items-center.space-x-4 {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 3px !important;
+        }
+        
+        .card .flex.items-center.space-x-4 > div {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)) !important;
+            gap: 2px !important;
+        }
+        
+        .card .flex.items-center.space-x-2 {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)) !important;
+            gap: 2px !important;
         }
     }
 
