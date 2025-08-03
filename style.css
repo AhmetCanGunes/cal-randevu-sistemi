@@ -372,7 +372,7 @@ body {
 
 .stat {
     text-align: center;
-    color: white;
+    color: #2d3436;
 }
 
 .stat-number {
@@ -2054,9 +2054,12 @@ body.admin-page .admin-layout {
         order: 2;
         position: fixed;
         bottom: 0;
-        height: 60px;
+        height: 70px;
         flex-direction: row;
         z-index: 100;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .sidebar-header {
@@ -2068,29 +2071,37 @@ body.admin-page .admin-layout {
         flex: 1;
         padding: 0;
         overflow-x: auto;
+        justify-content: space-around;
     }
     
     .menu-item {
         flex-direction: column;
-        padding: 8px;
-        min-width: 60px;
+        padding: 10px 8px;
+        min-width: 70px;
         text-align: center;
         border-left: none;
         border-top: 3px solid transparent;
+        transition: all 0.3s ease;
+    }
+    
+    .menu-item:hover {
+        background: rgba(255, 255, 255, 0.1);
     }
     
     .menu-item.active {
         border-top-color: #fbbf24;
         border-left-color: transparent;
+        background: rgba(251, 191, 36, 0.1);
     }
     
     .menu-icon {
         margin: 0 0 4px 0;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
     
     .menu-text {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
+        font-weight: 500;
     }
     
     .sidebar-footer {
@@ -2101,16 +2112,20 @@ body.admin-page .admin-layout {
     }
     
     .main-content {
-        padding-bottom: 80px;
+        padding-bottom: 90px;
+        padding-top: 20px;
     }
     
     .appointments-header {
         flex-direction: column;
         align-items: stretch;
+        gap: 15px;
     }
     
     .header-actions {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
     }
     
     .simple-admin-container {
@@ -2121,6 +2136,7 @@ body.admin-page .admin-layout {
         right: 10px;
         left: 10px;
         max-width: none;
+        bottom: 90px;
     }
     
     .placeholder-content {
@@ -2129,6 +2145,59 @@ body.admin-page .admin-layout {
     
     .placeholder-icon {
         font-size: 3rem;
+    }
+    
+    /* Appointment cards mobile improvements */
+    .appointment-card {
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }
+    
+    .appointment-summary {
+        padding: 15px;
+    }
+    
+    .appointment-name {
+        font-size: 1rem;
+    }
+    
+    .appointment-datetime {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .date-badge, .time-badge {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+    
+    .quick-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .quick-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .appointment-details {
+        padding: 15px;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .appointment-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .action-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -3054,6 +3123,90 @@ body.admin-page .admin-layout {
     .appointments-container {
         padding: 15px;
     }
+    
+    /* Admin panel mobile improvements for small screens */
+    .sidebar {
+        height: 65px;
+    }
+    
+    .menu-item {
+        min-width: 60px;
+        padding: 8px 6px;
+    }
+    
+    .menu-icon {
+        font-size: 1.1rem;
+    }
+    
+    .menu-text {
+        font-size: 0.7rem;
+    }
+    
+    .main-content {
+        padding-bottom: 85px;
+    }
+    
+    .notification {
+        bottom: 85px;
+        font-size: 0.9rem;
+    }
+    
+    .appointment-card {
+        margin-bottom: 12px;
+    }
+    
+    .appointment-summary {
+        padding: 12px;
+    }
+    
+    .appointment-name {
+        font-size: 0.95rem;
+    }
+    
+    .quick-actions {
+        gap: 6px;
+    }
+    
+    .quick-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .appointment-details {
+        padding: 12px;
+    }
+    
+    .appointment-actions {
+        gap: 8px;
+    }
+    
+    .action-btn {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .simple-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .stat-card p {
+        font-size: 0.75rem;
+    }
+}
 
     .page-header h1 {
         font-size: 1.3rem;
