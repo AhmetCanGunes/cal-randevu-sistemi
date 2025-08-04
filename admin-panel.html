@@ -2,7 +2,10 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>Admin Panel - Randevu Yönetimi</title>
     
     <!-- Tailwind CSS -->
@@ -679,6 +682,96 @@
             .mobile-flex {
                 display: flex !important;
             }
+
+            /* Touch-friendly improvements */
+            .btn {
+                min-height: 44px !important;
+                min-width: 44px !important;
+                touch-action: manipulation;
+            }
+
+            .btn-sm {
+                min-height: 40px !important;
+                padding: 0.5rem 1rem !important;
+            }
+
+            /* Better scroll and overflow */
+            .overflow-x-auto {
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            /* Notification panel mobile */
+            #notificationsPanel {
+                width: calc(100vw - 2rem) !important;
+                max-width: none !important;
+                right: 1rem !important;
+                left: 1rem !important;
+                top: 4rem !important;
+            }
+
+            /* Better spacing for mobile cards */
+            .appointment-card {
+                padding: 1rem !important;
+                margin-bottom: 0.75rem !important;
+                border-radius: 0.75rem !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            /* Improved tap targets */
+            .appointment-name {
+                padding: 0.5rem 0 !important;
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+
+            /* Better filter layout */
+            .appointments-filters {
+                background: hsl(var(--card)) !important;
+                padding: 1rem !important;
+                border-radius: 0.5rem !important;
+                border: 1px solid hsl(var(--border)) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            /* Sticky header for mobile */
+            header {
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 50 !important;
+                backdrop-filter: blur(10px) !important;
+                background-color: hsl(var(--card) / 0.95) !important;
+            }
+        }
+
+        /* Enhanced touch and mobile UX */
+        @media (max-width: 480px) {
+            /* Larger tap targets for very small screens */
+            .btn {
+                min-height: 48px !important;
+                font-size: 0.875rem !important;
+            }
+
+            .btn-sm {
+                min-height: 44px !important;
+                font-size: 0.8rem !important;
+            }
+
+            /* Better table scroll */
+            .table {
+                min-width: 600px !important;
+            }
+
+            /* Full width cards */
+            .card {
+                border-radius: 0.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            /* Better login page mobile */
+            #loginPage .max-w-md {
+                padding: 1rem !important;
+            }
         }
     </style>
 </head>
@@ -1028,6 +1121,13 @@
 
             // Check if mobile (screen width < 768px)
             const isMobile = window.innerWidth < 768;
+            
+            // Add mobile-specific classes to body for better CSS targeting
+            if (isMobile) {
+                document.body.classList.add('mobile-device');
+            } else {
+                document.body.classList.remove('mobile-device');
+            }
             
             if (isMobile) {
                 // Mobile card view - only show customer name initially
@@ -1676,10 +1776,37 @@
             
             // Handle window resize for responsive display
             window.addEventListener('resize', function() {
-                if (document.getElementById('appointmentsTableBody')) {
-                    displayAppointments();
-                }
+                // Debounce resize events for better performance
+                clearTimeout(window.resizeTimeout);
+                window.resizeTimeout = setTimeout(function() {
+                    if (document.getElementById('appointmentsTableBody')) {
+                        displayAppointments();
+                    }
+                    
+                    // Update mobile class on body
+                    const isMobile = window.innerWidth < 768;
+                    if (isMobile) {
+                        document.body.classList.add('mobile-device');
+                    } else {
+                        document.body.classList.remove('mobile-device');
+                    }
+                }, 150);
             });
+
+            // Add touch event support for better mobile interaction
+            document.addEventListener('touchstart', function() {
+                document.body.classList.add('touch-device');
+            }, { passive: true });
+
+            // Prevent zoom on double tap for better mobile UX
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
         });
     </script>
 </body>
