@@ -623,10 +623,14 @@
             }
 
             /* Ultra Compact Stats Grid Mobile - 4 cards in single row */
-            .grid.md\\:grid-cols-4 {
+            main .grid.md\\:grid-cols-4,
+            .container .grid.md\\:grid-cols-4,
+            .grid.grid-cols-1.md\\:grid-cols-4 {
+                display: grid !important;
                 grid-template-columns: repeat(4, 1fr) !important;
                 gap: 0.25rem !important;
                 margin-bottom: 1rem !important;
+                width: 100% !important;
             }
 
             .grid.md\\:grid-cols-3 {
@@ -1067,9 +1071,13 @@
                 padding-bottom: 1rem !important;
             }
 
-            .grid.md\\:grid-cols-4 {
+            main .grid.md\\:grid-cols-4,
+            .container .grid.md\\:grid-cols-4,
+            .grid.grid-cols-1.md\\:grid-cols-4 {
+                display: grid !important;
                 grid-template-columns: repeat(4, 1fr) !important;
                 gap: 0.125rem !important;
+                width: 100% !important;
             }
 
             /* Extra compact for very small screens */
@@ -1508,9 +1516,14 @@
 
         /* PWM (Progressive Web Mobile) optimizations */
         @media (max-width: 768px) and (orientation: portrait) {
-            /* Portrait mobile specific optimizations */
-            .grid.md\\:grid-cols-4 {
-                grid-template-columns: 1fr 1fr !important;
+            /* Portrait mobile specific optimizations - Force 4 columns */
+            main .grid.md\\:grid-cols-4,
+            .container .grid.md\\:grid-cols-4,
+            .grid.grid-cols-1.md\\:grid-cols-4 {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 0.25rem !important;
+                width: 100% !important;
             }
 
             /* Optimize for touch scrolling */
