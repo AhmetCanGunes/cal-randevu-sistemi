@@ -20,7 +20,7 @@ randevu-uygulamasi/
 ├── booking.js         (Randevu sayfası JavaScript)
 ├── admin.js           (Admin panel JavaScript)
 │
-├── manifest.json      (PWA ayarları)
+
 ├── robots.txt         (SEO ayarları)
 └── README.md          (Proje açıklaması)
 ```
@@ -38,7 +38,7 @@ randevu-uygulamasi/
 8. script.js
 9. booking.js
 10. admin.js
-11. manifest.json
+
 12. robots.txt
 
 ### ❌ UPLOAD ETMEYİN:
