@@ -610,16 +610,7 @@
                 height: 0.75rem !important;
             }
 
-            /* Performance metrics mobile */
-            .performance-metrics .card {
-                padding: 0.75rem !important;
-            }
 
-            .performance-metrics .flex.items-center {
-                flex-direction: column !important;
-                text-align: center !important;
-                gap: 0.5rem !important;
-            }
         }
 
         @media (max-width: 480px) {
@@ -805,44 +796,7 @@
 
 
 
-            <!-- Performance Metrics -->
-            <div class="performance-metrics grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="card p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-muted-foreground">Ortalama Randevu Süresi</p>
-                            <p class="text-2xl font-bold" id="avgAppointmentDuration">45 dk</p>
-                        </div>
-                        <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
-                            <i data-lucide="clock" class="w-6 h-6 text-purple-600"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-muted-foreground">En Aktif Gün</p>
-                            <p class="text-2xl font-bold" id="mostActiveDay">Çarşamba</p>
-                        </div>
-                        <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center">
-                            <i data-lucide="trending-up" class="w-6 h-6 text-orange-600"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-muted-foreground">Başarı Oranı</p>
-                            <p class="text-2xl font-bold" id="successRate">85%</p>
-                        </div>
-                        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
-                            <i data-lucide="target" class="w-6 h-6 text-green-600"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Appointments Table -->
             <div class="card p-6">
@@ -1028,8 +982,7 @@
                 updateStats();
                 displayAppointments();
                 
-                // Update performance metrics
-                updatePerformanceMetrics();
+
                 
                 // Update calendar if in calendar view
                 if (currentView === 'calendar') {
@@ -1442,36 +1395,7 @@
             }, 3000);
         }
 
-        // Update performance metrics
-        function updatePerformanceMetrics() {
-            if (!appointments.length) return;
 
-            // Calculate average appointment duration (mock data)
-            const avgDuration = '45 dk';
-            document.getElementById('avgAppointmentDuration').textContent = avgDuration;
-
-            // Find most active day
-            const dayCounts = {};
-            appointments.forEach(app => {
-                if (app.date) {
-                    const day = new Date(app.date).toLocaleDateString('tr-TR', { weekday: 'long' });
-                    dayCounts[day] = (dayCounts[day] || 0) + 1;
-                }
-            });
-            
-            const mostActiveDay = Object.keys(dayCounts).reduce((a, b) => 
-                dayCounts[a] > dayCounts[b] ? a : b
-            ) || 'Çarşamba';
-            document.getElementById('mostActiveDay').textContent = mostActiveDay;
-
-            // Calculate success rate
-            const total = appointments.length;
-            const successful = appointments.filter(app => 
-                app.status === 'confirmed' || app.status === 'completed'
-            ).length;
-            const successRate = total > 0 ? Math.round((successful / total) * 100) : 0;
-            document.getElementById('successRate').textContent = successRate + '%';
-        }
 
         // Notification system
         let notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
