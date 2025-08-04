@@ -771,6 +771,34 @@
                 display: none !important;
             }
 
+            /* Hide specific filter elements on mobile */
+            #dateFilter,
+            #tableViewBtn,
+            #calendarViewBtn,
+            .filter-inputs-group button[onclick="clearFilters()"],
+            button[onclick="createTestAppointment()"],
+            button[onclick="toggleNotifications()"],
+            button[onclick="toggleDarkMode()"] {
+                display: none !important;
+            }
+
+            /* Hide entire action button groups on mobile */
+            .action-buttons-group {
+                display: none !important;
+            }
+
+            /* Simplify appointments header for mobile */
+            .appointments-header h2 {
+                text-align: center !important;
+                width: 100% !important;
+            }
+
+            /* Keep only essential filter inputs visible */
+            .filter-inputs-group input[type="date"],
+            .filter-inputs-group button {
+                display: none !important;
+            }
+
             /* Notification badge positioning */
             .btn.relative .absolute {
                 top: -0.25rem !important;
