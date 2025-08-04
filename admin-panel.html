@@ -622,11 +622,11 @@
                 border: 1px solid hsl(var(--border)) !important;
             }
 
-            /* Compact Stats Grid Mobile - All 4 in one row */
+            /* Ultra Compact Stats Grid Mobile - 4 cards in single row */
             .grid.md\\:grid-cols-4 {
                 grid-template-columns: repeat(4, 1fr) !important;
-                gap: 0.5rem !important;
-                margin-bottom: 1.5rem !important;
+                gap: 0.25rem !important;
+                margin-bottom: 1rem !important;
             }
 
             .grid.md\\:grid-cols-3 {
@@ -634,61 +634,66 @@
                 gap: 1rem !important;
             }
 
-            /* Compact mobile stat cards */
+            /* Ultra compact mobile stat cards */
             .card.p-6 {
-                padding: 0.75rem !important;
-                border-radius: 0.75rem !important;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
-                border: 1px solid hsl(var(--border) / 0.3) !important;
+                padding: 0.5rem 0.25rem !important;
+                border-radius: 0.5rem !important;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+                border: 1px solid hsl(var(--border) / 0.2) !important;
                 background: hsl(var(--card)) !important;
                 transition: all 0.2s ease !important;
                 min-height: auto !important;
+                overflow: hidden !important;
             }
 
             .card:hover {
                 transform: translateY(-1px) !important;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
             }
 
-            /* Horizontal compact layout for mobile stats */
+            /* Ultra compact layout for mobile stats */
             .card .flex.items-center.space-x-4 {
                 flex-direction: column !important;
                 text-align: center !important;
-                gap: 0.375rem !important;
+                gap: 0.25rem !important;
                 align-items: center !important;
                 justify-content: center !important;
             }
 
-            /* Smaller, compact icons */
+            /* Minimal icons */
             .card .w-12.h-12 {
-                width: 1.75rem !important;
-                height: 1.75rem !important;
-                border-radius: 0.5rem !important;
+                width: 1.25rem !important;
+                height: 1.25rem !important;
+                border-radius: 0.25rem !important;
                 box-shadow: none !important;
-                margin-bottom: 0.25rem !important;
+                margin-bottom: 0.125rem !important;
             }
 
             .card .w-12.h-12 i {
-                width: 1rem !important;
-                height: 1rem !important;
+                width: 0.75rem !important;
+                height: 0.75rem !important;
             }
 
-            /* Compact numbers */
+            /* Minimal numbers */
             .card .text-2xl {
-                font-size: 1.25rem !important;
+                font-size: 1rem !important;
                 font-weight: 700 !important;
                 line-height: 1 !important;
-                margin: 0.125rem 0 !important;
+                margin: 0.0625rem 0 !important;
             }
 
-            /* Compact labels */
+            /* Minimal labels */
             .card .text-sm {
-                font-size: 0.65rem !important;
+                font-size: 0.5rem !important;
                 font-weight: 500 !important;
                 opacity: 0.8 !important;
-                letter-spacing: 0.01em !important;
-                line-height: 1.2 !important;
+                letter-spacing: -0.01em !important;
+                line-height: 1.1 !important;
                 text-align: center !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                white-space: nowrap !important;
+                max-width: 100% !important;
             }
 
             /* Appointments Table Mobile */
@@ -1064,34 +1069,30 @@
 
             .grid.md\\:grid-cols-4 {
                 grid-template-columns: repeat(4, 1fr) !important;
-                gap: 0.25rem !important;
+                gap: 0.125rem !important;
             }
 
             /* Extra compact for very small screens */
             .card.p-6 {
-                padding: 0.5rem !important;
+                padding: 0.375rem 0.125rem !important;
             }
 
             .card .text-2xl {
-                font-size: 1rem !important;
+                font-size: 0.875rem !important;
             }
 
             .card .text-sm {
-                font-size: 0.6rem !important;
+                font-size: 0.45rem !important;
             }
 
             .card .w-12.h-12 {
-                width: 1.5rem !important;
-                height: 1.5rem !important;
+                width: 1rem !important;
+                height: 1rem !important;
             }
 
             .card .w-12.h-12 i {
-                width: 0.875rem !important;
-                height: 0.875rem !important;
-            }
-
-            .card .text-2xl {
-                font-size: 1rem !important;
+                width: 0.625rem !important;
+                height: 0.625rem !important;
             }
 
             /* Better mobile filter layout for very small screens */
