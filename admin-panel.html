@@ -543,40 +543,94 @@
             }
 
             /* Appointments Table Mobile */
-            .appointments-header .flex {
+            .appointments-header {
                 flex-direction: column !important;
-                gap: 0.75rem !important;
+                gap: 1rem !important;
                 align-items: stretch !important;
+                margin-bottom: 1rem !important;
             }
 
             .appointments-header h2 {
-                font-size: 1rem !important;
+                font-size: 1.25rem !important;
+                margin-bottom: 0 !important;
+                text-align: center !important;
+            }
+
+            /* Completely redesign filters for mobile */
+            .appointments-filters {
+                flex-direction: column !important;
+                gap: 1rem !important;
+                width: 100% !important;
+                background: hsl(var(--muted) / 0.3) !important;
+                padding: 1rem !important;
+                border-radius: 0.75rem !important;
+                border: 1px solid hsl(var(--border)) !important;
+            }
+
+            /* Filter inputs group - mobile reorganization */
+            .filter-inputs-group {
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+                width: 100% !important;
+                order: 1 !important;
+                margin-bottom: 1rem !important;
+            }
+
+            .filter-inputs-group input,
+            .filter-inputs-group select {
+                width: 100% !important;
+                font-size: 0.875rem !important;
+                padding: 0.75rem !important;
+                border-radius: 0.5rem !important;
+                border: 1px solid hsl(var(--border)) !important;
+                background: hsl(var(--background)) !important;
                 margin-bottom: 0.5rem !important;
             }
 
-            .appointments-filters {
+            .filter-inputs-group button {
+                width: 100% !important;
+                padding: 0.75rem !important;
+                justify-content: center !important;
+                border-radius: 0.5rem !important;
+            }
+
+            /* Action buttons group - mobile layout */
+            .action-buttons-group {
+                order: 2 !important;
                 flex-direction: column !important;
+                gap: 0.75rem !important;
+                width: 100% !important;
+            }
+
+            .view-buttons,
+            .utility-buttons {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
                 gap: 0.5rem !important;
                 width: 100% !important;
             }
 
-            .appointments-filters > div {
-                flex-direction: column !important;
+            .view-buttons button,
+            .utility-buttons button {
+                min-height: 48px !important;
+                padding: 0.75rem 1rem !important;
+                font-size: 0.875rem !important;
+                border-radius: 0.5rem !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
                 gap: 0.5rem !important;
-                width: 100% !important;
             }
 
-            .appointments-filters input,
-            .appointments-filters select {
-                width: 100% !important;
-                font-size: 0.8rem !important;
-                padding: 0.5rem !important;
+            /* Responsive button text */
+            .mobile-hidden {
+                display: none !important;
             }
 
-            .appointments-filters .btn {
-                padding: 0.5rem 0.75rem !important;
-                font-size: 0.75rem !important;
-                width: 100% !important;
+            /* Notification badge positioning */
+            .btn.relative .absolute {
+                top: -0.25rem !important;
+                right: -0.25rem !important;
             }
 
             /* Table Responsive */
@@ -641,11 +695,26 @@
                 font-size: 1rem !important;
             }
 
-            .appointments-filters input,
-            .appointments-filters select,
-            .appointments-filters .btn {
-                font-size: 0.75rem !important;
-                padding: 0.375rem !important;
+            /* Better mobile filter layout for very small screens */
+            .filter-inputs-group input,
+            .filter-inputs-group select,
+            .filter-inputs-group button {
+                font-size: 0.875rem !important;
+                padding: 0.875rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            .view-buttons,
+            .utility-buttons {
+                grid-template-columns: 1fr !important;
+                gap: 0.75rem !important;
+            }
+
+            .view-buttons button,
+            .utility-buttons button {
+                min-height: 52px !important;
+                font-size: 0.9rem !important;
+                padding: 1rem !important;
             }
 
             header {
@@ -897,7 +966,8 @@
                     <h2 class="text-lg font-semibold">Randevular</h2>
                     
                     <div class="appointments-filters flex items-center space-x-4">
-                        <div class="flex items-center space-x-2">
+                        <!-- Mobile: Search & Filter Inputs Group -->
+                        <div class="filter-inputs-group flex items-center space-x-2">
                             <input type="text" id="searchInput" class="input w-64" placeholder="Ara..." onkeyup="searchAppointments()">
                             <select id="statusFilter" class="input w-32" onchange="filterAppointments()">
                                 <option value="">Tüm Durumlar</option>
@@ -907,35 +977,40 @@
                                 <option value="cancelled">İptal Edildi</option>
                             </select>
                             <input type="date" id="dateFilter" class="input w-40" onchange="filterAppointments()">
-                            <button onclick="clearFilters()" class="btn btn-outline btn-sm">
+                            <button onclick="clearFilters()" class="btn btn-outline btn-sm" title="Filtreleri Temizle">
                                 <i data-lucide="x" class="w-4 h-4"></i>
                             </button>
                         </div>
                         
-                        <div class="flex items-center space-x-2">
-                            <button onclick="toggleView('table')" id="tableViewBtn" class="btn btn-outline btn-sm">
-                                <i data-lucide="list" class="w-4 h-4 mr-1"></i>
-                                <span class="mobile-hidden">Liste</span>
-                            </button>
-                            <button onclick="toggleView('calendar')" id="calendarViewBtn" class="btn btn-outline btn-sm">
-                                <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
-                                <span class="mobile-hidden">Takvim</span>
-                            </button>
+                        <!-- Mobile: Action Buttons Group -->
+                        <div class="action-buttons-group flex items-center space-x-2">
+                            <div class="view-buttons flex items-center space-x-1">
+                                <button onclick="toggleView('table')" id="tableViewBtn" class="btn btn-outline btn-sm" title="Liste Görünümü">
+                                    <i data-lucide="list" class="w-4 h-4"></i>
+                                    <span class="mobile-hidden ml-1">Liste</span>
+                                </button>
+                                <button onclick="toggleView('calendar')" id="calendarViewBtn" class="btn btn-outline btn-sm" title="Takvim Görünümü">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span class="mobile-hidden ml-1">Takvim</span>
+                                </button>
+                            </div>
+                            
+                            <div class="utility-buttons flex items-center space-x-1">
+                                <button onclick="createTestAppointment()" class="btn btn-primary btn-sm" title="Test Randevu">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                    <span class="mobile-hidden ml-1">Test</span>
+                                </button>
+                                
+                                <button onclick="toggleNotifications()" class="btn btn-outline btn-sm relative" title="Bildirimler">
+                                    <i data-lucide="bell" class="w-4 h-4"></i>
+                                    <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                                </button>
+                                
+                                <button onclick="toggleDarkMode()" id="darkModeBtn" class="btn btn-outline btn-sm" title="Karanlık Mod">
+                                    <i data-lucide="moon" class="w-4 h-4" id="darkModeIcon"></i>
+                                </button>
+                            </div>
                         </div>
-                        
-                        <button onclick="createTestAppointment()" class="btn btn-primary btn-sm">
-                            <i data-lucide="plus" class="w-4 h-4 mr-1"></i>
-                            <span class="mobile-hidden">Test</span>
-                        </button>
-                        
-                        <button onclick="toggleNotifications()" class="btn btn-outline btn-sm relative">
-                            <i data-lucide="bell" class="w-4 h-4"></i>
-                            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
-                        </button>
-                        
-                        <button onclick="toggleDarkMode()" id="darkModeBtn" class="btn btn-outline btn-sm">
-                            <i data-lucide="moon" class="w-4 h-4" id="darkModeIcon"></i>
-                        </button>
                     </div>
                 </div>
                 
