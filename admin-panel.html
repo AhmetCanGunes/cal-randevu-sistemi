@@ -117,6 +117,81 @@
             --ring: 212.7 26.8% 83.9%;
         }
 
+        /* Enhanced Dark Mode for Mobile */
+        @media (max-width: 768px) {
+            .dark {
+                --background: 220 15% 6%;
+                --card: 220 15% 8%;
+                --border: 220 15% 15%;
+                --muted: 220 15% 12%;
+                --accent: 220 15% 14%;
+                --secondary: 220 15% 12%;
+                --input: 220 15% 12%;
+            }
+
+            .dark .card {
+                background: hsl(var(--card) / 0.9) !important;
+                border: 1px solid hsl(var(--border) / 0.7) !important;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+            }
+
+            .dark #loginPage {
+                background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(220 15% 8%) 100%) !important;
+            }
+
+            .dark #loginPage .card {
+                background: hsl(var(--card) / 0.95) !important;
+                border: 1px solid hsl(var(--border) / 0.8) !important;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
+            }
+
+            .dark header {
+                background: hsl(var(--card) / 0.95) !important;
+                border-bottom: 1px solid hsl(var(--border) / 0.7) !important;
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2) !important;
+            }
+
+            .dark .appointments-filters {
+                background: hsl(var(--muted) / 0.5) !important;
+                border: 1px solid hsl(var(--border) / 0.8) !important;
+            }
+
+            .dark .table th {
+                background: hsl(var(--muted) / 0.4) !important;
+                border-bottom: 2px solid hsl(var(--border) / 0.8) !important;
+            }
+
+            .dark .table td {
+                border-bottom: 1px solid hsl(var(--border) / 0.5) !important;
+            }
+
+            .dark .table tbody tr:hover {
+                background: hsl(var(--muted) / 0.2) !important;
+            }
+
+            .dark .appointment-card {
+                background: hsl(var(--card) / 0.8) !important;
+                border: 1px solid hsl(var(--border) / 0.7) !important;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+            }
+
+            .dark .appointment-card:hover {
+                background: hsl(var(--muted) / 0.3) !important;
+                border-color: hsl(var(--primary) / 0.5) !important;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+            }
+
+            .dark #notificationsPanel {
+                background: rgba(0, 0, 0, 0.7) !important;
+            }
+
+            .dark #notificationsPanel > div {
+                background: hsl(var(--card) / 0.95) !important;
+                border: 1px solid hsl(var(--border) / 0.8) !important;
+                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4) !important;
+            }
+        }
+
         * {
             border-color: hsl(var(--border));
         }
@@ -477,69 +552,138 @@
                 padding-right: 0.75rem !important;
             }
 
-            /* Header Mobile Styles */
+            /* Enhanced Header Mobile Styles */
+            header {
+                padding: 1rem 0 !important;
+                border-bottom: 1px solid hsl(var(--border) / 0.5) !important;
+                background: hsl(var(--card) / 0.98) !important;
+                backdrop-filter: blur(20px) !important;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+            }
+
+            header .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
             header .flex {
                 flex-direction: column !important;
                 gap: 1rem !important;
-                align-items: flex-start !important;
+                align-items: stretch !important;
             }
 
             header .flex:first-child {
                 flex-direction: row !important;
                 align-items: center !important;
                 width: 100% !important;
-                justify-content: space-between !important;
+                justify-content: center !important;
+                padding-bottom: 0.75rem !important;
+                border-bottom: 1px solid hsl(var(--border) / 0.3) !important;
             }
 
             header h1 {
-                font-size: 1rem !important;
-                font-weight: 600 !important;
+                font-size: 1.25rem !important;
+                font-weight: 700 !important;
+                text-align: center !important;
+                color: hsl(var(--foreground)) !important;
+                letter-spacing: -0.025em !important;
             }
 
+            /* User info section */
             header .flex:last-child {
                 flex-direction: row !important;
                 align-items: center !important;
                 width: 100% !important;
                 justify-content: space-between !important;
+                padding-top: 0.25rem !important;
             }
 
-            /* Stats Grid Mobile */
+            /* User avatar and info */
+            header .flex:last-child > div:first-child {
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.75rem !important;
+            }
+
+            header .w-8.h-8 {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+                font-size: 1rem !important;
+                border: 2px solid hsl(var(--border)) !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            /* Logout button mobile */
+            header .btn-outline {
+                padding: 0.75rem 1.25rem !important;
+                font-size: 0.875rem !important;
+                border-radius: 0.75rem !important;
+                background: hsl(var(--muted) / 0.5) !important;
+                border: 1px solid hsl(var(--border)) !important;
+            }
+
+            /* Enhanced Stats Grid Mobile */
             .grid.md\\:grid-cols-4 {
                 grid-template-columns: repeat(2, 1fr) !important;
-                gap: 0.75rem !important;
+                gap: 1rem !important;
+                margin-bottom: 2rem !important;
             }
 
             .grid.md\\:grid-cols-3 {
                 grid-template-columns: 1fr !important;
-                gap: 0.75rem !important;
+                gap: 1rem !important;
             }
 
+            /* Modern mobile stat cards */
             .card.p-6 {
-                padding: 0.75rem !important;
+                padding: 1.25rem !important;
+                border-radius: 1rem !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+                border: 1px solid hsl(var(--border) / 0.5) !important;
+                background: hsl(var(--card)) !important;
+                transition: all 0.2s ease !important;
             }
 
+            .card:hover {
+                transform: translateY(-2px) !important;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+            }
+
+            /* Vertical layout for mobile stats */
             .card .flex.items-center.space-x-4 {
                 flex-direction: column !important;
                 text-align: center !important;
-                gap: 0.5rem !important;
+                gap: 0.75rem !important;
+                align-items: center !important;
             }
 
+            /* Larger, more prominent icons */
             .card .w-12.h-12 {
-                width: 2rem !important;
-                height: 2rem !important;
+                width: 3.5rem !important;
+                height: 3.5rem !important;
+                border-radius: 1rem !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
             }
 
             .card .w-12.h-12 i {
-                width: 1rem !important;
-                height: 1rem !important;
+                width: 1.75rem !important;
+                height: 1.75rem !important;
             }
 
+            /* Bigger, more readable numbers */
             .card .text-2xl {
-                font-size: 1.25rem !important;
+                font-size: 2rem !important;
+                font-weight: 800 !important;
+                line-height: 1 !important;
+                margin: 0.25rem 0 !important;
             }
 
+            /* Better label typography */
             .card .text-sm {
-                font-size: 0.75rem !important;
+                font-size: 0.875rem !important;
+                font-weight: 500 !important;
+                opacity: 0.8 !important;
+                letter-spacing: 0.025em !important;
             }
 
             /* Appointments Table Mobile */
@@ -633,27 +777,230 @@
                 right: -0.25rem !important;
             }
 
-            /* Table Responsive */
-            .table {
-                font-size: 0.75rem !important;
+            /* Enhanced Table Responsive Design */
+            #tableView {
+                background: hsl(var(--card)) !important;
+                border-radius: 1rem !important;
+                padding: 0.5rem !important;
+                margin-top: 1rem !important;
+                overflow: hidden !important;
             }
 
-            .table th,
+            .table {
+                font-size: 0.8rem !important;
+                border-collapse: separate !important;
+                border-spacing: 0 !important;
+                background: transparent !important;
+                min-width: 100% !important;
+            }
+
+            .table thead {
+                background: hsl(var(--muted) / 0.3) !important;
+                border-radius: 0.5rem !important;
+            }
+
+            .table th {
+                padding: 1rem 0.75rem !important;
+                font-weight: 600 !important;
+                font-size: 0.875rem !important;
+                text-align: left !important;
+                border-bottom: 2px solid hsl(var(--border)) !important;
+                background: hsl(var(--muted) / 0.2) !important;
+                white-space: nowrap !important;
+            }
+
+            .table th:first-child {
+                border-top-left-radius: 0.5rem !important;
+                border-bottom-left-radius: 0.5rem !important;
+            }
+
+            .table th:last-child {
+                border-top-right-radius: 0.5rem !important;
+                border-bottom-right-radius: 0.5rem !important;
+            }
+
             .table td {
-                padding: 0.5rem 0.25rem !important;
+                padding: 1rem 0.75rem !important;
+                border-bottom: 1px solid hsl(var(--border) / 0.3) !important;
+                vertical-align: middle !important;
                 white-space: nowrap !important;
                 overflow: hidden !important;
                 text-overflow: ellipsis !important;
+                max-width: 120px !important;
             }
 
-            /* Login Page Mobile */
+            .table tbody tr {
+                transition: all 0.2s ease !important;
+                border-radius: 0.5rem !important;
+            }
+
+            .table tbody tr:hover {
+                background: hsl(var(--muted) / 0.1) !important;
+                transform: translateX(2px) !important;
+            }
+
+            /* Mobile appointment cards styling */
+            .appointment-card {
+                background: hsl(var(--card)) !important;
+                border: 1px solid hsl(var(--border) / 0.5) !important;
+                border-radius: 1rem !important;
+                padding: 1.25rem !important;
+                margin-bottom: 1rem !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+                transition: all 0.3s ease !important;
+                cursor: pointer !important;
+            }
+
+            .appointment-card:hover {
+                transform: translateY(-2px) !important;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+                border-color: hsl(var(--primary) / 0.3) !important;
+            }
+
+            .appointment-header {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+            }
+
+            .appointment-name {
+                font-size: 1.125rem !important;
+                font-weight: 600 !important;
+                color: hsl(var(--foreground)) !important;
+                margin: 0 !important;
+                line-height: 1.3 !important;
+            }
+
+            .appointment-summary {
+                width: 100% !important;
+            }
+
+            /* Status badges */
+            .date-badge,
+            .time-badge {
+                display: inline-flex !important;
+                align-items: center !important;
+                padding: 0.375rem 0.75rem !important;
+                border-radius: 0.5rem !important;
+                font-size: 0.75rem !important;
+                font-weight: 500 !important;
+                letter-spacing: 0.025em !important;
+            }
+
+            /* Quick actions styling */
+            .quick-actions {
+                display: flex !important;
+                gap: 0.5rem !important;
+                flex-wrap: wrap !important;
+                margin-top: 1rem !important;
+            }
+
+            .quick-actions button {
+                flex: 1 !important;
+                min-width: fit-content !important;
+                padding: 0.75rem 1rem !important;
+                border-radius: 0.5rem !important;
+                font-size: 0.875rem !important;
+                font-weight: 500 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 0.5rem !important;
+            }
+
+            /* Enhanced Login Page Mobile */
+            #loginPage {
+                background: linear-gradient(135deg, hsl(var(--primary) / 0.05) 0%, hsl(var(--secondary) / 0.05) 100%) !important;
+                padding: 2rem 1rem !important;
+                min-height: 100vh !important;
+            }
+
             #loginPage .max-w-md {
                 max-width: 100% !important;
-                margin: 0 0.75rem !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+
+            #loginPage .space-y-6 {
+                gap: 2rem !important;
+            }
+
+            #loginPage .text-center {
+                padding-bottom: 1rem !important;
             }
 
             #loginPage .text-2xl {
-                font-size: 1.5rem !important;
+                font-size: 2rem !important;
+                font-weight: 800 !important;
+                color: hsl(var(--foreground)) !important;
+                margin-bottom: 0.5rem !important;
+                letter-spacing: -0.025em !important;
+            }
+
+            #loginPage .text-muted-foreground {
+                font-size: 1rem !important;
+                opacity: 0.7 !important;
+            }
+
+            /* Enhanced login card */
+            #loginPage .card {
+                border-radius: 1.5rem !important;
+                padding: 2rem !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+                border: 1px solid hsl(var(--border) / 0.5) !important;
+                background: hsl(var(--card) / 0.95) !important;
+                backdrop-filter: blur(20px) !important;
+            }
+
+            /* Login form inputs */
+            #loginPage .input {
+                padding: 1rem !important;
+                font-size: 1rem !important;
+                border-radius: 0.75rem !important;
+                border: 2px solid hsl(var(--border)) !important;
+                background: hsl(var(--background)) !important;
+                transition: all 0.2s ease !important;
+                min-height: 3rem !important;
+            }
+
+            #loginPage .input:focus {
+                border-color: hsl(var(--primary)) !important;
+                box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1) !important;
+                transform: translateY(-1px) !important;
+            }
+
+            /* Login button */
+            #loginPage .btn-primary {
+                padding: 1rem 2rem !important;
+                font-size: 1rem !important;
+                font-weight: 600 !important;
+                border-radius: 0.75rem !important;
+                min-height: 3.5rem !important;
+                background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%) !important;
+                border: none !important;
+                box-shadow: 0 8px 20px hsl(var(--primary) / 0.3) !important;
+                transition: all 0.3s ease !important;
+            }
+
+            #loginPage .btn-primary:hover {
+                transform: translateY(-2px) !important;
+                box-shadow: 0 12px 30px hsl(var(--primary) / 0.4) !important;
+            }
+
+            /* Login labels */
+            #loginPage label {
+                font-size: 0.95rem !important;
+                font-weight: 600 !important;
+                margin-bottom: 0.5rem !important;
+                color: hsl(var(--foreground)) !important;
+            }
+
+            /* Error alert styling */
+            #loginError {
+                border-radius: 0.75rem !important;
+                padding: 1rem !important;
+                font-size: 0.9rem !important;
+                font-weight: 500 !important;
             }
 
             /* Action Buttons Mobile */
@@ -770,13 +1117,83 @@
                 scrollbar-width: thin;
             }
 
-            /* Notification panel mobile */
+            /* Enhanced Notification panel mobile */
             #notificationsPanel {
-                width: calc(100vw - 2rem) !important;
-                max-width: none !important;
-                right: 1rem !important;
-                left: 1rem !important;
-                top: 4rem !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                background: rgba(0, 0, 0, 0.5) !important;
+                backdrop-filter: blur(10px) !important;
+                z-index: 9999 !important;
+                display: flex !important;
+                align-items: flex-end !important;
+                justify-content: center !important;
+                padding: 0 !important;
+                animation: slideUp 0.3s ease-out !important;
+            }
+
+            #notificationsPanel > div {
+                background: hsl(var(--card)) !important;
+                border-radius: 1.5rem 1.5rem 0 0 !important;
+                width: 100% !important;
+                max-height: 80vh !important;
+                overflow: hidden !important;
+                box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2) !important;
+                border: 1px solid hsl(var(--border)) !important;
+                border-bottom: none !important;
+            }
+
+            /* Notification panel header */
+            #notificationsPanel .p-4.border-b {
+                padding: 1.5rem !important;
+                border-bottom: 2px solid hsl(var(--border)) !important;
+                background: hsl(var(--muted) / 0.1) !important;
+                position: relative !important;
+            }
+
+            #notificationsPanel .p-4.border-b::before {
+                content: '' !important;
+                position: absolute !important;
+                top: 0.75rem !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: 40px !important;
+                height: 4px !important;
+                background: hsl(var(--muted)) !important;
+                border-radius: 2px !important;
+            }
+
+            #notificationsPanel h3 {
+                font-size: 1.25rem !important;
+                font-weight: 700 !important;
+                text-align: center !important;
+                margin-top: 1rem !important;
+            }
+
+            /* Notification list */
+            #notificationsList {
+                max-height: calc(80vh - 100px) !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                padding: 0.5rem !important;
+            }
+
+            #notificationsList .p-4 {
+                padding: 1.25rem !important;
+                margin: 0.5rem !important;
+                border-radius: 1rem !important;
+                background: hsl(var(--background) / 0.5) !important;
+                border: 1px solid hsl(var(--border) / 0.3) !important;
+                transition: all 0.2s ease !important;
+            }
+
+            #notificationsList .p-4:hover {
+                background: hsl(var(--muted) / 0.1) !important;
+                transform: translateX(4px) !important;
             }
 
             /* Better spacing for mobile cards */
@@ -840,6 +1257,237 @@
             /* Better login page mobile */
             #loginPage .max-w-md {
                 padding: 1rem !important;
+            }
+        }
+
+        /* Mobile Animations and Keyframes */
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-2px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(2px);
+            }
+        }
+
+        /* Mobile-specific touch improvements */
+        @media (max-width: 768px) {
+            /* Smooth page transitions */
+            #dashboardPage,
+            #loginPage {
+                animation: fadeIn 0.5s ease-out !important;
+            }
+
+            /* Card hover animations */
+            .card {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            }
+
+            /* Button press feedback */
+            .btn:active {
+                transform: scale(0.98) !important;
+                transition: transform 0.1s ease !important;
+            }
+
+            /* Loading states */
+            .loading {
+                animation: pulse 2s infinite !important;
+            }
+
+            /* Error shake animation */
+            .error {
+                animation: shake 0.5s ease-in-out !important;
+            }
+
+            /* Smooth scrolling */
+            * {
+                scroll-behavior: smooth !important;
+            }
+
+            /* Enhanced focus states for accessibility */
+            .btn:focus,
+            .input:focus,
+            button:focus,
+            select:focus {
+                outline: 3px solid hsl(var(--primary) / 0.5) !important;
+                outline-offset: 2px !important;
+            }
+
+            /* Tap highlight removal */
+            * {
+                -webkit-tap-highlight-color: transparent !important;
+                -webkit-touch-callout: none !important;
+                -webkit-user-select: none !important;
+                user-select: none !important;
+            }
+
+            /* Allow text selection where needed */
+            input,
+            textarea,
+            .selectable {
+                -webkit-user-select: text !important;
+                user-select: text !important;
+            }
+
+            /* Enhanced ripple effect for buttons */
+            .btn {
+                position: relative !important;
+                overflow: hidden !important;
+            }
+
+            .btn::before {
+                content: '' !important;
+                position: absolute !important;
+                top: 50% !important;
+                left: 50% !important;
+                width: 0 !important;
+                height: 0 !important;
+                border-radius: 50% !important;
+                background: rgba(255, 255, 255, 0.3) !important;
+                transform: translate(-50%, -50%) !important;
+                transition: width 0.3s, height 0.3s !important;
+            }
+
+            .btn:active::before {
+                width: 200px !important;
+                height: 200px !important;
+            }
+
+            /* Performance optimizations for mobile */
+            * {
+                transform: translateZ(0) !important;
+                backface-visibility: hidden !important;
+                perspective: 1000px !important;
+            }
+
+            /* GPU acceleration for animations */
+            .card,
+            .btn,
+            .appointment-card,
+            #notificationsPanel {
+                will-change: transform, opacity !important;
+            }
+
+            /* Optimize repaints */
+            .table tbody tr {
+                contain: layout style paint !important;
+            }
+
+            /* Lazy loading optimization */
+            .appointment-card {
+                contain: content !important;
+            }
+
+            /* Memory optimization */
+            .hidden {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            /* Reduce motion for performance */
+            @media (prefers-reduced-motion: reduce) {
+                * {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
+                }
+            }
+
+            /* Network optimization */
+            img,
+            video {
+                loading: lazy !important;
+            }
+
+            /* Better memory management */
+            .container {
+                contain: layout !important;
+            }
+        }
+
+        /* PWM (Progressive Web Mobile) optimizations */
+        @media (max-width: 768px) and (orientation: portrait) {
+            /* Portrait mobile specific optimizations */
+            .grid.md\\:grid-cols-4 {
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            /* Optimize for touch scrolling */
+            .overflow-x-auto,
+            .overflow-y-auto {
+                -webkit-overflow-scrolling: touch !important;
+                scroll-snap-type: x mandatory !important;
+                scrollbar-width: none !important;
+                -ms-overflow-style: none !important;
+            }
+
+            .overflow-x-auto::-webkit-scrollbar,
+            .overflow-y-auto::-webkit-scrollbar {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) and (orientation: landscape) {
+            /* Landscape mobile specific optimizations */
+            .grid.md\\:grid-cols-4 {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 0.5rem !important;
+            }
+
+            header {
+                padding: 0.5rem 0 !important;
+            }
+
+            .card.p-6 {
+                padding: 0.75rem !important;
             }
         }
     </style>
